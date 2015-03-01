@@ -20,10 +20,11 @@ span {
 	/*float: left;*/
 }
 
-#back_button:hover {
-	color: orange;
-	cursor: pointer;
+.back:hover {
+  color: orange;
+  cursor: pointer;
 }
+
 
 a {
 	color: white;

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Feedback</title>
+	<link rel="stylesheet" type="text/css" href="/stylesheets/main.css">
+	<link rel="stylesheet" type="text/css" href="/stylesheets/questionType.css">
+	<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Lobster" />
+	<link href='http://fonts.googleapis.com/css?family=Coming+Soon' rel='stylesheet' type='text/css'>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
+    <script type="text/javascript" src="/javascripts/questionType.js" async> </script>
+</head>
+<body>
+	<section class="chalkboard"></section>
+	<span class="back"> Back to Session 1</span>
+	<span class="logout"> <a id="logout_button" href="logout.html"> Logout </a></span>
+	<h1 class="display_title"><b>"convergence" keyword breakdown<b></h1>
+	<p class="summary"> Percent of total questions asked: 50% <p>
+	<!-- <h2 id="question_title"> Question breakdown </h2> -->
+	<div class="toggle_all_questions">
+		<span id="show_all"><b>Show All</b></span>
+		<span id="hide_all"><b>Hide All</b></span>
+	</div>
+	<div class="keyword_container" id="who">
+		<span class="keyword">"who"</span>
+		<span class="percentage">50%</span>
+		<ul id="who_list">
+			<li>
+				<a href="#">"Who uses convergence?"</a>
+			</li>
+			<li>
+				<a href="#">"Who first discovered convergence as a concept?"</a>
+			</li>
+			<li>
+				<a href="#">"Who needs to be knowledgeable about convergence in the professional world today?"</a>
+			</li>			
+		</ul>
+	</div> 
+	<div class="keyword_container" id="what">
+		<span class="keyword">"what"</span>
+		<span class="percentage">20%</span>
+		<ul id="what_list">
+			<li>
+				<a href="#">"What is convergence?"</a>
+			</li>
+			<li>
+				<a href="#">What is the main use case for convergence?"</a>
+			</li>			
+		</ul>
+	</div>
+	<div class="keyword_container" id="when">
+		<span class="keyword">"when"</span>
+		<span class="percentage">15%</span>
+		<ul id="when_list">
+			<li>
+				<a href="#">"When would we need to use convergence?"</a>
+			</li>
+			<li>
+				<a href="#">"When is convergence a limiting factor?"</a>
+			</li>			
+		</ul>
+	</div>
+	<div class="keyword_container" id="where">
+		<span class="keyword">"where"</span>
+		<span class="percentage">8%</span>
+		<ul id="where_list">
+			<li>
+				<a href="#">
+					"Where did mathematicians first learn about convergence?"
+				</a>
+			</li>
+			<li>
+				<a href="#">
+					"Where do functions convergence?"			
+				</a>
+			</li>
+		</ul>
+	</div>
+	<div class="keyword_container" id="why">
+		<span class="keyword">"why"</span>
+		<span class="percentage">7%</span>
+		<ul id="why_list">
+			<li>
+				<a href="#">
+					"Why is convergence important?"
+				</a>
+			</li>
+			<li>
+				<a href="#">
+					"Why is this behavior called 'convergence'?"
+				</a>
+			</li>			
+		</ul>
+	</div>
+	<div class="keyword_container" id="how">
+		<span class="keyword">"how"</span>
+		<span class="percentage">7%</span>
+		<ul id="how_list">
+			<li>
+				<a href="#">
+					"How does convergence work?"
+				</a>
+			</li>
+			<li>
+				<a href="#">
+					"How do we know when convergence occurs among multiple functions?"
+				</a>
+			</li>
+			<li>
+				<a href="#">
+					"How is convergence related to limits in calculus?"
+				</a>
+			</li>				
+		</ul>
+	</div>
+</body>
+</html>

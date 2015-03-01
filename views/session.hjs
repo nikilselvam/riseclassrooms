@@ -10,7 +10,7 @@
     <script type="text/javascript" src="/javascripts/session.js" async> </script>
 <body>
 	<section class="chalkboard"></section>
-	<span class="back"> <a id="back_button" href="classes.html">Back to classes page </a></span>
+	<span class="back"> Back to classes page </span>
 	<span class="logout"> <a id="logout_button" href="logout.html"> Logout </a></span>
 	<h1 class="display_title">CSE 486 Sessions</h1>
 	<table cellpadding="30">

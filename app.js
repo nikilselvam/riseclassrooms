@@ -32,7 +32,9 @@ if ('development' == app.get('env')) {
 
 app.get('/', routes.teacherHome);
 app.get('/users', user.list);
-app.get('/session', routes.session)
+app.get('/session', routes.session);
+app.get('/keyword', routes.keyword);
+app.get('/questionType', routes.questionType);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
