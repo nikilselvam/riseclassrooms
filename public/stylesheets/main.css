@@ -1,0 +1,110 @@
+.display_title {
+    /*font-family: Lobster;*/
+	font-family: 'Coming Soon', cursive;
+    text-align: center;
+    color: orange;
+}
+
+p {
+	color: white;
+}
+
+span {
+	color: white;
+	font-family: 'Coming Soon', cursive;
+}
+
+.back {
+	padding-left: 3%;
+	font-family: 'Coming Soon', cursive;
+	/*float: left;*/
+}
+
+#back_button:hover {
+	color: orange;
+	cursor: pointer;
+}
+
+a {
+	color: white;
+	text-decoration: none;
+}
+
+.keyword_container {
+	/*width: 50%;*/
+	height: 50px;
+	border-bottom: 1px solid white;
+	margin-left: 5%;
+	margin-right: 5%;
+	margin-top: 20px;
+}
+
+.keyword {
+	/*float: left;*/
+	/*font-family: Times;*/
+	/*margin-left: 10px;*/
+	font-family: 'Coming Soon', cursive;
+}
+
+.session_container {
+	height: 50px;
+	margin-left: 5%;
+	margin-right: 5%;
+}
+
+.keyword:hover {
+  color: orange;
+  cursor: pointer;
+}
+
+.percentage {
+	float: right;
+	margin-right: 10px;
+}
+
+/*body {
+	background-image: url("../Images/lecture_hall.jpg");
+	heigth: 100%;
+	width: 100;
+	background-size: cover;
+	background-position: center center;
+}
+*/
+.chalkboard {
+	position: fixed;
+	z-index: -1;
+	height: 100%;
+	width: 100%;
+	top: 0;
+	left: 0;
+	background-image: url("/images/chalkboard.jpg");
+	background-size: cover;
+	background-position: center center;
+	opacity: 1;
+}
+
+.summary {
+	text-align: center;
+	color: orange;
+	font-size: 20px;
+}
+
+.logout {
+	float: right;
+	margin-right: 3%;
+}
+
+td {
+	color: white;
+	font-family: 'Coming Soon', cursive;
+	text-align: center;
+	border: 1px solid white;
+}
+
+table {
+	margin: 0 auto;
+}
+
+tbody tr {
+	cursor: pointer;
+}

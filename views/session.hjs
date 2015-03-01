@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>{{ title }}</title>
+	<link rel="stylesheet" type="text/css" href="/stylesheets/main.css">
+	<link rel="stylesheet" type="text/css" href="/stylesheets/sessions.css">
+	<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Lobster" />
+	<link href='http://fonts.googleapis.com/css?family=Coming+Soon' rel='stylesheet' type='text/css'>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
+    <script type="text/javascript" src="/javascripts/session.js" async> </script>
+<body>
+	<section class="chalkboard"></section>
+	<span class="back"> <a id="back_button" href="classes.html">Back to classes page </a></span>
+	<span class="logout"> <a id="logout_button" href="logout.html"> Logout </a></span>
+	<h1 class="display_title">CSE 486 Sessions</h1>
+	<table cellpadding="30">
+		<thead>
+			<tr>
+				<td>Session #</td>
+				<td>Date</td>
+				<td>Questions asked</td>
+				<td>Questions answered</td>
+				<td>Top keyword</td>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td height="20"><a href="index.html">1</a></td>
+				<td height="20">1/30/2015</td>
+				<td height="20">120</td>
+				<td height="20">50%</td>
+				<td height="20">"convergence"</td>
+			</tr>
+			<tr>
+				<td>2</td>
+				<td>1/27/2015</td>
+				<td>180</td>
+				<td>53%</td>
+				<td>"Bernoulli"</td>
+			</tr>
+			<tr>
+				<td>3</td>
+				<td>1/24/2015</td>
+				<td>220</td>
+				<td>60%</td>
+				<td>"table tennis"</td>
+			</tr>
+			<tr>
+				<td>4</td>
+				<td>1/21/2015</td>
+				<td>110</td>
+				<td>42%</td>
+				<td>"critical point"</td>
+			</tr>
+			<tr>
+				<td>5</td>
+				<td>1/18/2015</td>
+				<td>150</td>
+				<td>28%</td>
+				<td>"concave"</td>
+			</tr>
+		</tbody>
+	</table>
+<!-- 	<div class="session_container">
+		<span class="keyword"><a href="index.html"> Session 1 </a></span>
+		<span class="date"> <b><i>Date:</i></b> 1/30/2015 </span>
+		<span class="asked"> <b><i>Asked:</i></b> 120 </span>
+		<span class="answered"> <b><i>Answered:</i></b> 50% </span>
+		<span class="top_keyword"> <b><i>Top keyword:</i></b> "convergence" </span>
+	</div> 
+	<div class="session_container">
+		<span class="keyword"><a href="index.html"> Session 2 </a></span>
+		<span class="date"> <b><i>Date:</i></b> 1/27/2015 </span>
+		<span class="asked">  <b><i>Asked:</i></b> 180 </span>
+		<span class="answered"> <b><i>Answered:</i></b> 30% </span>
+		<span class="top_keyword"> <b><i>Top keyword:</i></b> "Bernoulli" </span>
+	</div>
+	<div class="session_container">
+		<span class="keyword"><a href="index.html"> Session 3 </a></span>
+		<span class="date"> <b><i>Date:</i></b> 1/24/2015 </span>
+		<span class="asked"> <b><i>Asked:</i></b> 220 </span>
+		<span class="answered"> <b><i>Answered:</i></b> 60% </span>
+		<span class="top_keyword"> <b><i>Top keyword:</i></b> "table tennis" </span>
+	</div>
+	<div class="session_container">
+		<span class="keyword"><a href="index.html"> Session 4 </a></span>
+		<span class="date"> <b><i>Date:</i></b> 1/21/2015 </span>
+		<span class="asked"> <b><i>Asked:</i></b> 110 </span>
+		<span class="answered"> <b><i>Answered:</i></b> 42% </span>
+		<span class="top_keyword"> <b><i>Top keyword:</i></b> "critical point" </span>
+	</div>
+	<div class="session_container">
+		<span class="keyword"><a href="index.html"> Session 5 </a></span>
+		<span class="date"> <b><i>Date:</i></b> 1/18/2015 </span>
+		<span class="asked"> <b><i>Asked:</i></b> 150 </span>
+		<span class="answered"> <b><i>Answered:</i></b> 28% </span>
+		<span class="top_keyword"> <b><i>Top keyword:</i></b> "concave" </span>
+	</div> -->
+</body>
+</html>
