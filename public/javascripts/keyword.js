@@ -5,9 +5,9 @@
 // });
 
 $('.back').click(function(){
-	document.location = "/";
+	document.location = "/session";
 });
 
-$("tbody tr").click(function(){
-	document.location = "/keyword";
+$(".keyword_container").click(function(){
+	document.location = "/questionType";
 });

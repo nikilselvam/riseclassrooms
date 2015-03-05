@@ -1,0 +1,73 @@
+#who_list li, #what_list li, #when_list li, #where_list li, #why_list li, #how_list li {
+	color: white;
+	font-family: 'Coming Soon', cursive;
+}
+
+#who:hover, #what:hover, #when:hover, #where:hover, #why:hover, #how:hover {
+	cursor: pointer;
+}
+
+.toggle_all_questions {
+	/*text-align: center;*/
+	padding-top: 5px;
+}
+
+#show_all, #hide_all {
+	cursor: pointer;
+}
+
+#show_all:hover {
+	color: orange;
+}
+
+#show_all {
+	padding-left: 20%;
+}
+
+#hide_all {
+	padding-left: 50%;
+}
+
+ul li a {
+  /*visibility: hidden;*/
+}
+
+/* This CSS creates the sticky pad effect and was used from a website. The website URL is linked here:
+http://code.tutsplus.com/tutorials/create-a-sticky-note-effect-in-5-easy-steps-with-css3-and-html5--net-13934; */
+*{
+  margin:0;
+  padding:0;
+}
+body{
+  font-family:arial,sans-serif;
+  font-size:100%;
+  margin:3em;
+  background:#666;
+  color:#fff;
+}
+
+h2,p{
+  font-size:100%;
+  font-weight:normal;
+}
+ul,li{
+  list-style:none;
+}
+ul{
+  overflow:hidden;
+  padding:3em;
+  padding-top: 0;
+}
+ul li a{
+  text-decoration:none;
+  color:#000;
+  background:#ffc;
+  display:block;
+  height:10em;
+  width:10em;
+  padding:1em;
+}
+ul li{
+  margin:1em;
+  float:left;
+}
