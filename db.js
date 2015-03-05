@@ -6,7 +6,6 @@ var secret = require('./appconfig');
 // Connect to database and listen to events.
 // mongoose.connect('mongodb://riseclassrooms:fse301@ds049641.mongolab.com:49641/riseclassrooms');
 
-<<<<<<< HEAD
 var Schema = mongoose.Schema;
 var ObjectId = mongoose.Schema.Types.ObjectId;
 
@@ -100,8 +99,8 @@ var dbModels = {
 exports.models = dbModels;
  
 // Connect to database and listen to events.
-mongoose.connect('mongodb://'+secret.user + ':' +
-		secret.pass +
+mongoose.connect('mongodb://'+secret.user() + ':' +
+		secret.pass() +
 		'@ds049641.mongolab.com:49641/'+dbName);
 
 var db = mongoose.connection;
