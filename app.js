@@ -30,7 +30,9 @@ if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 
-app.get('/', routes.teacherHome);
+app.get('/', routes.loginPage);
+app.get('/teacher', routes.teacherHome);
+app.get('/student', routes.studentHome);
 app.get('/users', user.list);
 app.get('/session', routes.session);
 app.get('/keyword', routes.keyword);

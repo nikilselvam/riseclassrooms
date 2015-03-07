@@ -1,0 +1,52 @@
+{{<layout}}
+
+{{$title}}{{title}}{{/title}}
+
+{{$head}}
+<script type="text/javascript" src="/javascripts/studentHome.js" async></script>
+{{/head}}
+
+{{$body}}
+<div class="container">
+    <h1>My Classes</h1>
+    <table class="table table-hover">
+        <thead>
+                <tr>
+                        <td>Class #</td>
+                        <td>Class Name</td>
+                        <td>Sessions</td>
+                </tr>
+        </thead>
+        <tbody>
+                <tr>
+                        <td>CSE 486</td>
+                        <td>Capstone II</td>
+                        <td>3</td>
+                </tr>
+                <tr>
+                        <td>CSE 445</td>
+                        <td>Distributed Computing</td>
+                        <td>6</td>
+                </tr>
+                <tr>
+                        <td>CSE 460</td>
+                        <td>Software Analysis and Design</td>
+                        <td>4</td>
+                </tr>
+                <tr>
+                        <td>FSE 301</td>
+                        <td>Introduction to Entrepreneurship</td>
+                        <td>5</td>
+                </tr>
+                <tr>
+                        <td>IEE 380</td>
+                        <td>Probability and Statistics for Engineers</td>
+                        <td>10</td>
+                </tr>
+        </tbody>
+    </table>
+</div>
+
+{{/body}}
+
+{{/layout}}

@@ -2,8 +2,26 @@
  * GET home page.
  */
 
+exports.loginPage = function (req, res) {
+	res.render('login', {
+		title: 'Sign In',
+		partials: {
+			layout: 'layout'
+		}
+	});
+};
+
 exports.index = function(req, res){
   res.render('index', { title: 'Express' });
+};
+
+exports.studentHome = function (req, res) {
+	res.render('studentHome', {
+		title: 'Student Classes',
+		partials: {
+			layout: 'layout'
+		}
+	});
 };
 
 exports.teacherHome = function(req, res) {
