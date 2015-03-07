@@ -1,4 +1,4 @@
-student.js
+//student.js
 
 var db = require('./../db.js');
 var resError = require('./messaging').resError;
