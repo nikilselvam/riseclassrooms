@@ -103,7 +103,7 @@ var dbModels = {
 exports.models = dbModels;
  
 // Connect to database and listen to events.
-if ('development' == app.get('env')) {
+if (secret.testEnv === true) {
     mongoose.connect('mongodb://'+secret.user() + ':' +
             secret.pass() +
             '@198.199.93.104:27017/'+dbName);

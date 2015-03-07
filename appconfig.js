@@ -8,7 +8,7 @@ var testEnv = true;
 // Secrets.
 if (typeof process.env.DB_USER === 'undefined' || typeof process.env.DB_PASS === 'undefined'){
 	var secret = require('./secret');
-    if testEnv {
+    if (testEnv === true) {
 	   process.env.DB_USER = secret.testingUser;
     }
     else {
