@@ -1,15 +1,12 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title>Feedback</title>
-	<link rel="stylesheet" type="text/css" href="/stylesheets/main.css">
-	<link rel="stylesheet" type="text/css" href="/stylesheets/questionType.css">
-	<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Lobster" />
-	<link href='http://fonts.googleapis.com/css?family=Coming+Soon' rel='stylesheet' type='text/css'>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
-    <script type="text/javascript" src="/javascripts/questionType.js" async> </script>
-</head>
-<body>
+{{<layout}}
+
+{{$title}}Feedback{{/title}}
+
+{{$head}}
+<script type="text/javascript" src="/javascripts/questionType.js" async></script>
+{{/head}}
+
+{{$body}}
 	<section class="chalkboard"></section>
 	<span class="back"> Back to Session 1</span>
 	<span class="logout"> <a id="logout_button" href="logout.html"> Logout </a></span>
@@ -32,9 +29,9 @@
 			</li>
 			<li>
 				<a href="#">"Who needs to be knowledgeable about convergence in the professional world today?"</a>
-			</li>			
+			</li>
 		</ul>
-	</div> 
+	</div>
 	<div class="keyword_container" id="what">
 		<span class="keyword">"what"</span>
 		<span class="percentage">20%</span>
@@ -44,7 +41,7 @@
 			</li>
 			<li>
 				<a href="#">What is the main use case for convergence?"</a>
-			</li>			
+			</li>
 		</ul>
 	</div>
 	<div class="keyword_container" id="when">
@@ -56,7 +53,7 @@
 			</li>
 			<li>
 				<a href="#">"When is convergence a limiting factor?"</a>
-			</li>			
+			</li>
 		</ul>
 	</div>
 	<div class="keyword_container" id="where">
@@ -70,7 +67,7 @@
 			</li>
 			<li>
 				<a href="#">
-					"Where do functions convergence?"			
+					"Where do functions convergence?"
 				</a>
 			</li>
 		</ul>
@@ -88,7 +85,7 @@
 				<a href="#">
 					"Why is this behavior called 'convergence'?"
 				</a>
-			</li>			
+			</li>
 		</ul>
 	</div>
 	<div class="keyword_container" id="how">
@@ -109,8 +106,10 @@
 				<a href="#">
 					"How is convergence related to limits in calculus?"
 				</a>
-			</li>				
+			</li>
 		</ul>
 	</div>
-</body>
-</html>
+{{/body}}
+
+{{/layout}}
+
