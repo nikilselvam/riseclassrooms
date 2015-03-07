@@ -78,6 +78,7 @@ app.post('/teacher/create', teacher.create);
 
 
 app.post('/class/create', classes.create);
+app.post('/class/subscribe', classes.subscribe);
 app.post('/session/create', session.create);
 app.post('/question/create', questions.create);
 app.post('/keyword/create', keyword.create);
