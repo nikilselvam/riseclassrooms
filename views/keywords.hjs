@@ -1,14 +1,12 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title>Feedback</title>
-	<link rel="stylesheet" type="text/css" href="/stylesheets/main.css">
-	<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Lobster" />
-	<link href='http://fonts.googleapis.com/css?family=Coming+Soon' rel='stylesheet' type='text/css'>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
-    <script type="text/javascript" src="/javascripts/keyword.js" async> </script>
-</head>
-<body>
+{{<layout}}
+
+{{$title}}Feedback{{/title}}
+
+{{$head}}
+<script type="text/javascript" src="/javascripts/keyword.js" async></script>
+{{/head}}
+
+{{$body}}
 	<section class="chalkboard"></section>
 	<span class="back"> Back to CSE 486 Sessions </span>
 	<span class="logout"> <a id="logout_button" href="logout.html"> Logout </a></span>
@@ -17,7 +15,7 @@
 	<div class="keyword_container">
 		<span class="keyword">"convergence"</span>
 		<span class="percentage">50%</span>
-	</div> 
+	</div>
 	<div class="keyword_container">
 		<span class="keyword">"integration"</span>
 		<span class="percentage">20%</span>
@@ -34,5 +32,8 @@
 		<span class="keyword"><a href="question_type.html">other</a></span>
 		<span class="percentage">7%</span>
 	</div>
-</body>
-</html>
+{{/body}}
+
+{{/layout}}
+
+
