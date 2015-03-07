@@ -1,7 +1,6 @@
 var db = require('./../db.js');
 var resError = require('./messaging').resError;
 var Session = db.models.Session;
-var session = require('client-sessions');
 
 exports.create = function(req, res) {
 	//Return error if req object does not specify startTime,
@@ -31,7 +30,6 @@ exports.create = function(req, res) {
 	sessionObject.save(function(err, sessionObject){
 		if (err) return console.err(err);
 
-		return sessionObject;
 		console.log(sessionObject);
 	});
 }
