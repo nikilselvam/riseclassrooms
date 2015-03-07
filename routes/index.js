@@ -59,5 +59,10 @@ exports.questionType = function(req,res) {
 			layout: 'layout'
 		}
 	});
+
+exports.studentAddClass = function(req, res) {
+	res.render('studentAddClass');
+};
+
 };
 
