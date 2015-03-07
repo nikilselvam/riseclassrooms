@@ -6,10 +6,10 @@ var Teacher = db.models.Teacher;
 
 exports.create = function(req, res){
 	if(!req.username) {
-		return resError(res, "Please include a username");
+		return resError(res, "Invalid username or password");
 	}
 	else if (!req.password) {
-		return resError(res, "Please include a password");
+		return resError(res, "Invalid username or password");
 	}
 	else if (!req.firstName) {
 		return resError(res, "Please include your first name");
