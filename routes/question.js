@@ -36,6 +36,6 @@ exports.record = function(req, res){
 	questionObject.save(function(err, questionObject){
 		if (err) return console.error(err);
 
-		console.log questionObject;
+		console.log(questionObject);
 	});
 };
