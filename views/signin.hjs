@@ -3,17 +3,17 @@
 {{$head}}
 <link rel="stylesheet"
 href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-<link rel="stylesheet" href="public/stylesheets/login.css">
+<link rel="stylesheet" href="/stylesheets/login.css">
 
-	<title>Student Login</title>
+	<title>RiseClassrooms Login</title>
 	
 {{/head}}
   {{$body}}
 	<header class="headerBlock"></header>
 	<div class="center_login">
-	<h2>Student Login</h2>
+	<h2>RiseClassrooms Login</h2>
 	
-	<form name="studentLoginForm" 
+	<form name="loginForm" 
           action="/login" 
           method="post">
       <table>

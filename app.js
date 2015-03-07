@@ -15,8 +15,6 @@ var questions = require('./routes/question');
 var keyword = require('./routes/keyword');
 var questionType = require('./routes/questionType');
 
-var signin = require('./routes/signin');
-
 var http = require('http');
 var path = require('path');
 
