@@ -25,3 +25,22 @@ exports.create = function(req, res){
 		console.log(classObject);
 	});
 };
+
+exports.subscribe = function(req, res){
+    //TODO assert: all required objects exist in req
+    
+    //TODO assert: studentId is not yet in Class.studentIds[]
+    //TODO assert: ObjectId is not yet in Student.classes[]
+    
+    // Add Student._id to Class.studentIds
+    Class.findOne({ _id:res.classId }, function (err, class) {
+        class.studentIds.push(res.studentId);
+        class.save();
+    });
+    
+    // Add the Class._id to Student.classes
+    Student.findOne({ _id:res.studentId }, function (err, student) {
+        student.classes.push(res.classId);
+        student.save();
+    });
+};
