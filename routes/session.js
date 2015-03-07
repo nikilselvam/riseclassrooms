@@ -23,7 +23,7 @@ exports.create = function(req, res) {
 		classID: req.classID,
 		startTime: start,
 		duration: req.duration,
-		endTime: end;
+		endTime: end
 	});
 
 	//Save the session to the database
@@ -31,6 +31,6 @@ exports.create = function(req, res) {
 		if (err) return console.err(err);
 
 		return sessionObject;
-		console.log sessionObject;
+		console.log(sessionObject);
 	})
 }

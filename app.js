@@ -6,11 +6,8 @@
 var express = require('express');
 var routes = require('./routes');
 var user = require('./routes/user');
-<<<<<<< HEAD
 var session = require('./routes/session');
-=======
 var classes = require('./routes/class');
->>>>>>> bfd30c66bb39b742fe3049da0d1fcc997c67bfa1
 var http = require('http');
 var path = require('path');
 
