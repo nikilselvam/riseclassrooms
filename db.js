@@ -10,7 +10,10 @@ var Schema = mongoose.Schema;
 var ObjectId = mongoose.Schema.Types.ObjectId;
 
 var teacherSchema = new Schema({
+	password			: String,
 	username 			: String,
+	firstName			: String,
+	lastName			: String,
 	title 				: String,
 	researchInterest	: String,
 	background			: String,
@@ -49,6 +52,7 @@ var questionSchema = new Schema({
 }, { collection: 'question'});
 
 var studentSchema = new Schema({
+	password			: String,
 	username			: String,
 	firstName			: String,
 	lastName 			: String,
@@ -57,7 +61,7 @@ var studentSchema = new Schema({
 	major				: String,
 	gradDate			: Date,
 	picture				: String,
-	descrition			: String
+	description			: String
 }, { collection: 'student'});
 
 var feedbackSchema = new Schema({
@@ -111,3 +115,5 @@ db.once('open', function(){
 
 // Export the db andschema to external interfaces
 exports.db = db;
+
+

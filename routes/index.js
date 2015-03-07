@@ -14,7 +14,9 @@ exports.teacherHome = function(req, res) {
 		}
 	});
 };
-
+exports.signin = function(req, res) {
+	res.render('signin');
+};
 exports.session = function(req, res) {
 	res.render('session', {
 		title: 'Session',
