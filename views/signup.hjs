@@ -1,6 +1,6 @@
 {{<layout}}
 
-{{$title}}RiseClassrooms Sign Up{{/title}}
+{{$title}}RISE Classrooms Sign Up{{/title}}
 
 {{$head}}
 {{/head}}
