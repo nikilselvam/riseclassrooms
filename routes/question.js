@@ -12,12 +12,6 @@ exports.record = function(req, res){
 	else if (!req.content) {
 		return resError(res, "Sorry, there is invalid question content");
 	}
-	else if (!req.timeAsk) {
-		return resError(res, "Sorry, the system is unsure of when the question was asked.");
-	}
-	else if (!req.isStudentQuestion) {
-		return resError(res, "Sorry, this is not a student question.");
-	}
 	else if (!req.session) {
 		return resError(res, "Sorry, this class doesn't have a session.");
 	}
@@ -27,8 +21,8 @@ exports.record = function(req, res){
 	var questionObject = new Question({
 		author: req.author,
 		content: req.content,
-		timeAsk: req.timeAsk,
-		isStudentQuestion: req.isStudentQuestion,
+		timeAsk: Date.now(),
+		isStudentQuestion: true,
 		session: req.session
 	});
 
