@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+{{$head}}
+	<title>Teacher Login</title>
+	<link rel="stylesheet"
+href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="public/stylesheets/login.css">
+	
+{{/head}}
+  {{$body}}
+	<header class="headerBlock"></header>
+	<div class="center_login">
+	<h2>Teacher Login</h2>
+	
+	<form name="teacherLoginForm" 
+          action="/login" 
+          method="post">
+      <table>
+        <tr>
+          <td>
+            <label>Username</label>
+          </td>
+          <td>
+            <input type="text" name="username" required>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <label>Password</label>
+          </td>
+          <td>
+            <input type="password" name="password" required>
+          </td>
+        </tr>
+      </table>
+      <input type="hidden" name="role" value="admin">
+      <input type="submit" value="Login">
+		
+		<!--Hidden tag, to be shown when authentication fails -->
+		</br><span class="red_text" hidden>Invalid Credentials</span>
+		
+		
+	</form>
+	
+	</div>
+  {{/body}}
+</html>
