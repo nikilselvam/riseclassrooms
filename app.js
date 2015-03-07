@@ -5,7 +5,8 @@
 
 var express = require('express');
 var routes = require('./routes');
-var user = require('./routes/user');
+var student = require('./routes/student');
+var teacher = require('./routes/teacher');
 var http = require('http');
 var path = require('path');
 
@@ -31,11 +32,37 @@ if ('development' == app.get('env')) {
 }
 
 app.get('/', routes.teacherHome);
-app.get('/users', user.list);
+app.get('/signin', routes.signin);
 app.get('/session', routes.session);
 app.get('/keyword', routes.keyword);
 app.get('/questionType', routes.questionType);
 
+/*app.post('/local-reg', passport.authenticate('local-signup', {
+		successRedirect: '/',
+		failureRedirect: '/signin'
+	})
+);
+
+app.post('/login', passport.authenticate('local-signin', {
+	sucessRedirect: '/',
+	failureRedirect: '/signin'
+	})
+);
+
+app.get('/logout', function(req,res){
+	var name = req.user.username;
+	console.log("LOG OUT" + req.user.username)
+	req.logout();
+	res.redirect('/');
+	req.session.notice = "You have successfully been logged out " + name + "!";
+});
+*/
+
+app.post('/student/create', student.create);
+app.post('/teacher/create', teacher.create);
+
+
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
 });
+,
