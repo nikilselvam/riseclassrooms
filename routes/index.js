@@ -2,13 +2,33 @@
  * GET home page.
  */
 
+var db = require('./../db.js');
+var resError = require('./messaging').resError;
+var Session = db.models.Session;
+
+function findActiveSession(user, callback) {
+    var query = Session.findOne();
+    query = query.where("startTime").lt(new Date());
+    query = query.where("endTime").gt(new Date());
+    query = query.where("classId").in(user.classes);
+    query.exec(callback);
+}
+
 exports.studentHome = function (req, res) {
-	res.render('studentHome', {
-		title: 'Student Classes',
-		partials: {
-			layout: 'layout'
-		}
-	});
+	function renderStudentHome(err, session) {
+		res.render('studentHome', {
+			title: 'Student Classes',
+			session: session,
+			partials: {
+				layout: 'layout'
+			}
+		});
+	}
+
+	if (req.user)
+		findActiveSession(req.user, renderStudentHome);
+	else
+		res.redirect('/')
 };
 
 exports.teacherHome = function(req, res) {
