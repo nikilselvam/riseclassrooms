@@ -27,6 +27,6 @@ exports.create = function(req, res){
 
 	student1.save(function(err, student1) {
 		if (err) return console.error(err);
-		console.log student1;
+		console.log(student1);
 	});
 };

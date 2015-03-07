@@ -30,6 +30,6 @@ exports.create = function(req, res){
 	teacher1.save(function(err, teacher1) {
 		if (err) return console.error(err);
 		
-		console.log teacher1;
+		console.log(teacher1);
 	});
 };
