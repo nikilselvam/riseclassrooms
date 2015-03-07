@@ -47,7 +47,7 @@
     </table>
 </div>\
 
-<button type="button">Add A New Class"</button>
+<button type="button" onClick="student/studentAddClass">Add A New Class"</button>
 
 {{/body}}
 
