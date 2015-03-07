@@ -3,7 +3,9 @@
 // })();
 
 // Testing env
-var testEnv = true;
+var testEnv = function() {
+    return true;
+}
 
 // Secrets.
 if (typeof process.env.DB_USER === 'undefined' || typeof process.env.DB_PASS === 'undefined'){

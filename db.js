@@ -107,8 +107,7 @@ if (secret.testEnv === true) {
     mongoose.connect('mongodb://'+secret.user() + ':' +
             secret.pass() +
             '@198.199.93.104:27017/'+dbName);
-    }
-else {
+} else {
     mongoose.connect('mongodb://'+secret.user() + ':' +
             secret.pass() +
             '@ds049641.mongolab.com:49641/'+dbName);
