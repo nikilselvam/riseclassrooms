@@ -1,0 +1,22 @@
+{{<layout}}
+
+{{$title}}{{title}}{{/title}}
+
+{{$head}}
+<script type="text/javascript" src="/javascripts/session.js" async></script>
+{{/head}}
+
+{{$body}}
+	<div class="container">
+  	<h1>New Class</h1>	
+	 <form action="/class/create" method="post">
+          <div class="form-group">
+            <label for="class-name"">Class name:</label>
+            <input type="text" class="form-control" id="class-name">
+          </div>
+          <input type="submit" value="Submit">
+    </form>
+</div>
+{{/body}}
+
+{{/layout}}
