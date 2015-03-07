@@ -7,8 +7,12 @@ exports.create = function (req, res) {
     // an error.
     if (!req.name) {
         return resError(res, "Sorry, this class doesn't have a name.");
-    } else if (!req.teacherId) {
+    }
+    else if (!req.teacherId) {
         return resError(res, "Sorry, this class doesn't have a specified teacher.");
+    }
+    else if ((!req.user) || ! (req.user instanceof db.models.Teacher)) {
+        return resError(res, "Please sign in to a Teacher account.");
     }
 
     // Create a new class object with the class name and teacher specified.
@@ -28,8 +32,12 @@ exports.create = function (req, res) {
 exports.subscribe = function (req, res) {
     if (!req.studentId) {
         return resError(res, "Sorry, unable to find this user")
-    } else if (!req.classId) {
+    }
+    else if (!req.classId) {
         return resError(res, "Sorry, unable to find this class")
+    }
+    else if ((!req.user) || ! (req.user instanceof db.models.Student)) {
+        return resError(res, "Please sign in to a Student account.");
     }
 
     // Add Student._id to Class.studentIds
