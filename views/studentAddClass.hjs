@@ -1,7 +1,7 @@
 {{<layout}}
 
 {{$title}}{{title}}{{/title}}
-<script type="text/javascript" src="/javascripts/studentAddClass.js"
+<script type="text/javascript" src="/javascripts/studentAddClass.js">
 <link rel="stylesheet" href="../styles/studentAddClass.css" >
 {{$head}}
 
@@ -12,7 +12,7 @@
 <div class="container">
     <h1>My Classes</h1>
     <input type="text" id="search-input" placeholder="Search for a class">
-                  <button type="submit" id="search-submit-button" onsubmit="return displaySearchResults()">Search</button>
+                  <button type="submit" id="search-submit-button" onsubmit="displaySearchResults()">Search</button>
                   <button type="button" id="add-class">Add Class</button>
                 </div>
     <div class="table-responsive" id="search-results-div" style="display:none" onclick="student/studentHome">

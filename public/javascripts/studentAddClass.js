@@ -1,7 +1,12 @@
 
 
 function displaySearchResults() {
-        $("#search-results-div").show();
-        return false;
+        
     }
 
+
+$("#search-submit-button").click(function() {
+
+alert('TEST');
+//$("#search-results-div").show();
+});
