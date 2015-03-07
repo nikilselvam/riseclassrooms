@@ -12,6 +12,8 @@ var ObjectId = mongoose.Schema.Types.ObjectId;
 var teacherSchema = new Schema({
 	password			: String,
 	username 			: String,
+	firstName			: String,
+	lastName			: String,
 	title 				: String,
 	researchInterest	: String,
 	background			: String,
