@@ -1,6 +1,6 @@
 {{<layout}}
 
-{{$title}}RISE Classrooms Login{{/title}}
+{{$title}}RISE Classrooms Sign Up{{/title}}
 
 {{$head}}
 {{/head}}
@@ -9,8 +9,16 @@
 <div class="container">
   <div class="row">
     <div class="col-md-4 col-md-offset-4">
-      <h2>RISE Classrooms Login</h2>
-      <form action="/login" method="post" id="login-form">
+      <h2>RISE Classrooms Sign Up</h2>
+      <form action="/signup" method="post" id="login-form">
+        <div class="form-group">
+          <label for="login-firstname">First Name</label>
+          <input type="text" id="login-firstname" name="firstname" class="form-control" required>
+        </div>
+        <div class="form-group">
+          <label for="login-lastname">Last Name</label>
+          <input type="text" id="login-lastname" name="lastname" class="form-control" required>
+        </div>
         <div class="form-group">
           <label for="login-username">Email</label>
           <input type="text" id="login-username" name="username" class="form-control" required>
@@ -20,11 +28,8 @@
           <input type="password" id="login-password" name="password" class="form-control" required>
         </div>
         <div class="form-group">
-          <button type="submit" class="btn btn-block btn-lg btn-success">Log in</button>
+          <button type="submit" class="btn btn-block btn-lg btn-success">Sign Up</button>
         </div>
-	<div class="form-group">
-		<p>Don't have an account? <a href="/signup">Sign up now &raquo;</a></p>
-	</div>
       </form>
     </div>
   </div>
