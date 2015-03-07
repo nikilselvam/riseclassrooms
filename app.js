@@ -33,6 +33,7 @@ app.use(express.urlencoded());
 app.use(express.methodOverride());
 app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.bodyParser());
 
 // development only
 if ('development' == app.get('env')) {
@@ -50,7 +51,6 @@ app.get('/questionType', routes.questionType);
 
 app.get('/teacher/createClass', routes.createClass);
 app.get('/teacher/createSession', routes.createSession);
-
 
 /*app.post('/local-reg', passport.authenticate('local-signup', {
 		successRedirect: '/',
