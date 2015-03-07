@@ -38,6 +38,14 @@ exports.signup = function(req, res) {
 	});
 };
 
+exports.studentAddClass = function(req,res) {
+res.render('studentAddClass', {
+title: 'Add A Class',
+partials: {
+layout: 'layout'
+}
+});
+}
 
 exports.session = function(req, res) {
 	res.render('session', {
@@ -63,6 +71,7 @@ exports.questionType = function(req,res) {
 			layout: 'layout'
 		}
 	});
+
 };
 
 exports.createClass = function(req,res) {
