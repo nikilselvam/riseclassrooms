@@ -71,7 +71,7 @@ app.post('/teacher/create', teacher.create);
 
 app.post('/class/create', classes.create);
 app.post('/session/create', session.create);
-app.post('/question/record', questions.record);
+app.post('/question/record', questions.create);
 
 
 http.createServer(app).listen(app.get('port'), function(){
