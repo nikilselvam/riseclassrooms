@@ -38,6 +38,16 @@ exports.signin = function(req, res) {
 	});
 };
 
+exports.signup = function(req, res) {
+	res.render('signup', {
+		title: "Sign Up",
+		partials: {
+			layout: 'layout'
+		}
+	});
+};
+
+
 exports.session = function(req, res) {
 	res.render('session', {
 		title: 'Session',
