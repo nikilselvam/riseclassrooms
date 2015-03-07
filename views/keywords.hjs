@@ -12,8 +12,8 @@
 	<p class="summary">Total questions asked during this session: 180<p>
 	<table class="table table-hover">
 		<thead>
-			<td>Keyword</td>
-			<td>Popularity</td>
+			<th>Keyword</th>
+			<th>Popularity</th>
 		</thead>
 		<tbody>
 			<tr>

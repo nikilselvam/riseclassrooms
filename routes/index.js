@@ -2,15 +2,6 @@
  * GET home page.
  */
 
-exports.loginPage = function (req, res) {
-	res.render('login', {
-		title: 'Sign In',
-		partials: {
-			layout: 'layout'
-		}
-	});
-};
-
 exports.studentHome = function (req, res) {
 	res.render('studentHome', {
 		title: 'Student Classes',

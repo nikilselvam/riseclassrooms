@@ -12,11 +12,11 @@
 	<table class="table table-hover">
 		<thead>
 			<tr>
-				<td>Session #</td>
-				<td>Date</td>
-				<td>Questions asked</td>
-				<td>Questions answered</td>
-				<td>Top keyword</td>
+				<th>Session #</th>
+				<th>Date</th>
+				<th>Questions asked</th>
+				<th>Questions answered</th>
+				<th>Top keyword</th>
 			</tr>
 		</thead>
 		<tbody>
