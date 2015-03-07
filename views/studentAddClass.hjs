@@ -3,7 +3,7 @@
 {{$title}}{{title}}{{/title}}
 
 {{$head}}
-<script type="text/javascript" src="/javascripts/studentHome.js" async></script>
+
 {{/head}}
 
 {{$body}}

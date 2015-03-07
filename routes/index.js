@@ -35,6 +35,16 @@ exports.teacherHome = function(req, res) {
 exports.signin = function(req, res) {
 	res.render('signin');
 };
+
+
+exports.studentAddClass = function(req,res) {
+res.render('studentAddClass', {
+title: 'Add A Class',
+partials: {
+layout: 'layout'
+}
+});
+}
 exports.session = function(req, res) {
 	res.render('session', {
 		title: 'Session',

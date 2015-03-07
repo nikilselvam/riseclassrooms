@@ -45,7 +45,9 @@
                 </tr>
         </tbody>
     </table>
-</div>
+</div>\
+
+<button type="button">Add A New Class"</button>
 
 {{/body}}
 
