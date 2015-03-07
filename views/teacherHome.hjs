@@ -51,7 +51,7 @@
                 </tr>
         </tbody>
     </table>
-    <a href="/teacher/createClass">Create New Class</a>
+    <a href="/teacher/createClass" class="btn btn-info">Create New Class</a>
     </form>
 </div>
 

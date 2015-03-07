@@ -14,7 +14,7 @@
             <label for="class-name"">Class name:</label>
             <input type="text" class="form-control" id="class-name">
           </div>
-          <input type="submit" value="Submit">
+          <input type="submit" class="btn btn-info" value="Submit">
     </form>
 </div>
 {{/body}}
