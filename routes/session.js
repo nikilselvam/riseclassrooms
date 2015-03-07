@@ -33,5 +33,5 @@ exports.create = function(req, res) {
 
 		return sessionObject;
 		console.log(sessionObject);
-	})
+	});
 }
