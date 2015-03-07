@@ -35,7 +35,7 @@ exports.create = function(req, res) {
 			if (err || !classId) {
 				return console.err(err);
 			}
-			class.session.push(sessionObject._id);
+			class.sessions.push(sessionObject._id);
 		}
 	});
 }
