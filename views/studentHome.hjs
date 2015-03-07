@@ -58,9 +58,9 @@
                 </tr>
         </tbody>
     </table>
+    <a href="/student/addClass" class="btn btn-info">Add Class</a>
 </div>
 
-<<<<<<< HEAD
 <div class="modal fade" id="question-box">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -79,8 +79,6 @@
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 
-=======
->>>>>>> df6e1d60404a9c59088b5b233cc4db665ad25cd5
 {{/body}}
 
 {{/layout}}
