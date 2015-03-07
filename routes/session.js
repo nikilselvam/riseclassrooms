@@ -31,11 +31,11 @@ exports.create = function(req, res) {
 		if (err) return console.err(err);
 
 		console.log(sessionObject);
-		Class.findOne( {_id: req.classId}), function (err, session) {
+		Class.findOne( {_id: req.classId}), function (err, class) {
 			if (err || !classId) {
 				return console.err(err);
 			}
-			classId.session.push(sessionObject._id);
+			class.session.push(sessionObject._id);
 		}
 	});
 }
