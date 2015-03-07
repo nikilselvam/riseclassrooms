@@ -27,20 +27,28 @@ exports.create = function(req, res){
 };
 
 exports.subscribe = function(req, res){
-    //TODO assert: all required objects exist in req
-    
-    //TODO assert: studentId is not yet in Class.studentIds[]
-    //TODO assert: ObjectId is not yet in Student.classes[]
+    if(!req.studentId) {
+        return resError(res, "Sorry, unable to find this user")
+    }
+    else if (!req.classId) {
+        return resError(res, "Sorry, unable to find this class")
+    }
     
     // Add Student._id to Class.studentIds
-    Class.findOne({ _id:res.classId }, function (err, class) {
+    Class.findOne({ _id:req.classId }, function (err, class) {
+        if (err) return console.error(err);
+        
         class.studentIds.push(res.studentId);
-        class.save();
+        class.save(function(err){
+            if (err) return console.error(err);
+        });
     });
     
     // Add the Class._id to Student.classes
-    Student.findOne({ _id:res.studentId }, function (err, student) {
+    Student.findOne({ _id:req.studentId }, function (err, student) {
         student.classes.push(res.classId);
-        student.save();
+        student.save(function(err){
+            if (err) return console.error(err);
+        });
     });
 };
