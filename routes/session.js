@@ -1,12 +1,11 @@
 var db = require('./../db.js');
 var resError = require('./messaging').resError;
 var Session = db.models.Session;
-var session = require('client-sessions');
 
 exports.create = function(req, res) {
 	//Return error if req object does not specify startTime,
 	// active, duration, and classID
-	if (!req.classID) {
+	if (!req.classId) {
 		return resError(res, "Sorry, this session does not have a specified class.");
 	}
 	else if (!req.duration) {
@@ -34,4 +33,18 @@ exports.create = function(req, res) {
 		return sessionObject;
 		console.log(sessionObject);
 	});
+}
+
+/**
+Creates new session for specified class.
+*/
+function createSession(req, onSuccess, onFailure){
+	var classSessionId = req.classId;
+	onSuccess = onSuccess || function (){};
+	onFailure = onFailure || function(){};
+
+	//Check if parameters are met
+	if (typeof classSessionID === "undefined") {
+		return onFailure("Missing classId parameter.");
+	}
 }
