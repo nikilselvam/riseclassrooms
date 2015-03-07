@@ -12,6 +12,8 @@ var user = require('./routes/user');
 var session = require('./routes/session');
 var classes = require('./routes/class');
 var questions = require('./routes/question');
+var keyword = require('./routes/keyword');
+var questionType = require('./routes/questionType');
 
 var http = require('http');
 var path = require('path');
@@ -71,7 +73,9 @@ app.post('/teacher/create', teacher.create);
 
 app.post('/class/create', classes.create);
 app.post('/session/create', session.create);
-app.post('/question/record', questions.create);
+app.post('/question/create', questions.create);
+app.post('/keyword/create', keyword.create);
+app.post('/questionType/create', questionType.create);
 
 
 http.createServer(app).listen(app.get('port'), function(){
