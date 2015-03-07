@@ -3,6 +3,18 @@
 {{$title}}RISE Classrooms Sign Up{{/title}}
 
 {{$head}}
+<script type="text/javascript">
+  jQuery(function ($) {
+    $("#teacher-check").on("change", function () {
+      if ($(this).is(':checked'))
+        $("#login-form").attr("action", "/teacher/create");
+      else
+        $("#login-form").attr("action", "/student/create");
+    });
+
+    $("#teacher-check").trigger("change");
+  });
+</script>
 {{/head}}
 
 {{$body}}
@@ -10,7 +22,7 @@
   <div class="row">
     <div class="col-md-4 col-md-offset-4">
       <h2>RISE Classrooms Sign Up</h2>
-      <form action="/signup" method="post" id="login-form">
+      <form action="/student/create" method="post" id="login-form">
         <div class="form-group">
           <label for="login-firstname">First Name</label>
           <input type="text" id="login-firstname" name="firstname" class="form-control" required>
@@ -28,7 +40,7 @@
           <input type="password" id="login-password" name="password" class="form-control" required>
         </div>
         <div class="checkbox">
-          <label><input type="checkbox" name="type" value="teacher"> Teacher Account</label>
+          <label><input type="checkbox" name="type" value="teacher" id="teacher-check"> Teacher Account</label>
         </div>
         <div class="form-group">
           <button type="submit" class="btn btn-block btn-lg btn-success">Sign Up</button>
