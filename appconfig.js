@@ -2,10 +2,18 @@
 // 	undefined = undefinedParam;
 // })();
 
+// Testing env
+var testEnv = true;
+
 // Secrets.
 if (typeof process.env.DB_USER === 'undefined' || typeof process.env.DB_PASS === 'undefined'){
 	var secret = require('./secret');
-	process.env.DB_USER = secret.user;
+    if testEnv {
+	   process.env.DB_USER = secret.testingUser;
+    }
+    else {
+        process.env.DB_USER = secret.user;
+    }
 	process.env.DB_PASS = secret.pass;
 }
 

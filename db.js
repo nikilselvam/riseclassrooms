@@ -103,9 +103,16 @@ var dbModels = {
 exports.models = dbModels;
  
 // Connect to database and listen to events.
-mongoose.connect('mongodb://'+secret.user() + ':' +
-		secret.pass() +
-		'@ds049641.mongolab.com:49641/'+dbName);
+if ('development' == app.get('env')) {
+    mongoose.connect('mongodb://'+secret.user() + ':' +
+            secret.pass() +
+            '@198.199.93.104:27017/'+dbName);
+    }
+else {
+    mongoose.connect('mongodb://'+secret.user() + ':' +
+            secret.pass() +
+            '@ds049641.mongolab.com:49641/'+dbName);
+}
 
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
