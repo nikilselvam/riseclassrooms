@@ -22,6 +22,6 @@ exports.create = function(req, res){
 	classObject.save(function(err, classObject){
 		if (err) return console.error(err);
 
-		console.log classObject;
+		console.log(classObject);
 	});
 };
