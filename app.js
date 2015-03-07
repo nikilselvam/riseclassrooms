@@ -13,6 +13,7 @@ var session = require('./routes/session');
 var classes = require('./routes/class');
 var questions = require('./routes/question');
 var keyword = require('./routes/keyword');
+var questionType = require('./routes/questionType');
 
 var http = require('http');
 var path = require('path');
@@ -42,6 +43,7 @@ app.get('/', routes.teacherHome);
 app.get('/signin', routes.signin);
 app.get('/session', routes.session);
 app.get('/keyword', routes.keyword);
+app.get('/questionType', routes.questionType);
 
 
 /*app.post('/local-reg', passport.authenticate('local-signup', {

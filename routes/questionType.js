@@ -1,6 +1,6 @@
 var db = require('./../db.js');
 var resError = require('./messaging').resError;
-var Keyword = db.models.Keyword;
+var QuestionType = db.models.QuestionType;
 
 exports.create = function(req, res) {
 	// Check that the req object contains a name attribute. If not, return an error.
@@ -9,15 +9,15 @@ exports.create = function(req, res) {
 	}
 
 	// Create new keyword.
-	var keyword = new Keyword({
+	var questionType = new QuestionType({
 		name: req.name,
 		count: 0
 	});
 
 	// Save keyword to database.
-	keyword.save(function(err, keyword){
+	questionType.save(function(err, questionType){
 		if (err) console.error(err);
 
-		console.log(keyword);
+		console.log(questionType);
 	});
 };
