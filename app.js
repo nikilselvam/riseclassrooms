@@ -49,6 +49,8 @@ app.get('/keyword', routes.keyword);
 app.get('/questionType', routes.questionType);
 app.get('/student/studentAddClass', routes.studentAddClass);
 
+app.get('/teacher/createClass', routes.createClass);
+
 
 /*app.post('/local-reg', passport.authenticate('local-signup', {
 		successRedirect: '/',

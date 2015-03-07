@@ -32,6 +32,7 @@ exports.teacherHome = function(req, res) {
 		}
 	});
 };
+
 exports.signin = function(req, res) {
 	res.render('signin');
 };
@@ -76,3 +77,11 @@ exports.studentAddClass = function(req, res) {
 
 };
 
+exports.createClass = function(req,res) {
+	res.render('createClass', {
+		title: 'Create Class',
+		partials: {
+			layout: 'layout'
+		}
+	});
+}
