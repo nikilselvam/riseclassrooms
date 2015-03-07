@@ -12,6 +12,7 @@ var user = require('./routes/user');
 var session = require('./routes/session');
 var classes = require('./routes/class');
 var questions = require('./routes/question');
+var keyword = require('./routes/keyword');
 
 var http = require('http');
 var path = require('path');
@@ -41,7 +42,6 @@ app.get('/', routes.teacherHome);
 app.get('/signin', routes.signin);
 app.get('/session', routes.session);
 app.get('/keyword', routes.keyword);
-app.get('/questionType', routes.questionType);
 
 
 /*app.post('/local-reg', passport.authenticate('local-signup', {
@@ -72,6 +72,8 @@ app.post('/teacher/create', teacher.create);
 app.post('/class/create', classes.create);
 app.post('/session/create', session.create);
 app.post('/question/record', questions.record);
+app.post('/keyword/create', keyword.create);
+app.post('/questionType/create', questionType.create);
 
 
 http.createServer(app).listen(app.get('port'), function(){
