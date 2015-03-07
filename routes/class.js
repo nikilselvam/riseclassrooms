@@ -1,3 +1,7 @@
+var db = require('./../db.js');
+var resError = require('./messaging').resError;
+var Class = db.models.Class;
+
 exports.create = function(req, res){
 	// If the req object does not specify a name for the class or the teacher, return
 	// an error.
@@ -16,8 +20,8 @@ exports.create = function(req, res){
 
 	// Save the class to the database.
 	classObject.save(function(err, classObject){
-		if (err) return console.errr(err);
+		if (err) return console.error(err);
 
-		return classObject;
+		console.log(classObject);
 	});
 };

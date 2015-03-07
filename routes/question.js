@@ -28,6 +28,8 @@ exports.record = function(req, res){
 		content: req.content,
 		timeAsk: req.timeAsk,
 		isStudentQuestion: req.isStudentQuestion,
+		timeAsk: Date.now(),
+		isStudentQuestion: true,
 		session: req.session
 	});
 
