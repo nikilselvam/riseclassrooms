@@ -1,48 +1,31 @@
-<!DOCTYPE html>
-<html>
-{{$head}}
-<link rel="stylesheet"
-href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-<link rel="stylesheet" href="/stylesheets/login.css">
+{{<layout}}
 
-	<title>RiseClassrooms Login</title>
-	
+{{$title}}RiseClassrooms Login{{/title}}
+
+{{$head}}
+<link rel="stylesheet" href="/stylesheets/login.css">
 {{/head}}
-  {{$body}}
-	<header class="headerBlock"></header>
-	<div class="center_login">
-	<h2>RiseClassrooms Login</h2>
-	
-	<form name="loginForm" 
-          action="/login" 
-          method="post">
-      <table>
-        <tr>
-          <td>
-            <label>Username</label>
-          </td>
-          <td>
-            <input type="text" name="username" required>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <label>Password</label>
-          </td>
-          <td>
-            <input type="password" name="password" required>
-          </td>
-        </tr>
-      </table>
-      <input type="hidden" name="role" value="student">
-      <input type="submit" value="Login">
-		
-		<!--Hidden tag, to be shown when authentication fails -->
-		</br><span class="red_text" hidden>Invalid Credentials</span>
-		
-		
-	</form>
-	
-	</div>
-  {{/body}}
-</html>
+
+{{$body}}
+<div class="container">
+  <div class="row">
+    <div class="col-md-4 col-md-offset-4">
+      <h2>RiseClassrooms Login</h2>
+      <form action="/login" method="post" id="login-form">
+        <div class="form-group">
+          <label for="login-username">Username</label>
+          <input type="text" id="login-username" name="username" required>
+        </div>
+        <div class="form-group">
+          <label for="login-password">Password</label>
+          <input type="password" id="login-password" name="password" required>
+        </div>
+        <div class="form-group">
+          <button type="submit" class="btn btn-block btn-success">Log in</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{{/body}}
+{{/layout}}
