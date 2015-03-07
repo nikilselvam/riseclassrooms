@@ -40,6 +40,7 @@ if ('development' == app.get('env')) {
 }
 
 app.get('/', routes.signin);
+app.get('/signup', routes.signup);
 app.get('/teacher', routes.teacherHome);
 app.get('/student', routes.studentHome);
 app.get('/users', user.list);
