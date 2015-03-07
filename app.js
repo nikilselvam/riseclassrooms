@@ -12,7 +12,7 @@ var path = require('path');
 var db = require('./db');
 
 var app = express();
-
+app.disable('etag');
 // all environments
 app.set('port', process.env.PORT || 3000);
 app.set('views', path.join(__dirname, 'views'));

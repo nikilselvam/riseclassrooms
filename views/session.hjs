@@ -1,14 +1,12 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title>{{ title }}</title>
-	<link rel="stylesheet" type="text/css" href="/stylesheets/main.css">
-	<link rel="stylesheet" type="text/css" href="/stylesheets/sessions.css">
-	<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Lobster" />
-	<link href='http://fonts.googleapis.com/css?family=Coming+Soon' rel='stylesheet' type='text/css'>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
-    <script type="text/javascript" src="/javascripts/session.js" async> </script>
-<body>
+{{<layout}}
+
+{{$title}}{{title}}{{/title}}
+
+{{$head}}
+<script type="text/javascript" src="/javascripts/session.js" async></script>
+{{/head}}
+
+{{$body}}
 	<section class="chalkboard"></section>
 	<span class="back"> Back to classes page </span>
 	<span class="logout"> <a id="logout_button" href="logout.html"> Logout </a></span>
@@ -67,7 +65,7 @@
 		<span class="asked"> <b><i>Asked:</i></b> 120 </span>
 		<span class="answered"> <b><i>Answered:</i></b> 50% </span>
 		<span class="top_keyword"> <b><i>Top keyword:</i></b> "convergence" </span>
-	</div> 
+	</div>
 	<div class="session_container">
 		<span class="keyword"><a href="index.html"> Session 2 </a></span>
 		<span class="date"> <b><i>Date:</i></b> 1/27/2015 </span>
@@ -96,5 +94,7 @@
 		<span class="answered"> <b><i>Answered:</i></b> 28% </span>
 		<span class="top_keyword"> <b><i>Top keyword:</i></b> "concave" </span>
 	</div> -->
-</body>
-</html>
+{{/body}}
+
+{{/layout}}
+`

@@ -1,14 +1,12 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title>{{ title }}</title>
-	<link rel="stylesheet" type="text/css" href="/stylesheets/main.css">
-	<link rel="stylesheet" type="text/css" href="/stylesheets/classes.css">
-	<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Lobster" />
-	<link href='http://fonts.googleapis.com/css?family=Coming+Soon' rel='stylesheet' type='text/css'>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
-    <script type="text/javascript" src="/javascripts/teacherHome.js" async> </script>
-<body>
+{{<layout}}
+
+{{$title}}{{title}}{{/title}}
+
+{{$head}}
+<script type="text/javascript" src="/javascripts/teacherHome.js" async></script>
+{{/head}}
+
+{{$body}}
 	<section class="chalkboard"></section>
 	<span class="logout"> <a id="logout_button" href="logout.html"> Logout </a></span>
 	<h1 class="display_title">My Classes</h1>
@@ -55,21 +53,6 @@
 			</tr>
 		</tbody>
 	</table>
+{{/body}}
 
-<!-- 	<div class="session_container">
-		<span class="class"><a href="sessions.html"> FSE 301</a></span>
-	</div> 
-	<div class="session_container">
-		<span class="class"><a href="sessions.html"> MGT 305 </a></span>
-	</div>
-	<div class="session_container">
-		<span class="class"><a href="sessions.html"> CSE 360 </a></span>
-	</div>
-	<div class="session_container">
-		<span class="class"><a href="sessions.html"> IEE 380 </a></span>
-	</div>
-	<div class="session_container">
-		<span class="class"><a href="sessions.html"> CSE 486 </a></span>
-	</div> -->
-</body>
-</html>
+{{/layout}}
