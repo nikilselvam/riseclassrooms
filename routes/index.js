@@ -70,3 +70,12 @@ exports.createClass = function(req,res) {
 		}
 	});
 }
+
+exports.createSession = function(req,res) {
+	res.render('createSession', {
+		title: 'Create Session',
+		partials: {
+			layout: 'layout'
+		}
+	});
+}

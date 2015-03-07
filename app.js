@@ -48,6 +48,7 @@ app.get('/keyword', routes.keyword);
 app.get('/questionType', routes.questionType);
 
 app.get('/teacher/createClass', routes.createClass);
+app.get('/teacher/createSession', routes.createSession);
 
 
 /*app.post('/local-reg', passport.authenticate('local-signup', {
