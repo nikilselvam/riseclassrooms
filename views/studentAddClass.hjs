@@ -1,7 +1,8 @@
 {{<layout}}
 
 {{$title}}{{title}}{{/title}}
-
+<script type="text/javascript" src="/javascripts/studentAddClass.js"
+<link rel="stylesheet" href="../styles/studentAddClass.css" >
 {{$head}}
 
 {{/head}}
@@ -11,7 +12,7 @@
 <div class="container">
     <h1>My Classes</h1>
     <input type="text" 
-                         id="search-input" placeholder="Search for a class">
+                  id="search-input" placeholder="Search for a class">
                   <button type="submit" id="search-submit-button">Search</button>
                 </div>
     <div class="table-responsive" id="search-results-div">
@@ -55,25 +56,6 @@
 </div>
 
 <button type="button" id="addClass" onClick="student/studentAddClass">Add Class</button>
-
-
-<div class="modal fade" id="question-box">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title">Ask a Question</h4>
-      </div>
-      <div class="modal-body">
-    <textarea class="form-control" rows="12" cols="20" placeholder="Enter a question..."></textarea>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Submit Question</button>
-      </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
 
 {{/body}}
 

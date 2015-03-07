@@ -2,19 +2,6 @@
  * GET home page.
  */
 
-exports.loginPage = function (req, res) {
-	res.render('login', {
-		title: 'Sign In',
-		partials: {
-			layout: 'layout'
-		}
-	});
-};
-
-exports.index = function(req, res){
-  res.render('index', { title: 'Express' });
-};
-
 exports.studentHome = function (req, res) {
 	res.render('studentHome', {
 		title: 'Student Classes',
@@ -34,10 +21,25 @@ exports.teacherHome = function(req, res) {
 };
 
 exports.signin = function(req, res) {
-	res.render('signin');
+	res.render('signin', {
+		title: "Sign In",
+		partials: {
+			layout: 'layout'
+		}
+	});
+};
+
+exports.signup = function(req, res) {
+	res.render('signup', {
+		title: "Sign Up",
+		partials: {
+			layout: 'layout'
+		}
+	});
 };
 
 
+<<<<<<< HEAD
 exports.studentAddClass = function(req,res) {
 res.render('studentAddClass', {
 title: 'Add A Class',
@@ -46,6 +48,8 @@ layout: 'layout'
 }
 });
 }
+=======
+>>>>>>> df6e1d60404a9c59088b5b233cc4db665ad25cd5
 exports.session = function(req, res) {
 	res.render('session', {
 		title: 'Session',
@@ -80,6 +84,15 @@ exports.studentAddClass = function(req, res) {
 exports.createClass = function(req,res) {
 	res.render('createClass', {
 		title: 'Create Class',
+		partials: {
+			layout: 'layout'
+		}
+	});
+}
+
+exports.createSession = function(req,res) {
+	res.render('createSession', {
+		title: 'Create Session',
 		partials: {
 			layout: 'layout'
 		}

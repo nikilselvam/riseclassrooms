@@ -8,13 +8,26 @@
 
 {{$body}}
 <div class="container">
-    <h1>My Classes</h1>
-    <table class="table table-hover">
+    <h2>Ask a Question</h2>
+    <form method="post" action="/ask" id="ask-form">
+    <div class="form-group">
+        <textarea class="form-control" rows="6" cols="20" placeholder="Enter a question..."></textarea>
+    </div>
+    <div class="form-group">
+        <button type="button" class="btn btn-success btn-block btn-lg">Submit Question</button>
+    </div>
+    </form>
+<br />
+<hr />
+<br />
+
+    <h4>Your Classes</h4>
+    <table class="table table-condensed">
         <thead>
                 <tr>
-                        <td>Class #</td>
-                        <td>Class Name</td>
-                        <td>Sessions</td>
+                        <th>Class #</th>
+                        <th>Class Name</th>
+                        <th>Sessions</th>
                 </tr>
         </thead>
         <tbody>
@@ -47,6 +60,7 @@
     </table>
 </div>
 
+<<<<<<< HEAD
 <div class="modal fade" id="question-box">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -65,6 +79,8 @@
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 
+=======
+>>>>>>> df6e1d60404a9c59088b5b233cc4db665ad25cd5
 {{/body}}
 
 {{/layout}}

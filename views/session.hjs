@@ -12,11 +12,11 @@
 	<table class="table table-hover">
 		<thead>
 			<tr>
-				<td>Session #</td>
-				<td>Date</td>
-				<td>Questions asked</td>
-				<td>Questions answered</td>
-				<td>Top keyword</td>
+				<th>Session #</th>
+				<th>Date</th>
+				<th>Questions asked</th>
+				<th>Questions answered</th>
+				<th>Top keyword</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -92,6 +92,7 @@
 		<span class="answered"> <b><i>Answered:</i></b> 28% </span>
 		<span class="top_keyword"> <b><i>Top keyword:</i></b> "concave" </span>
 	</div> -->
+    <a href="/teacher/createSession" class="btn btn-info">Create New Session</a>
 </div>
 {{/body}}
 
