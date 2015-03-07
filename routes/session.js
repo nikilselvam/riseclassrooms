@@ -11,6 +11,9 @@ exports.create = function(req, res) {
 	else if (!req.duration) {
 		return resError(res, "Sorry, this session does not have a specified duration.");
 	}
+    else if ((!req.user) || ! (req.user instanceof db.models.Teacher)) {
+        return resError(res, "Please sign in to a Teacher account.");
+    }
 
 	var start = Date.now();
 	//durationMS converts duration time in minutes into milliseconds for compatability w/ Date.now()
