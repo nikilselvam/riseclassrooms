@@ -1,5 +1,7 @@
 
-    $("#search-form").submit(function() {
+
+function displaySearchResults() {
         $("#search-results-div").show();
         return false;
-    });
+    }
+
