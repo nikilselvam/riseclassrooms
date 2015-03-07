@@ -30,7 +30,6 @@ exports.create = function(req, res) {
 	sessionObject.save(function(err, sessionObject){
 		if (err) return console.err(err);
 
-		return sessionObject;
 		console.log(sessionObject);
 	});
 }

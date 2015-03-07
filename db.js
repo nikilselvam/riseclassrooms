@@ -46,7 +46,7 @@ var questionSchema = new Schema({
 	author 				: [{teacher: ObjectId, student: ObjectId}],
 	content				: String,
 	isAnswered 			: Boolean,
-	timeAsk				: Date,
+	timeAsked			: Date,
 	isStudentQuestion   : Boolean,
 	sessionId			: [ObjectId]
 }, { collection: 'question'});
@@ -56,7 +56,7 @@ var studentSchema = new Schema({
 	username			: String,
 	firstName			: String,
 	lastName 			: String,
-	classes 			: ObjectId,
+	classes 			: [ObjectId],
 	year				: String,
 	major				: String,
 	gradDate			: Date,
