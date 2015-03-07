@@ -58,6 +58,10 @@ if ('development' == app.get('env')) {
 
 app.get('/', routes.teacherHome);
 app.get('/signin', routes.signin);
+app.get('/signup', routes.signup);
+app.get('/teacher', routes.teacherHome);
+app.get('/student', routes.studentHome);
+app.get('/users', user.list);
 app.get('/session', routes.session);
 app.get('/keyword', routes.keyword);
 app.get('/questionType', routes.questionType);
@@ -71,7 +75,20 @@ app.post('/signin', passport.authenticate('local'),
       res.send({
           success: false,
       });
-	}
+	});
+app.get('/teacher/createClass', routes.createClass);
+app.get('/teacher/createSession', routes.createSession);
+
+/*app.post('/local-reg', passport.authenticate('local-signup', {
+		successRedirect: '/',
+		failureRedirect: '/signin'
+	})
+); */
+
+app.post('/login', passport.authenticate('local-signin', {
+	sucessRedirect: '/',
+	failureRedirect: '/signin'
+	})
 );
 
 app.get('/logout', function(req, res){

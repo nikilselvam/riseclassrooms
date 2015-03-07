@@ -1,0 +1,27 @@
+{{<layout}}
+
+{{$title}}{{title}}{{/title}}
+
+{{$head}}
+<script type="text/javascript" src="/javascripts/session.js" async></script>
+{{/head}}
+
+{{$body}}
+	<div class="container">
+  	<h1>New Session</h1>	
+	 <form action="/session/create" method="post">
+          <div class="form-group">
+            <label for="class-name"">Duration:</label>
+  			<select name="duration" id="duration">
+				<option value="volvo">5 minutes</option>
+				<option value="saab">10 minutes</option>
+				<option value="fiat">15 minues</option>
+				<option value="audi">20 minutes</option>
+			</select>
+          </div>
+          <input type="submit" class="btn btn-info" value="Submit">
+    </form>
+</div>
+{{/body}}
+
+{{/layout}}

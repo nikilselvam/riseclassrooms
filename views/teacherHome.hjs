@@ -12,10 +12,10 @@
     <table class="table table-hover">
         <thead>
                 <tr>
-                        <td>Class #</td>
-                        <td>Class Name</td>
-                        <td>Students</td>
-                        <td>Sessions</td>
+                        <th>Class #</th>
+                        <th>Class Name</th>
+                        <th>Students</th>
+                        <th>Sessions</th>
                 </tr>
         </thead>
         <tbody>
@@ -51,6 +51,8 @@
                 </tr>
         </tbody>
     </table>
+    <a href="/teacher/createClass" class="btn btn-info">Create New Class</a>
+    </form>
 </div>
 
 {{/body}}
