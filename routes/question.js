@@ -20,6 +20,9 @@ exports.create = function(req, res){
 	else if (!req.session) {
 		return resError(res, "Sorry, this class doesn't have a session.");
 	}
+    else if ((!req.user) || ! (req.user instanceof db.models.Student)) {
+        return resError(res, "Please sign in to a Student account.");
+    }
 
 	// Create a new question object with the author, content, time asked, whether it is
 	// a student question and a session object
