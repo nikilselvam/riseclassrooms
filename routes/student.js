@@ -1,5 +1,9 @@
 student.js
 
+var db = require('./../db.js');
+var resError = require('./messaging').resError;
+var Student = db.models.Student;
+
 exports.create = function(req, res){
 	if(!req.username) {
 		return resError(res, "Please include a username");
@@ -22,7 +26,7 @@ exports.create = function(req, res){
 	});;
 
 	student1.save(function(err, student1) {
-		if (err) return console.err(err);
-		return student1;
+		if (err) return console.error(err);
+		console.log student1;
 	});
 };

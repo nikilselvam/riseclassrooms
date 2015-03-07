@@ -1,5 +1,9 @@
 teacher.js
 
+var db = require('./../db.js');
+var resError = require('./messaging').resError;
+var Teacher = db.models.Teacher;
+
 exports.create = function(req, res){
 	if(!req.username) {
 		return resError(res, "Please include a username");
@@ -24,8 +28,8 @@ exports.create = function(req, res){
 
 
 	teacher1.save(function(err, teacher1) {
-		if (err) return console.err(err);
+		if (err) return console.error(err);
 		
-		return teacher1;
+		console.log teacher1;
 	});
 };
