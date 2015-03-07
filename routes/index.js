@@ -6,6 +6,65 @@ var db = require('./../db.js');
 var resError = require('./messaging').resError;
 var Session = db.models.Session;
 var Class = db.models.Class;
+var Student = db.models.Student;
+var Teacher = db.models.Teacher;
+
+function userType(user) {
+	if (user instanceof Student)
+		return "student";
+	if (user instanceof Teacher)
+		return "teacher";
+	return null;
+}
+
+function authRequest(fn) {
+	return function (req, res) {
+		if (req.user) {
+			res.redirect("/" + userType(user));
+		}
+		else {
+			fn(req, res);
+		}
+	};
+}
+
+exports.signin = authRequest(function(req, res) {
+	res.render('signin', {
+		title: "Sign In",
+		partials: {
+			layout: 'layout'
+		}
+	});
+});
+
+exports.signup = authRequest(function(req, res) {
+	res.render('signup', {
+		title: "Sign Up",
+		partials: {
+			layout: 'layout'
+		}
+	});
+});
+
+function studentRequest(fn) {
+	return function (req, res) {
+		if (req.user && userType() == "student") {
+			fn(req, res);
+		}
+		else {
+			res.redirect('/');
+		}
+	};
+}
+
+exports.studentAddClass = studentRequest(function(req,res) {
+	res.render('studentAddClass', {
+		title: 'Add A Class',
+		partials: {
+			layout: 'layout'
+		}
+	});
+});
 
 function findActiveSession(user, callback) {
     var query = Session.findOne();
@@ -15,7 +74,7 @@ function findActiveSession(user, callback) {
     query.exec(callback);
 }
 
-exports.studentHome = function (req, res) {
+exports.studentHome = studentRequest(function (req, res) {
 	function renderStudentHome(err, session) {
 		var tmpl = {
 			title: 'Student Classes',
@@ -37,66 +96,48 @@ exports.studentHome = function (req, res) {
 		}
 	}
 
-	if (req.user)
-		findActiveSession(req.user, renderStudentHome);
-	else
-		res.redirect('/')
-};
+	findActiveSession(req.user, renderStudentHome);
+});
 
-exports.teacherHome = function(req, res) {
+function teacherRequest(fn) {
+	return function (req, res) {
+		if (req.user && userType() == "teacher") {
+			fn(req, res);
+		}
+		else {
+			res.redirect('/');
+		}
+	}
+}
+
+exports.teacherHome = teacherRequest(function(req, res) {
 	res.render('teacherHome', {
 		title: 'Classes',
 		partials: {
 			layout: 'layout'
 		}
 	});
-};
-
-exports.signin = function(req, res) {
-	res.render('signin', {
-		title: "Sign In",
-		partials: {
-			layout: 'layout'
-		}
-	});
-};
-
-exports.signup = function(req, res) {
-	res.render('signup', {
-		title: "Sign Up",
-		partials: {
-			layout: 'layout'
-		}
-	});
-};
-
-exports.studentAddClass = function(req,res) {
-res.render('studentAddClass', {
-title: 'Add A Class',
-partials: {
-layout: 'layout'
-}
 });
-}
 
-exports.session = function(req, res) {
+exports.session = teacherRequest(function(req, res) {
 	res.render('session', {
 		title: 'Session',
 		partials: {
 			layout: 'layout'
 		}
 	});
-};
+});
 
-exports.keyword = function(req,res) {
+exports.keyword = teacherRequest(function(req,res) {
 	res.render('keywords', {
 		title:'Keywords',
 		partials: {
 			layout: 'layout'
 		}
 	});
-};
-exports.questionType = function(req,res) {
+});
+
+exports.questionType = teacherRequest(function(req,res) {
 	res.render('questionType', {
 		title:'Question Type',
 		partials: {
@@ -104,16 +145,16 @@ exports.questionType = function(req,res) {
 		}
 	});
 
-};
+});
 
-exports.createClass = function(req,res) {
+exports.createClass = teacherRequest(function(req,res) {
 	res.render('createClass', {
 		title: 'Create Class',
 		partials: {
 			layout: 'layout'
 		}
 	});
-}
+});
 
 exports.createSession = function(req,res) {
 	res.render('createSession', {
