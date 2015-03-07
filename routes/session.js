@@ -1,6 +1,7 @@
 var db = require('./../db.js');
 var resError = require('./messaging').resError;
 var Session = db.models.Session;
+var session = require('client-sessions');
 
 exports.create = function(req, res) {
 	//Return error if req object does not specify startTime,

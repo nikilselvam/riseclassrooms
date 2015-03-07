@@ -26,6 +26,12 @@ app.use(express.urlencoded());
 app.use(express.methodOverride());
 app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(session{
+	cookieName: 'session',
+	secret: 'risebanana',
+	duration: //get duration from sessionObject
+	activeDuratin: //funtionality to extend session
+})
 
 // development only
 if ('development' == app.get('env')) {
