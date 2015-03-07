@@ -4,13 +4,13 @@
 
 // Testing env
 var testEnv = function() {
-    return true;
+    return false;
 }
 
 // Secrets.
 if (typeof process.env.DB_USER === 'undefined' || typeof process.env.DB_PASS === 'undefined'){
 	var secret = require('./secret');
-    if (testEnv === true) {
+    if (testEnv() === true) {
 	   process.env.DB_USER = secret.testingUser;
     }
     else {
@@ -45,3 +45,4 @@ var oneTime = function(value){
  */
 exports.user = oneTime(access.user);
 exports.pass = oneTime(access.pass);
+exports.testEnv = testEnv();
