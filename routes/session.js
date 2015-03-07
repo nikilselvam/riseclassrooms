@@ -20,7 +20,7 @@ exports.create = function(req, res) {
 	//Create a new session object with the above parameters specified and endTime calculated
 	var sessionObject = new Session({
 		active: true,
-		classID: req.classID,
+		classId: req.classId,
 		startTime: start,
 		duration: req.duration,
 		endTime: end
@@ -31,6 +31,12 @@ exports.create = function(req, res) {
 		if (err) return console.err(err);
 
 		console.log(sessionObject);
+		Session.findOne( {_id: req.classId}), function (err, session) {
+			if (err || !classId) {
+				return console.err(err);
+			}
+			classId.session.push(sessionObject._id);
+		}
 	});
 }
 
@@ -46,4 +52,4 @@ function createSession(req, onSuccess, onFailure){
 	if (typeof classSessionID === "undefined") {
 		return onFailure("Missing classId parameter.");
 	}
-};
+}
