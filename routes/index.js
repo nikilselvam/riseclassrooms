@@ -2,10 +2,6 @@
  * GET home page.
  */
 
-exports.index = function(req, res){
-  res.render('index', { title: 'Express' });
-};
-
 exports.studentHome = function (req, res) {
 	res.render('studentHome', {
 		title: 'Student Classes',
@@ -23,9 +19,26 @@ exports.teacherHome = function(req, res) {
 		}
 	});
 };
+
 exports.signin = function(req, res) {
-	res.render('signin');
+	res.render('signin', {
+		title: "Sign In",
+		partials: {
+			layout: 'layout'
+		}
+	});
 };
+
+exports.signup = function(req, res) {
+	res.render('signup', {
+		title: "Sign Up",
+		partials: {
+			layout: 'layout'
+		}
+	});
+};
+
+
 exports.session = function(req, res) {
 	res.render('session', {
 		title: 'Session',
@@ -52,3 +65,20 @@ exports.questionType = function(req,res) {
 	});
 };
 
+exports.createClass = function(req,res) {
+	res.render('createClass', {
+		title: 'Create Class',
+		partials: {
+			layout: 'layout'
+		}
+	});
+}
+
+exports.createSession = function(req,res) {
+	res.render('createSession', {
+		title: 'Create Session',
+		partials: {
+			layout: 'layout'
+		}
+	});
+}

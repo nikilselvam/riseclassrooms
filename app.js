@@ -40,12 +40,16 @@ if ('development' == app.get('env')) {
 }
 
 app.get('/', routes.signin);
+app.get('/signup', routes.signup);
 app.get('/teacher', routes.teacherHome);
 app.get('/student', routes.studentHome);
 app.get('/users', user.list);
 app.get('/session', routes.session);
 app.get('/keyword', routes.keyword);
 app.get('/questionType', routes.questionType);
+
+app.get('/teacher/createClass', routes.createClass);
+app.get('/teacher/createSession', routes.createSession);
 
 
 /*app.post('/local-reg', passport.authenticate('local-signup', {
