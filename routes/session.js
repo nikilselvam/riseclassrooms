@@ -5,7 +5,7 @@ var Session = db.models.Session;
 exports.create = function(req, res) {
 	//Return error if req object does not specify startTime,
 	// active, duration, and classID
-	if (!req.classID) {
+	if (!req.classId) {
 		return resError(res, "Sorry, this session does not have a specified class.");
 	}
 	else if (!req.duration) {
@@ -20,7 +20,7 @@ exports.create = function(req, res) {
 	//Create a new session object with the above parameters specified and endTime calculated
 	var sessionObject = new Session({
 		active: true,
-		classID: req.classID,
+		classId: req.classId,
 		startTime: start,
 		duration: req.duration,
 		endTime: end
@@ -31,5 +31,25 @@ exports.create = function(req, res) {
 		if (err) return console.err(err);
 
 		console.log(sessionObject);
+		Class.findOne( {_id: req.classId}), function (err, class) {
+			if (err || !classId) {
+				return console.err(err);
+			}
+			class.sessions.push(sessionObject._id);
+		}
 	});
+}
+
+/**
+Creates new session for specified class.
+*/
+function createSession(req, onSuccess, onFailure){
+	var classSessionId = req.classId;
+	onSuccess = onSuccess || function (){};
+	onFailure = onFailure || function(){};
+
+	//Check if parameters are met
+	if (typeof classSessionID === "undefined") {
+		return onFailure("Missing classId parameter.");
+	}
 }
