@@ -38,13 +38,13 @@ exports.subscribe = function (req, res) {
     }, function (err, classObj) {
         if (err) return console.error(err);
 
-        classObj.studentIds.push(res.studentId);
+        classObj.studentIds.push(req.studentId);
         classObj.save(function (err) {
             if (err) return console.error(err);
             Student.findOne({
                 _id: req.studentId
             }, function (err, student) {
-                student.classes.push(res.classId);
+                student.classes.push(req.classId);
                 student.save(function (err) {
                     if (err) return console.error(err);
                 });
