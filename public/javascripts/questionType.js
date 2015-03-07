@@ -91,39 +91,3 @@ $("#hide_all").click(function(){
 	$("#who_list li, #what_list li, #when_list li, #where_list li, #why_list li, #how_list li").hide();
 	$(".keyword_container").css("height", 50);
 });
-
-function createNewQuestion()
-{
-	var Question = mongoose.model("Question", questionSchema);
-	// adding hardcoded info for now
-	Date currentDate = new Date();
-	var question = new Question({
-		author: '',
-		content: "What is the main use case for convergence?",
-		timeAsk: currentDate,
-		isStudentQuestion: true,
-		session: ""
-	});
-	
-
-
-	var questionSchema = new Schema({
-	author 				: [{teacher: ObjectId, student: ObjectId}],
-	content				: String,
-	isAnswered 			: Boolean,
-	timeAsk				: Date,
-	isStudentQuestion   : Boolean,
-	sessionId			: [ObjectId]
-}, { collection: 'question'});
-// add question to the database
-
-//author: Student
-// content: String
-// isAnswered: boolean
-//timeAsked: Date
-//isStudentQuestion: boolean
-//sessionId: Session
-
-
-
-}
