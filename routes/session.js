@@ -31,7 +31,7 @@ exports.create = function(req, res) {
 		if (err) return console.err(err);
 
 		console.log(sessionObject);
-		Session.findOne( {_id: req.classId}), function (err, session) {
+		Class.findOne( {_id: req.classId}), function (err, session) {
 			if (err || !classId) {
 				return console.err(err);
 			}
