@@ -5,15 +5,20 @@
 
 var express = require('express');
 var routes = require('./routes');
+
 var student = require('./routes/student');
 var teacher = require('./routes/teacher');
+var user = require('./routes/user');
+var classes = require('./routes/class');
+var questions = require('./routes/question');
+
 var http = require('http');
 var path = require('path');
 
 var db = require('./db');
 
 var app = express();
-
+app.disable('etag');
 // all environments
 app.set('port', process.env.PORT || 3000);
 app.set('views', path.join(__dirname, 'views'));
@@ -36,6 +41,7 @@ app.get('/signin', routes.signin);
 app.get('/session', routes.session);
 app.get('/keyword', routes.keyword);
 app.get('/questionType', routes.questionType);
+
 
 /*app.post('/local-reg', passport.authenticate('local-signup', {
 		successRedirect: '/',
@@ -62,7 +68,11 @@ app.post('/student/create', student.create);
 app.post('/teacher/create', teacher.create);
 
 
+app.post('/class/create', classes.create);
+app.post('/question/record', questions.record);
+
+
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
 });
-,
+
