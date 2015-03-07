@@ -4,6 +4,9 @@ exports.record = function(req, res){
 	if(!req.author) {
 		return resError(res, "Sorry, this question doesn't have an author");
 	}
+	else if (!req.content) {
+		return resError(res, "Sorry, there is invalid question content");
+	}
 	else if (!req.timeAsk) {
 		return resError(res, "Sorry, the system is unsure of when the question was asked.");
 	}
@@ -26,8 +29,8 @@ exports.record = function(req, res){
 
 	// Save the question to the database.
 	questionObject.save(function(err, questionObject){
-		if (err) return console.err(err);
+		if (err) return console.error(err);
 
-		return questionObject;
+		console.log questionObject;
 	});
 };
