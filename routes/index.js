@@ -5,6 +5,7 @@
 var db = require('./../db.js');
 var resError = require('./messaging').resError;
 var Session = db.models.Session;
+var Class = db.models.Class;
 
 function findActiveSession(user, callback) {
     var query = Session.findOne();
@@ -16,13 +17,24 @@ function findActiveSession(user, callback) {
 
 exports.studentHome = function (req, res) {
 	function renderStudentHome(err, session) {
-		res.render('studentHome', {
+		var tmpl = {
 			title: 'Student Classes',
 			session: session,
+			classroom: null,
 			partials: {
 				layout: 'layout'
 			}
-		});
+		};
+
+		if (session) {
+			var classroom = Class.findById(session.classId, function (err, classroom) {
+				tmpl.classroom = classroom;
+				res.render('studentHome', tmpl);
+			});
+		}
+		else {
+			res.render('studentHome', tmpl);
+		}
 	}
 
 	if (req.user)

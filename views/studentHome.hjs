@@ -8,6 +8,8 @@
 
 {{$body}}
 <div class="container">
+{{#session}}
+{{#classroom}}
     <h2>Ask a Question</h2>
     <form method="post" action="/ask" id="ask-form">
     <div class="form-group">
@@ -20,7 +22,8 @@
 <br />
 <hr />
 <br />
-
+{{/classroom}}
+{{/session}}
     <h4>Your Classes</h4>
     <table class="table table-condensed">
         <thead>
