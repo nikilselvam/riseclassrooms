@@ -7,31 +7,38 @@
 {{/head}}
 
 {{$body}}
-	<section class="chalkboard"></section>
-	<span class="back"> Back to CSE 486 Sessions </span>
-	<span class="logout"> <a id="logout_button" href="logout.html"> Logout </a></span>
-	<h1 class="display_title"><b>Session 1<b></h1>
-	<p class="summary"> Total questions asked during this session: 180 <p>
-	<div class="keyword_container">
-		<span class="keyword">"convergence"</span>
-		<span class="percentage">50%</span>
-	</div>
-	<div class="keyword_container">
-		<span class="keyword">"integration"</span>
-		<span class="percentage">20%</span>
-	</div>
-	<div class="keyword_container">
-		<span class="keyword">"derivative"</span>
-		<span class="percentage">15%</span>
-	</div>
-	<div class="keyword_container">
-		<span class="keyword"><a href="question_type.html">"integral"</a></span>
-		<span class="percentage">8%</span>
-	</div>
-	<div class="keyword_container">
-		<span class="keyword"><a href="question_type.html">other</a></span>
-		<span class="percentage">7%</span>
-	</div>
+<div class="container">
+	<h1>Session 1</h1>
+	<p class="summary">Total questions asked during this session: 180<p>
+	<table class="table table-hover">
+		<thead>
+			<td>Keyword</td>
+			<td>Popularity</td>
+		</thead>
+		<tbody>
+			<tr>
+				<td>Convergence</td>
+				<td>50%</td>
+			</tr>
+			<tr>
+				<td>Integration</td>
+				<td>20%</td>
+			</tr>
+			<tr>
+				<td>Derivative</td>
+				<td>15%</td>
+			</tr>
+			<tr>
+				<td>Integral</td>
+				<td>8%</td>
+			</tr>
+			<tr>
+				<td>Other</td>
+				<td>7%</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
 {{/body}}
 
 {{/layout}}

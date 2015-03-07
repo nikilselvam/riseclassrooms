@@ -9,8 +9,11 @@ var routes = require('./routes');
 var student = require('./routes/student');
 var teacher = require('./routes/teacher');
 var user = require('./routes/user');
+var session = require('./routes/session');
 var classes = require('./routes/class');
 var questions = require('./routes/question');
+var keyword = require('./routes/keyword');
+var questionType = require('./routes/questionType');
 
 var http = require('http');
 var path = require('path');
@@ -36,8 +39,10 @@ if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 
-app.get('/', routes.teacherHome);
-app.get('/signin', routes.signin);
+app.get('/', routes.signin);
+app.get('/teacher', routes.teacherHome);
+app.get('/student', routes.studentHome);
+app.get('/users', user.list);
 app.get('/session', routes.session);
 app.get('/keyword', routes.keyword);
 app.get('/questionType', routes.questionType);
@@ -69,7 +74,10 @@ app.post('/teacher/create', teacher.create);
 
 
 app.post('/class/create', classes.create);
-app.post('/question/record', questions.record);
+app.post('/session/create', session.create);
+app.post('/question/create', questions.create);
+app.post('/keyword/create', keyword.create);
+app.post('/questionType/create', questionType.create);
 
 
 http.createServer(app).listen(app.get('port'), function(){
