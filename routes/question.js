@@ -26,8 +26,6 @@ exports.record = function(req, res){
 	var questionObject = new Question({
 		author: req.author,
 		content: req.content,
-		timeAsk: req.timeAsk,
-		isStudentQuestion: req.isStudentQuestion,
 		timeAsk: Date.now(),
 		isStudentQuestion: true,
 		session: req.session
