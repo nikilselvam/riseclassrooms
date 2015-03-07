@@ -48,7 +48,6 @@ app.get('/session', routes.session);
 app.get('/keyword', routes.keyword);
 app.get('/questionType', routes.questionType);
 app.get('/student/studentAddClass', routes.studentAddClass);
-
 app.get('/teacher/createClass', routes.createClass);
 
 

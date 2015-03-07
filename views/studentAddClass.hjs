@@ -3,8 +3,9 @@
 {{$title}}{{title}}{{/title}}
 
 {{$head}}
-<script type="text/javascript" src="/javascripts/studentHome.js" async></script>
+
 {{/head}}
+
 
 {{$body}}
 <div class="container">
@@ -13,7 +14,9 @@
                          id="search-input" placeholder="Search for a class">
                   <button type="submit" id="search-submit-button">Search</button>
                 </div>
-    <table class="table table-hover">
+    <div class="table-responsive" id="search-results-div">
+            <table class="table table-hover">
+
         <thead>
                 <tr>
                         <td>Class #</td>
@@ -51,7 +54,7 @@
     </table>
 </div>
 
-<button type="button" id="addClass" onClick="student/studentAddClass">Add Class"</button>
+<button type="button" id="addClass" onClick="student/studentAddClass">Add Class</button>
 
 
 <div class="modal fade" id="question-box">
