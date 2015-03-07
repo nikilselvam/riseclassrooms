@@ -9,6 +9,7 @@ var routes = require('./routes');
 var student = require('./routes/student');
 var teacher = require('./routes/teacher');
 var user = require('./routes/user');
+var session = require('./routes/session');
 var classes = require('./routes/class');
 var questions = require('./routes/question');
 
@@ -69,6 +70,7 @@ app.post('/teacher/create', teacher.create);
 
 
 app.post('/class/create', classes.create);
+app.post('/session/create', session.create);
 app.post('/question/record', questions.record);
 
 
