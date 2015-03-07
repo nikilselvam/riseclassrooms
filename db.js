@@ -10,7 +10,10 @@ var Schema = mongoose.Schema;
 var ObjectId = mongoose.Schema.Types.ObjectId;
 
 var teacherSchema = new Schema({
+	password			: String,
 	username 			: String,
+	firstName			: String,
+	lastName			: String,
 	title 				: String,
 	researchInterest	: String,
 	background			: String,
@@ -43,21 +46,22 @@ var questionSchema = new Schema({
 	author 				: [{teacher: ObjectId, student: ObjectId}],
 	content				: String,
 	isAnswered 			: Boolean,
-	timeAsk				: Date,
+	timeAsked			: Date,
 	isStudentQuestion   : Boolean,
 	sessionId			: [ObjectId]
 }, { collection: 'question'});
 
 var studentSchema = new Schema({
+	password			: String,
 	username			: String,
 	firstName			: String,
 	lastName 			: String,
-	classes 			: ObjectId,
+	classes 			: [ObjectId],
 	year				: String,
 	major				: String,
 	gradDate			: Date,
 	picture				: String,
-	descrition			: String
+	description			: String
 }, { collection: 'student'});
 
 var feedbackSchema = new Schema({
@@ -111,3 +115,5 @@ db.once('open', function(){
 
 // Export the db andschema to external interfaces
 exports.db = db;
+
+
