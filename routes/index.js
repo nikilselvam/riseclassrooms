@@ -38,8 +38,6 @@ exports.signup = function(req, res) {
 	});
 };
 
-
-<<<<<<< HEAD
 exports.studentAddClass = function(req,res) {
 res.render('studentAddClass', {
 title: 'Add A Class',
@@ -48,8 +46,7 @@ layout: 'layout'
 }
 });
 }
-=======
->>>>>>> df6e1d60404a9c59088b5b233cc4db665ad25cd5
+
 exports.session = function(req, res) {
 	res.render('session', {
 		title: 'Session',
@@ -74,10 +71,6 @@ exports.questionType = function(req,res) {
 			layout: 'layout'
 		}
 	});
-
-exports.studentAddClass = function(req, res) {
-	res.render('studentAddClass');
-};
 
 };
 
