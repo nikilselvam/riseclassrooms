@@ -1,0 +1,64 @@
+{{<layout}}
+
+{{$title}}{{title}}{{/title}}
+
+{{$head}}
+    <script type="text/javascript" src="/javascripts/studentAddClass.js" async> </script>
+    <link rel="stylesheet" href="/stylesheets/studentAddClass.css" >
+{{/head}}
+
+
+{{$body}}
+<div class="container">
+    <h1>My Classes</h1>
+    <input type="text" id="search-input" placeholder="Search for a class">
+      <button id="search-submit-button">Search</button>
+    <div class="table-responsive" id="search-results-div" style="display:none" onclick="student/studentHome">
+            <table class="table table-hover">
+
+        <thead>
+                <tr>
+                        <td>Class #</td>
+                        <td>Class Name</td>
+                        <td>Sessions</td>
+                        <td>Add</td>
+                </tr>
+        </thead>
+        <tbody>
+                <tr>
+                        <td>CSE 486</td>
+                        <td>Capstone II</td>
+                        <td>3</td>
+                        <td> <button type="button">Add Class</button> </td>
+                </tr>
+                <tr>
+                        <td>CSE 445</td>
+                        <td>Distributed Computing</td>
+                        <td>6</td>
+                        <td> <button type="button">Add Class</button> </td>
+                </tr>
+                <tr>
+                        <td>CSE 460</td>
+                        <td>Software Analysis and Design</td>
+                        <td>4</td>
+                        <td> <button type="button">Add Class</button> </td>
+                </tr>
+                <tr>
+                        <td>FSE 301</td>
+                        <td>Introduction to Entrepreneurship</td>
+                        <td>5</td>
+                        <td> <button type="button">Add Class</button> </td>
+                </tr>
+                <tr>
+                        <td>IEE 380</td>
+                        <td>Probability and Statistics for Engineers</td>
+                        <td>10</td>
+                        <td> <button type="button">Add Class</button> </td>
+                </tr>
+        </tbody>
+    </table>
+</div>
+
+{{/body}}
+
+{{/layout}}

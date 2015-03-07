@@ -15,6 +15,7 @@ var questions = require('./routes/question');
 var keyword = require('./routes/keyword');
 var questionType = require('./routes/questionType');
 
+
 var http = require('http');
 var path = require('path');
 
@@ -47,7 +48,7 @@ app.get('/users', user.list);
 app.get('/session', routes.session);
 app.get('/keyword', routes.keyword);
 app.get('/questionType', routes.questionType);
-
+app.get('/student/addClass', routes.studentAddClass);
 app.get('/teacher/createClass', routes.createClass);
 app.get('/teacher/createSession', routes.createSession);
 
