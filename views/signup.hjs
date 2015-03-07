@@ -9,7 +9,7 @@
 <div class="container">
   <div class="row">
     <div class="col-md-4 col-md-offset-4">
-      <h2>RiseClassrooms Sign Up</h2>
+      <h2>RISE Classrooms Sign Up</h2>
       <form action="/signup" method="post" id="login-form">
         <div class="form-group">
           <label for="login-firstname">First Name</label>
