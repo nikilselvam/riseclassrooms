@@ -1,3 +1,8 @@
+var db = require('./../db.js');
+var resError = require('./messaging').resError;
+var Question = db.models.Question;
+
+
 exports.record = function(req, res){
 	// If the req object does not specify a question or any of the fields
 	// inside the question object, return an error.
