@@ -27,6 +27,9 @@
           <label for="login-password">Password</label>
           <input type="password" id="login-password" name="password" class="form-control" required>
         </div>
+        <div class="checkbox">
+          <label><input type="checkbox" name="type" value="teacher"> Teacher Account</label>
+        </div>
         <div class="form-group">
           <button type="submit" class="btn btn-block btn-lg btn-success">Sign Up</button>
         </div>
