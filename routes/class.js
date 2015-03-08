@@ -3,6 +3,7 @@ var resError = require('./messaging').resError;
 var Class = db.models.Class;
 var Teacher = db.models.Teacher;
 
+// Add a class (by a teacher).
 exports.create = function (req, res) {
     // If the req object does not specify a name for the class or the teacher, return
     // an error.
@@ -61,6 +62,35 @@ exports.create = function (req, res) {
     });
 };
 
+// Delete a class (by a teacher).
+exports.remove = function (req, res) {
+    if (!req.body.classId) {
+        return resError(res, "Please choose a class.");
+    } else if ((!req.user) || ! (req.user instanceof db.models.Teacher)) {
+        return resError(res, "Please sign in to a Teacher account.");
+    }
+    classObject = Class.findOne({_id: req.body.classId}, function (err, classObject) {
+        if (err) return resError(res, "We couldn't find this class.");
+    });
+    
+    if (req.user.id != classObject.teacherId) {
+        return resError(res, "You aren't allowed to delete this class. Please ask the creator of the class to delete it.");
+    }                                       
+    
+    Class.findAndRemove({
+        _id: req.body.classId
+    }, function(err) {
+        if (err) {
+            console.log("Class not deleted.")
+            resError(res, "Sorry, we couldn't delete this class.")
+        } else {
+            console.log("Class object deleted!");
+        }
+        res.redirect('/teacher');
+    });
+}
+
+// Add a class to a student's list of classes.
 exports.subscribe = function (req, res) {
     if (!req.studentId) {
         return resError(res, "Sorry, unable to find this user")
@@ -96,3 +126,8 @@ exports.subscribe = function (req, res) {
     // Add the Class._id to Student.classes
 
 };
+
+// Remove a class from a student's list of classes.
+exports.unsubscribe = function (req, res) {
+    
+}
