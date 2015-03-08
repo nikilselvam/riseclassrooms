@@ -22,7 +22,7 @@
 					</select>
 				</div>
 				<div class="form-group">
-					<button type="submit" class="btn btn-success btn-block btn-lg">Create Session</button>
+					<button type="submit" class="btn btn-success btn-block btn-lg"><span class="glyphicon glyphicon-plus"></span> Create Session</button>
 				</div>
 			</form>
 		</div>
