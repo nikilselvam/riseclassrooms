@@ -93,24 +93,31 @@ function findActiveSession(user, callback) {
 
 exports.studentHome = studentRequest(function (req, res) {
 	function renderStudentHome(err, session) {
-		var tmpl = {
+		var classIds = req.user.classes;
+
+		Class.find({
+			'_id' : { $in: classIds } 
+		}, function (err, classes) {
+			var tmpl = {
 			title: 'Student Classes',
 			session: session,
 			classroom: null,
+			classes: classes,
 			partials: {
 				layout: 'layout'
-			}
-		};
+				}
+			};
 
-		if (session) {
-			var classroom = Class.findById(session.classId, function (err, classroom) {
-				tmpl.classroom = classroom;
+			if (session) {
+				var classroom = Class.findById(session.classId, function (err, classroom) {
+					tmpl.classroom = classroom;
+					res.render('studentHome', tmpl);
+				});
+			}
+			else {
 				res.render('studentHome', tmpl);
-			});
-		}
-		else {
-			res.render('studentHome', tmpl);
-		}
+			}
+		});
 	}
 
 	findActiveSession(req.user, renderStudentHome);
