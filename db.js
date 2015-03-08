@@ -25,7 +25,8 @@ var classSchema = new Schema({
 	name 				: String,
 	studentIds			: [ObjectId],
 	sessions			: [ObjectId],
-	teacherId			: [ObjectId]
+	teacherId			: [ObjectId],
+	teacherName			: String
 }, { collection: 'class'});
 
 var sessionSchema = new Schema({
