@@ -70,8 +70,6 @@ exports.studentAddClass = studentRequest(function(req,res) {
 	Class.find(
 		{},
 		function (err, classes) {
-			console.log("Classes are " + classes);
-
 			if (!err) {
 				res.render('studentAddClass', {
 					title: 'Add A Class',
