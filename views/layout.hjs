@@ -11,6 +11,15 @@
     {{$head}}{{/head}}
   </head>
   <body>
+    {{$navbar}} 
+    <nav class="navbar navbar-default">
+        <div class="container">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="/logout" role="button" class="btn btn-default navbar-btn">Logout</a></li>
+            </ul>
+        </div>
+    </nav>
+    {{/navbar}}
     {{$body}} {{/body}}
   </body>
 </html>
