@@ -22,7 +22,7 @@ exports.create = function(req, res) {
 	var duration = durationToMs(req.body.duration);
 	var end = start + duration;
 	var teacherId = req.user.id;
-	var classId = req.user.classes;
+	var classId = req.body.cid;
 
 
 	//Create a new session object with the above parameters specified and endTime calculated

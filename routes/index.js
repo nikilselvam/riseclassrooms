@@ -134,7 +134,7 @@ exports.teacherHome = teacherRequest(function(req, res) {
 	var classIds = req.user.classes;
 
 	Class.find({
-		'_id' : { $in: classIds } 
+		'_id' : { $in: classIds }
 	}, function (err, classes) {
 		res.render('teacherHome', {
 			title: 'Classes',
@@ -186,6 +186,7 @@ exports.createClass = teacherRequest(function(req,res) {
 exports.createSession = function(req,res) {
 	res.render('createSession', {
 		title: 'Create Session',
+		cid: req.query.cid,
 		partials: {
 			layout: 'layout'
 		}

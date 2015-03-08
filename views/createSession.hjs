@@ -30,6 +30,7 @@
 					<input type="radio" id="q160" name="duration" value="25" /> 25min.
 					</label>
 					</div>
+					<input type="hidden" name="cid" value="{{cid}}">
 				</div>
 				<div class="form-group">
 					<button type="submit" class="btn btn-success btn-block btn-lg"><span class="glyphicon glyphicon-plus"></span> Create Session</button>
