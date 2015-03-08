@@ -16,36 +16,40 @@ exports.create = function(req, res) {
     }
 
 	var start = Date.now();
-	//durationMS converts duration time in minutes into milliseconds for compatability w/ Date.now()
-	var durationMS = req.duration * 60000;
-	var end = start + durationMS;
+	var duration = durationToMs(req.body.duration);
+	var end = start + duration;
 
 	//Create a new session object with the above parameters specified and endTime calculated
 	var sessionObject = new Session({
 		active: true,
 		classId: req.classId,
 		startTime: start,
-		duration: req.duration,
+		duration: duration,
 		endTime: end
 	});
 
 	//Save the session to the database
 	sessionObject.save(function(err, sessionObject){
-		if (err) return console.err(err);
+		if (err) return console.error(err);
 
-		console.log(sessionObject);
 		Class.findOne( {_id: req.classId}), function (err, classObject) {
 			if (err || !classId) {
-				return console.err(err);
+				return console.error(err);
 			}
 			classObject.sessions.push(sessionObject._id);
 		}
 	});
 }
 
+function durationToMs(duration) {
+	parseDuration = parseInt(duration);
+	durationMS = parseDuration * 60000
+	return durationMS;
+}
+
 /**
-Creates new session for specified class.
-*/
+//Creates new session for specified class.
+
 function createSession(req, onSuccess, onFailure){
 	var classSessionId = req.classId;
 	onSuccess = onSuccess || function (){};
@@ -55,4 +59,4 @@ function createSession(req, onSuccess, onFailure){
 	if (typeof classSessionID === "undefined") {
 		return onFailure("Missing classId parameter.");
 	}
-}
+}*/

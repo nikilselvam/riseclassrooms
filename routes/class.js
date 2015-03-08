@@ -35,6 +35,7 @@ exports.subscribe = function (req, res) {
     }
     else if (!req.classId) {
         return resError(res, "Sorry, unable to find this class")
+        console.log(body.parser.className);
     }
     else if ((!req.user) || ! (req.user instanceof db.models.Student)) {
         return resError(res, "Please sign in to a Student account.");
