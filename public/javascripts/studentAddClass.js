@@ -4,6 +4,8 @@ $("#search-submit-button").click(function() {
 });
 
 
+$("form#search").on("submit", function (e) { e.preventDefault(); });
+
 
 $(".addClassButton").click(function(){
 	var element = $(this).parent().parent();
