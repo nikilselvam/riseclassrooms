@@ -12,7 +12,7 @@
 	 <form action="/session/create" method="post">
           <div class="form-group">
             <label for="class-name"">Duration:</label>
-  			<select name="duration" id="duration" onchange="getDuration(this)">
+  			<select name="duration" id="duration">
 				<option value="5">5 minutes</option>
 				<option value="10">10 minutes</option>
 				<option value="15">15 minues</option>
