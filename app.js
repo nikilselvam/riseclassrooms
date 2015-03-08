@@ -15,6 +15,7 @@ var password = require('./routes/password');
 var passport = require('passport');
 var keyword = require('./routes/keyword');
 var questionType = require('./routes/questionType');
+var session = require('./routes/session');
 
 var http = require('http');
 var path = require('path');
