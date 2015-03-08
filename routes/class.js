@@ -1,24 +1,24 @@
 var db = require('./../db.js');
 var resError = require('./messaging').resError;
 var Class = db.models.Class;
+var Teacher = db.models.Teacher;
 
 exports.create = function (req, res) {
     // If the req object does not specify a name for the class or the teacher, return
     // an error.
-    if (!req.name) {
+    if (!req.body.class_name) {
         return resError(res, "Sorry, this class doesn't have a name.");
-    }
-    else if (!req.teacherId) {
-        return resError(res, "Sorry, this class doesn't have a specified teacher.");
     }
     else if ((!req.user) || ! (req.user instanceof db.models.Teacher)) {
         return resError(res, "Please sign in to a Teacher account.");
     }
 
+    var teacherId = req.user.id;
+
     // Create a new class object with the class name and teacher specified.
     var classObject = new Class({
-        name: req.name,
-        teacherId: req.teacherId
+        name: req.body.class_name,
+        teacherId: teacherId
     });;
 
     // Save the class to the database.
@@ -26,6 +26,29 @@ exports.create = function (req, res) {
         if (err) return console.error(err);
 
         console.log(classObject);
+        Teacher.findById(teacherId, function (err, teacher) {
+            if (err) {
+                console.error(err);
+            }
+
+            teacher.classes.push(classObject._id);
+
+            teacher.save(function (err, message) {
+                if (err) {
+                    console.log("Teacher object was not saved.");
+                }
+                else {
+                    console.log("Teacher object saved!");
+                }
+
+                res.render('teacherHome', {
+                    title: 'Teacher Home',
+                    partials: {
+                        layout: 'layout'
+                    }
+                });
+            });
+        });
     });
 };
 

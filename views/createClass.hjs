@@ -12,7 +12,7 @@
 	 <form action="/class/create" method="post">
           <div class="form-group">
             <label for="class-name"">Class name:</label>
-            <input type="text" class="form-control" id="class-name">
+            <input type="text" name="class_name" class="form-control" id="class-name">
           </div>
           <input type="submit" class="btn btn-info" value="Submit">
     </form>
