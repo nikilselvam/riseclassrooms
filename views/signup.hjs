@@ -15,7 +15,15 @@
     $("#teacher-check").trigger("change");
   });
 </script>
+
+<style type="text/css">
+.container {
+  margin-top: 4em;
+}
+</style>
 {{/head}}
+
+{{$navbar}}{{/navbar}}
 
 {{$body}}
 <div class="container">
