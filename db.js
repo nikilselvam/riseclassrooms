@@ -25,7 +25,7 @@ var classSchema = new Schema({
 	name 				: String,
 	studentIds			: [ObjectId],
 	sessions			: [ObjectId],
-	teacherId			: [ObjectId]	
+	teacherId			: [ObjectId]
 }, { collection: 'class'});
 
 var sessionSchema = new Schema({
@@ -37,7 +37,7 @@ var sessionSchema = new Schema({
 	feedback            : [ObjectId],
 	questions 			: [ObjectId],
 	keywords			: [ObjectId],
-	classId 			: [ObjectId],
+	classId 			: ObjectId,
 	numberOfKeywords	: Number,
 	topFiveKeywords 	: [ObjectId]
 }, { collection: 'session'});
@@ -67,7 +67,7 @@ var studentSchema = new Schema({
 var feedbackSchema = new Schema({
 	totalQuestionsAsked		: Number,
 	totalQuestionsAnswered	: Number,
-	keywords				: [ObjectId]			
+	keywords				: [ObjectId]
 }, { collection: 'feedback'});
 
 var keywordSchema = new Schema({
@@ -101,7 +101,7 @@ var dbModels = {
 }
 
 exports.models = dbModels;
- 
+
 // Connect to database and listen to events.
 if (secret.testEnv === true) {
     mongoose.connect('mongodb://'+secret.user() + ':' +
