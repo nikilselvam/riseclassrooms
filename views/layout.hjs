@@ -11,11 +11,11 @@
     {{$head}}{{/head}}
   </head>
   <body>
-    {{$navbar}} 
+    {{$navbar}}
     <nav class="navbar navbar-default">
         <div class="container">
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="/logout" role="button" class="btn btn-default navbar-btn">Logout</a></li>
+                <li><a href="/logout" role="button" class="btn btn-default navbar-btn"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
             </ul>
         </div>
     </nav>
