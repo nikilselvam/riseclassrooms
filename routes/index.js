@@ -93,10 +93,13 @@ function findActiveSession(user, callback) {
 
 exports.studentHome = studentRequest(function (req, res) {
 	function renderStudentHome(err, session) {
-		var tmpl = {
+        
+        
+        var tmpl = {
 			title: 'Student Classes',
 			session: session,
 			classroom: null,
+            classes: req.user.classes,
 			partials: {
 				layout: 'layout'
 			}

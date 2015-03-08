@@ -25,23 +25,26 @@
 {{/classroom}}
 {{/session}}
     <h4>Your Classes</h4>
-    <table class="table table-condensed">
-        <thead>
-                <tr>
-                        <th>Class Name</th>
-                        <th>Sessions</th>
-                </tr>
-        </thead>
-        <tbody>
+    <table class="table table-hover">
+    <thead>
+            <tr>
+                    <th>Class Name</th>
+                    <th>Teacher</th>
+                    <th>Sessions</th>
+                    <th>Remove</th>
+            </tr>
+    </thead>
+    <tbody>
             {{#classes}}
-                <tr>
-                        <td>{{name}}</td>
-                        <td>{{sessions.length}}</td>
-                </tr>
+            <tr data-id={{_id}}>
+                <td name="className">{{name}}</td>
+                <td name="teacher">{{teacherName}}</td>
+                <td name="numOfSessions">{{sessions.length}}</td>
+                <td> <button type="button" class="removeClassButton btn btn-default btn-xs"><span class="glyphicon glyphicon-minus"></span>Remove Classa</button> </td>
+            </tr>
             {{/classes}}
-        </tbody>
+    </tbody>
     </table>
-    <a href="/student/addClass" class="btn btn-info"><span class="glyphicon glyphicon-plus"></span> Add Class</a>
 </div>
 
 <div class="modal fade" id="question-box">
