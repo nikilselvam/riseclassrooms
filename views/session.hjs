@@ -8,91 +8,30 @@
 
 {{$body}}
 <div class="container">
-	<h4>CSE 486 Sessions</h4>
+	<h4>{{classroom.name}} Sessions</h4>
 	<table class="table table-hover">
 		<thead>
 			<tr>
-				<th>Session #</th>
-				<th>Date</th>
+				<th>Start</th>
+				<th>End</th>
 				<th>Questions asked</th>
 				<th>Questions answered</th>
 				<th>Top keyword</th>
 			</tr>
 		</thead>
 		<tbody>
+			{{#sessions}}
 			<tr>
-				<td height="20"><a href="index.html">1</a></td>
-				<td height="20">1/30/2015</td>
-				<td height="20">120</td>
-				<td height="20">50%</td>
-				<td height="20">"convergence"</td>
+				<td>{{startTime}}</td>
+				<td>{{endTime}}</td>
+				<td>{{numberOfQuestions}}</td>
+				<td>{{ratio}}</td>
+				<td>{{keyword}}</td>
 			</tr>
-			<tr>
-				<td>2</td>
-				<td>1/27/2015</td>
-				<td>180</td>
-				<td>53%</td>
-				<td>"Bernoulli"</td>
-			</tr>
-			<tr>
-				<td>3</td>
-				<td>1/24/2015</td>
-				<td>220</td>
-				<td>60%</td>
-				<td>"table tennis"</td>
-			</tr>
-			<tr>
-				<td>4</td>
-				<td>1/21/2015</td>
-				<td>110</td>
-				<td>42%</td>
-				<td>"critical point"</td>
-			</tr>
-			<tr>
-				<td>5</td>
-				<td>1/18/2015</td>
-				<td>150</td>
-				<td>28%</td>
-				<td>"concave"</td>
-			</tr>
+			{{/sessions}}
 		</tbody>
 	</table>
-<!-- 	<div class="session_container">
-		<span class="keyword"><a href="index.html"> Session 1 </a></span>
-		<span class="date"> <b><i>Date:</i></b> 1/30/2015 </span>
-		<span class="asked"> <b><i>Asked:</i></b> 120 </span>
-		<span class="answered"> <b><i>Answered:</i></b> 50% </span>
-		<span class="top_keyword"> <b><i>Top keyword:</i></b> "convergence" </span>
-	</div>
-	<div class="session_container">
-		<span class="keyword"><a href="index.html"> Session 2 </a></span>
-		<span class="date"> <b><i>Date:</i></b> 1/27/2015 </span>
-		<span class="asked">  <b><i>Asked:</i></b> 180 </span>
-		<span class="answered"> <b><i>Answered:</i></b> 30% </span>
-		<span class="top_keyword"> <b><i>Top keyword:</i></b> "Bernoulli" </span>
-	</div>
-	<div class="session_container">
-		<span class="keyword"><a href="index.html"> Session 3 </a></span>
-		<span class="date"> <b><i>Date:</i></b> 1/24/2015 </span>
-		<span class="asked"> <b><i>Asked:</i></b> 220 </span>
-		<span class="answered"> <b><i>Answered:</i></b> 60% </span>
-		<span class="top_keyword"> <b><i>Top keyword:</i></b> "table tennis" </span>
-	</div>
-	<div class="session_container">
-		<span class="keyword"><a href="index.html"> Session 4 </a></span>
-		<span class="date"> <b><i>Date:</i></b> 1/21/2015 </span>
-		<span class="asked"> <b><i>Asked:</i></b> 110 </span>
-		<span class="answered"> <b><i>Answered:</i></b> 42% </span>
-		<span class="top_keyword"> <b><i>Top keyword:</i></b> "critical point" </span>
-	</div>
-	<div class="session_container">
-		<span class="keyword"><a href="index.html"> Session 5 </a></span>
-		<span class="date"> <b><i>Date:</i></b> 1/18/2015 </span>
-		<span class="asked"> <b><i>Asked:</i></b> 150 </span>
-		<span class="answered"> <b><i>Answered:</i></b> 28% </span>
-		<span class="top_keyword"> <b><i>Top keyword:</i></b> "concave" </span>
-	</div> -->
-    <a href="/teacher/createSession" class="btn btn-info">Create New Session</a>
+    <a href="/teacher/createSession?cid={{classroom.id}}" class="btn btn-info"><span class="glyphicon glyphicon-plus"></span> Create New Session</a>
 </div>
 {{/body}}
 

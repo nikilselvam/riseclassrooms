@@ -147,11 +147,19 @@ exports.teacherHome = teacherRequest(function(req, res) {
 });
 
 exports.session = teacherRequest(function(req, res) {
-	res.render('session', {
-		title: 'Session',
-		partials: {
-			layout: 'layout'
-		}
+	var cid = req.query.cid;
+	Class.findById(cid, function (err, classroom) {
+		var sessionIds = classroom.sessions;
+		Session.find({"_id": { $in: sessionIds}}, function(err, sessions) {
+			res.render('session', {
+				title: 'Session',
+				classroom: classroom,
+				sessions: sessions,
+				partials: {
+					layout: 'layout'
+				}
+			});
+		})
 	});
 });
 
