@@ -7,6 +7,9 @@ exports.create = function(req, res) {
 	if (!req.name) {
 		return resError(res, 'Sorry, this keyword does not have a name.');
 	}
+    else if ((!req.user) || ! (req.user instanceof db.models.Teacher)) {
+        return resError(res, "Please sign in to a Teacher account.");
+    }
 
 	// Create new keyword.
 	var keyword = new Keyword({

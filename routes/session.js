@@ -5,10 +5,15 @@ var Session = db.models.Session;
 exports.create = function(req, res) {
 	//Return error if req object does not specify startTime,
 	// active, duration, and classID
-	/*
 	if (!req.classId) {
 		return resError(res, "Sorry, this session does not have a specified class.");
-	}*/
+	}
+	else if (!req.duration) {
+		return resError(res, "Sorry, this session does not have a specified duration.");
+	}
+    else if ((!req.user) || ! (req.user instanceof db.models.Teacher)) {
+        return resError(res, "Please sign in to a Teacher account.");
+    }
 
 	var start = Date.now();
 	var duration = durationToMs(req.body.duration);
