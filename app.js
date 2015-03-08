@@ -73,14 +73,10 @@ app.get('/keyword', routes.keyword);
 app.get('/questionType', routes.questionType);
 app.post('/signin', passport.authenticate('local'), 
 	function (req, res){
-      res.send({
-          success: true
-      });
+      res.redirect('/');
 	},
 	function (req, res){
-      res.send({
-          success: false,
-      });
+      res.redirect('/signin');
 	});
 app.get('/student/addClass', routes.studentAddClass);
 app.get('/teacher/createClass', routes.createClass);
@@ -92,12 +88,13 @@ app.get('/teacher/createSession', routes.createSession);
 	})
 ); */
 
+/*
 app.post('/login', passport.authenticate('local-signin', {
 	sucessRedirect: '/',
 	failureRedirect: '/signin'
 	})
 );
-
+*/
 
 app.get('/logout', function(req,res){
 	var name = req.user.email;

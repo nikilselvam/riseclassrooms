@@ -23,7 +23,7 @@ exports.create = function(req, res){
 	bcrypt.genSalt(10, function(err, salt) {
 		bcrypt.hash(req.body.password, salt, function(err, hash) {
 			var student1 = new Student({
-				name: req.body.email,
+				email: req.body.email,
 				password: hash,
 				firstName: req.body.firstName,
 				lastName: req.body.lastName

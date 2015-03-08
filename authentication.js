@@ -9,7 +9,7 @@ var isTeacher = true;
 function checkpassword(password, user, done) {
 	 bcrypt.compare(password, user.password, function(err, isMatch) {
           if (isMatch === true && !err) {
-            return done(null, teacher);
+            return done(null, user);
           } else {
             return done(null, false, { message: 'Incorrect password.' });
           }
@@ -18,12 +18,15 @@ function checkpassword(password, user, done) {
 
 
 passport.use(new LocalStrategy(function(username, password, done) {
-    db.models.teacher.findOne({ username: username }, function(err, teacher) {
+    console.log("Username is " + username);
+    console.log("Password is " + password);
+
+    db.models.Teacher.findOne({ email: username }, function(err, teacher) {
       	console.log(teacher);
       	if (err) { return done(err); }
       	if (!teacher) {
     		isTeacher = false;
-      		db.models.student.findOne({username: username }, function(err, student) {
+      		db.models.Student.findOne({email: username }, function(err, student) {
       			console.log(student);
       			if (err) { return done(err); }
       			if(!student) {
