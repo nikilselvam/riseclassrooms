@@ -15,6 +15,7 @@
                         <th>Class Name</th>
                         <th>Students</th>
                         <th>Sessions</th>
+                        <th>Options</th>
                 </tr>
         </thead>
         <tbody>
@@ -23,6 +24,7 @@
                         <td>{{name}}</td>
                         <td>{{studentIds.length}}</td>
                         <td>{{sessions.length}}</td>
+                        <td><a href="/teacher/createSession?cid={{id}}" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-plus"></span> Add Session</a></td>
                 </tr>
             {{/classes}}
         </tbody>
