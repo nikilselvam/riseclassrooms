@@ -65,12 +65,22 @@ function studentRequest(fn) {
 }
 
 exports.studentAddClass = studentRequest(function(req,res) {
-	res.render('studentAddClass', {
-		title: 'Add A Class',
-		partials: {
-			layout: 'layout'
-		}
-	});
+	Class.find(
+		{},
+		function (err, classes) {
+			console.log("Classes are " + classes);
+
+			if (!err) {
+				res.render('studentAddClass', {
+					title: 'Add A Class',
+					classes: classes,
+					partials: {
+						layout: 'layout'
+					}
+				});
+			}
+		});
+
 });
 
 function findActiveSession(user, callback) {
