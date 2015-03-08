@@ -4,7 +4,7 @@
 
 // Testing environment uses the DigitalOcean server for mongodb. Production would use mongolab.
 var testEnv = function() {
-    return true;
+    return false;
 }
 
 // Secrets.

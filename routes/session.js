@@ -48,7 +48,7 @@ function durationToMs(duration) {
 	return durationMS;
 }
 
-/**
+
 //Creates new session for specified class.
 
 function createSession(req, onSuccess, onFailure){
@@ -60,4 +60,4 @@ function createSession(req, onSuccess, onFailure){
 	if (typeof classSessionID === "undefined") {
 		return onFailure("Missing classId parameter.");
 	}
-}*/
+}

@@ -73,6 +73,8 @@ exports.subscribe = function (req, res) {
         return resError(res, "Please sign in to a Student account.");
     }
 
+
+     
     // Add Student._id to Class.studentIds
     Class.findOne({
         _id: req.classId
@@ -94,5 +96,6 @@ exports.subscribe = function (req, res) {
     });
 
     // Add the Class._id to Student.classes
+    
 
 };
