@@ -11,7 +11,7 @@ var ObjectId = mongoose.Schema.Types.ObjectId;
 
 var teacherSchema = new Schema({
 	password			: String,
-	username 			: String,
+	email				: String,
 	firstName			: String,
 	lastName			: String,
 	title 				: String,
@@ -53,7 +53,7 @@ var questionSchema = new Schema({
 
 var studentSchema = new Schema({
 	password			: String,
-	username			: String,
+	email				: String,
 	firstName			: String,
 	lastName 			: String,
 	classes 			: [ObjectId],

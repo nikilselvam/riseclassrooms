@@ -6,8 +6,8 @@ var Teacher = db.models.Teacher;
 
 exports.create = function(req, res){
 
-	if(!req.body.username) {
-		return resError(res, "Please include a username");
+	if(!req.body.email) {
+		return resError(res, "Please include an email address");
 	}
 	else if (!req.body.password) {
 		return resError(res, "Please include a password");
@@ -21,7 +21,7 @@ exports.create = function(req, res){
 
 
 	var teacher1 = new Teacher({
-		username: req.body.username,
+		email: req.body.email,
 		password: req.body.password,
 		firstName: req.body.firstName,
 		lastName: req.body.lastName
@@ -30,7 +30,7 @@ exports.create = function(req, res){
 
 	teacher1.save(function(err, teacher1) {
 		if (err) return console.error(err);
-		
+
 		console.log(teacher1);
 	});
 };

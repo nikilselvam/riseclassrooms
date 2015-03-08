@@ -7,8 +7,8 @@ var Student = db.models.Student;
 
 exports.create = function(req, res){
 	//console.log(req.body.firstName);
-	if(!req.body.username) {
-		return resError(res, "Please include a username");
+	if(!req.body.email) {
+		return resError(res, "Please include an email address");
 	}
 	else if (!req.body.password) {
 		return resError(res, "Please include a password");
@@ -21,7 +21,7 @@ exports.create = function(req, res){
 	}
 
 	var student1 = new Student({
-		name: req.body.username,
+		name: req.body.email,
 		password: req.body.password,
 		firstName: req.body.firstName,
 		lastName: req.body.lastName
