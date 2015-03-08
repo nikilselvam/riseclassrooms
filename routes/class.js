@@ -65,8 +65,9 @@ exports.remove = function (req, res) {
     
     if (req.user.id != classObject.teacherId) {
         return resError(res, "You aren't allowed to delete this class. Please ask the creator of the class to delete it.");
-    }                                       
+    }
     
+    // Fine the classId. Delete it from all students and the teacher, and then delete the class itself.
     Class.findAndRemove({
         _id: req.body.classId
     }, function(err) {
