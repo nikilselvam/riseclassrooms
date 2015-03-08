@@ -33,7 +33,6 @@ app.use(express.urlencoded());
 app.use(express.methodOverride());
 app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(express.bodyParser());
 
 // development only
 if ('development' == app.get('env')) {
