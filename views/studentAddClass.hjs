@@ -36,25 +36,25 @@
                         <td name="classNumber">CSE 445</td>
                         <td name="className">Distributed Computing</td>
                         <td name="numOfSessions">6</td>
-                        <td> <button type="button">Add Class</button> </td>
+                        <td> <button type="button" id="addClassButton">Add Class</button> </td>
                 </tr>
                 <tr>
                         <td name="classNumber">CSE 460</td>
                         <td name="className">Software Analysis and Design</td>
                         <td name="numOfSessions">4</td>
-                        <td> <button type="button">Add Class</button> </td>
+                        <td> <button type="button" id="addClassButton">Add Class</button> </td>
                 </tr>
                 <tr>
                         <td name="classNumber">FSE 301</td>
                         <td name="className">Introduction to Entrepreneurship</td>
                         <td name="numOfSessions">5</td>
-                        <td> <button type="button">Add Class</button> </td>
+                        <td> <button type="button" id="addClassButton">Add Class</button> </td>
                 </tr>
                 <tr>
                         <td name="classNumber">IEE 380</td>
                         <td name="className">Probability and Statistics for Engineers</td>
                         <td name="numOfSessions">10</td>
-                        <td> <button type="button">Add Class</button> </td>
+                        <td> <button type="button" id="addClassButton">Add Class</button> </td>
                 </tr>
         </tbody>
     </table>
