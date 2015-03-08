@@ -21,7 +21,6 @@ exports.create = function (req, res) {
         }
 
         var teacherName = teacher.firstName + " " + teacher.lastName;
-        console.log("teacherName in callback is " + teacherName);
 
         // Create a new class object with the class name and teacher specified.
         var classObject = new Class({
@@ -33,8 +32,6 @@ exports.create = function (req, res) {
         // Save the class to the database.
         classObject.save(function (err, classObject) {
             if (err) return console.error(err);
-
-            console.log(classObject);
 
             teacher.classes.push(classObject._id);
 
