@@ -17,9 +17,11 @@
             <div class="navbar-header">
                 <a class="navbar-brand" href="/"><span class="glyphicon glyphicon-home"></span> RISE Classrooms</a>
             </div>
+            {{^showLogout}}
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="/logout" role="button" class=""><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
             </ul>
+            {{/showLogout}}
         </div>
     </nav>
     {{/navbar}}
