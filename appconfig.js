@@ -10,12 +10,7 @@ var testEnv = function() {
 // Secrets.
 if (typeof process.env.DB_USER === 'undefined' || typeof process.env.DB_PASS === 'undefined'){
 	var secret = require('./secret');
-    if (testEnv() === true) {
-	   process.env.DB_USER = secret.testingUser;
-    }
-    else {
-        process.env.DB_USER = secret.user;
-    }
+    process.env.DB_USER = secret.user;
 	process.env.DB_PASS = secret.pass;
 }
 
