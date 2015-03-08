@@ -22,9 +22,9 @@
         <div class="form-group">
           <button type="submit" class="btn btn-block btn-lg btn-success">Log in</button>
         </div>
-	<div class="form-group">
-		<p>Don't have an account? <a href="/signup">Sign up now &raquo;</a></p>
-	</div>
+        <div class="form-group">
+            <p>Don't have an account? <a href="/signup">Sign up now &raquo;</a></p>
+        </div>
       </form>
     </div>
   </div>
