@@ -41,12 +41,21 @@ exports.create = function (req, res) {
                     console.log("Teacher object saved!");
                 }
 
-                res.render('teacherHome', {
-                    title: 'Teacher Home',
-                    partials: {
-                        layout: 'layout'
-                    }
-                });
+                res.redirect('/teacher');
+
+                // var classIds = req.user.classes;
+
+                // Class.find({
+                //     '_id' : { $in: classIds } 
+                // }, function (err, classes) {
+                //     res.render('teacherHome', {
+                //         title: 'Classes',
+                //         classes: classes,
+                //         partials: {
+                //         layout: 'layout'
+                //         }
+                //     });
+                // });
             });
         });
     });
