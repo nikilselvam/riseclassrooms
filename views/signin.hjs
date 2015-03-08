@@ -3,6 +3,26 @@
 {{$title}}RISE Classrooms Login{{/title}}
 
 {{$head}}
+<script>
+jQuery(function ($) {
+  $("#login-form").on("submit", function (e) {
+    e.preventDefault();
+    $('button', this).prop('disabled', true);
+    $.ajax({
+        url     : $(this).attr('action'),
+        type    : $(this).attr('method'),
+        data    : $(this).serialize(),
+        success : function( data ) {
+          location.reload();
+        },
+        error   : function( xhr, err ) {
+          $("#login-form").prepend('<div class="alert alert-warning">Invalid email address or password.</div>');
+          $('button').prop('disabled', false);
+        }
+    });
+  });
+});
+</script>
 {{/head}}
 
 {{$body}}
