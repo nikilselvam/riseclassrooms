@@ -6,7 +6,7 @@ jQuery(function ($) {
 			var val = $.trim($("#search-input").val()).replace(/ +/g, ' ').toLowerCase();
 			var rows = $("tbody tr");
 		    rows.hide().filter(function () {
-		        var text = $(this).find('td').first().text().replace(/\s+/g, ' ').toLowerCase();
+		        var text = $(this).find('td').slice(0,2).text().replace(/\s+/g, ' ').toLowerCase();
 
 		        return text.indexOf(val) != -1 ;
 		    }).show();
