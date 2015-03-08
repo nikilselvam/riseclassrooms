@@ -5,18 +5,22 @@ $("#search-submit-button").click(function() {
 
 
 
-$("#addClassButton").click(function(){
-app.post("/student/studentHome", function(req, res) {
-alert("Class number: " + req.body.classNumber);
-res.send(req.body.classNumber);
-res.send(req.body.className);
-res.end("yes");
+$(".addClassButton").click(function(){
+	var element = $(this).parent().parent();
+	var value = $(element).attr('data-id');
 
-//var classNumber = req.body.classNumber,
-//var className = req.body.className,
-//console.log(req.body);
-//res.end("yes");
+	var data = {
+		'classId' : value
+	};
 
-});
+	var url = "/class/subscribe";
 
+	$.ajax({
+		type: "POST",
+		url: url,
+		data: data,
+		success: function(req, res) {
+			location.href = '/student';
+		}
+	});
 });
