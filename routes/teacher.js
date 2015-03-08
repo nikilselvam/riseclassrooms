@@ -32,6 +32,7 @@ exports.create = function(req, res){
 				if (err) return console.error(err);
 
 				console.log(teacher1);
+				res.redirect('/');
 			});
 		});
 	});
