@@ -121,11 +121,18 @@ function teacherRequest(fn) {
 }
 
 exports.teacherHome = teacherRequest(function(req, res) {
-	res.render('teacherHome', {
-		title: 'Classes',
-		partials: {
+	var classIds = req.user.classes;
+
+	Class.find({
+		'_id' : { $in: classIds } 
+	}, function (err, classes) {
+		res.render('teacherHome', {
+			title: 'Classes',
+			classes: classes,
+			partials: {
 			layout: 'layout'
-		}
+			}
+		});
 	});
 });
 
