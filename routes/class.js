@@ -35,23 +35,19 @@ exports.create = function (req, res) {
             if (err) return console.error(err);
 
             console.log(classObject);
-            Teacher.findById(teacherId, function (err, teacher) {
+
+            teacher.classes.push(classObject._id);
+
+            teacher.save(function (err, message) {
                 if (err) {
-                    console.error(err);
+                    console.log("Teacher object was not saved.");
+                }
+                else {
+                    console.log("Teacher object saved!");
+                    console.log(teacher);
                 }
 
-                teacher.classes.push(classObject._id);
-
-                teacher.save(function (err, message) {
-                    if (err) {
-                        console.log("Teacher object was not saved.");
-                    }
-                    else {
-                        console.log("Teacher object saved!");
-                    }
-
-                    res.redirect('/teacher');
-                });
+                res.redirect('/teacher');
             });
         });
     });
