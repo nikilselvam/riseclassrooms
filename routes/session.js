@@ -6,10 +6,12 @@ var Class = db.models.Class;
 exports.create = function(req, res) {
 	//Return error if req object does not specify startTime,
 	// active, duration, and classID
-	if (!req.classId) {
+	console.log(req);
+	//console.log(req.user.classes);
+	/*if (!req.classes || ! (req.classes instanceof db.models.Class)) {
 		return resError(res, "Sorry, this session does not have a specified class.");
 	}
-	else if (!req.duration) {
+	else */ if (!req.body.duration) {
 		return resError(res, "Sorry, this session does not have a specified duration.");
 	}
     else if ((!req.user) || ! (req.user instanceof db.models.Teacher)) {
@@ -19,11 +21,15 @@ exports.create = function(req, res) {
 	var start = Date.now();
 	var duration = durationToMs(req.body.duration);
 	var end = start + duration;
+	var teacherId = req.user.id;
+	var classId = req.body.cid;
+
 
 	//Create a new session object with the above parameters specified and endTime calculated
 	var sessionObject = new Session({
 		active: true,
-		classId: req.classId,
+		classId: classId,
+		teacherId: teacherId,
 		startTime: start,
 		duration: duration,
 		endTime: end
@@ -33,14 +39,36 @@ exports.create = function(req, res) {
 	sessionObject.save(function(err, sessionObject){
 		if (err) return console.error(err);
 
-		Class.findOne( {_id: req.classId}), function (err, classObject) {
+		console.log(sessionObject);
+        Class.findById(classId, function (err, classObject) {
+            if (err) {
+                console.error(err);
+            }
+            classObject.sessions.push(sessionObject._id);
+
+            classObject.save(function (err, message) {
+                if (err) {
+                    console.log("Class object was not saved.");
+                }
+                else {
+                    console.log("Class object saved!");
+                }
+
+                res.redirect('/teacher');
+            });
+        });
+    });
+};
+
+
+		/*Class.findOne( {_id: req.classId}), function (err, classObject) {
 			if (err || !classId) {
 				return console.error(err);
 			}
 			classObject.sessions.push(sessionObject._id);
 		}
-	});
-}
+	});*/
+
 
 function durationToMs(duration) {
 	parseDuration = parseInt(duration);

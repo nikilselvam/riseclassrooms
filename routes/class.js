@@ -2,6 +2,7 @@ var db = require('./../db.js');
 var resError = require('./messaging').resError;
 var Class = db.models.Class;
 var Teacher = db.models.Teacher;
+var Student = db.models.Student;
 
 // Add a class (by a teacher).
 exports.create = function (req, res) {
@@ -81,10 +82,10 @@ exports.remove = function (req, res) {
 
 // Add a class to a student's list of classes.
 exports.subscribe = function (req, res) {
-    if (!req.studentId) {
+    if (!req.user.id) {
         return resError(res, "Sorry, unable to find this user")
     }
-    else if (!req.classId) {
+    else if (!req.body.classId) {
         return resError(res, "Sorry, unable to find this class")
         console.log(body.parser.className);
     }
@@ -94,25 +95,36 @@ exports.subscribe = function (req, res) {
 
     // Add Student._id to Class.studentIds
     Class.findOne({
-        _id: req.classId
+        _id: req.body.classId
     }, function (err, classObj) {
         if (err) return console.error(err);
 
-        classObj.studentIds.push(req.studentId);
+        classObj.studentIds.push(req.user.id);
+
+        console.log("Student added to class!");
+
         classObj.save(function (err) {
             if (err) return console.error(err);
+            
             Student.findOne({
-                _id: req.studentId
+                _id: req.user.id
             }, function (err, student) {
-                student.classes.push(req.classId);
+
+                // Add the Class._id to Student.classes
+
+                student.classes.push(req.body.classId);
+
+                console.log("Class added to student");
+
                 student.save(function (err) {
                     if (err) return console.error(err);
                 });
+
+                res.redirect('/');
             });
         });
     });
 
-    // Add the Class._id to Student.classes
 
 };
 

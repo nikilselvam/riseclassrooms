@@ -93,27 +93,31 @@ function findActiveSession(user, callback) {
 
 exports.studentHome = studentRequest(function (req, res) {
 	function renderStudentHome(err, session) {
-        
-        
-        var tmpl = {
+		var classIds = req.user.classes;
+
+		Class.find({
+			'_id' : { $in: classIds } 
+		}, function (err, classes) {
+			var tmpl = {
 			title: 'Student Classes',
 			session: session,
 			classroom: null,
-            classes: req.user.classes,
+			classes: req.user.classes,
 			partials: {
 				layout: 'layout'
-			}
-		};
+				}
+			};
 
-		if (session) {
-			var classroom = Class.findById(session.classId, function (err, classroom) {
-				tmpl.classroom = classroom;
+			if (session) {
+				var classroom = Class.findById(session.classId, function (err, classroom) {
+					tmpl.classroom = classroom;
+					res.render('studentHome', tmpl);
+				});
+			}
+			else {
 				res.render('studentHome', tmpl);
-			});
-		}
-		else {
-			res.render('studentHome', tmpl);
-		}
+			}
+		});
 	}
 
 	findActiveSession(req.user, renderStudentHome);
@@ -137,7 +141,7 @@ exports.teacherHome = teacherRequest(function(req, res) {
 	var classIds = req.user.classes;
 
 	Class.find({
-		'_id' : { $in: classIds } 
+		'_id' : { $in: classIds }
 	}, function (err, classes) {
 		res.render('teacherHome', {
 			title: 'Classes',
@@ -150,11 +154,19 @@ exports.teacherHome = teacherRequest(function(req, res) {
 });
 
 exports.session = teacherRequest(function(req, res) {
-	res.render('session', {
-		title: 'Session',
-		partials: {
-			layout: 'layout'
-		}
+	var cid = req.query.cid;
+	Class.findById(cid, function (err, classroom) {
+		var sessionIds = classroom.sessions;
+		Session.find({"_id": { $in: sessionIds}}, function(err, sessions) {
+			res.render('session', {
+				title: 'Session',
+				classroom: classroom,
+				sessions: sessions,
+				partials: {
+					layout: 'layout'
+				}
+			});
+		})
 	});
 });
 
@@ -189,6 +201,7 @@ exports.createClass = teacherRequest(function(req,res) {
 exports.createSession = function(req,res) {
 	res.render('createSession', {
 		title: 'Create Session',
+		cid: req.query.cid,
 		partials: {
 			layout: 'layout'
 		}

@@ -4,6 +4,3 @@
 // 	});
 // });
 
-$("tbody tr").click(function(){
-	document.location = "/session";
-});

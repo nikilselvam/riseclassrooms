@@ -6,7 +6,7 @@
 <script>
 jQuery(function ($) {
   $("#login-form input").on("focus click keyup", function () {
-    $("#login-form .alert").fadeOut();
+    $("#login-form .alert").hide("fast");
   });
   $("#login-form").on("submit", function (e) {
     e.preventDefault();
@@ -19,7 +19,9 @@ jQuery(function ($) {
           location.reload();
         },
         error   : function( xhr, err ) {
-          $("#login-form").prepend('<div class="alert alert-warning">Invalid email address or password.</div>');
+          var el = $('<div class="alert alert-warning">Invalid email address or password.</div>');
+          $("#login-form").prepend(el.hide());
+          el.show("fast");
           $('button').prop('disabled', false);
         }
     });
