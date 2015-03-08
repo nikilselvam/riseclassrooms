@@ -5,6 +5,9 @@
 {{$head}}
 <script>
 jQuery(function ($) {
+  $("#login-form input").on("focus click keyup", function () {
+    $("#login-form .alert").fadeOut();
+  });
   $("#login-form").on("submit", function (e) {
     e.preventDefault();
     $('button', this).prop('disabled', true);
