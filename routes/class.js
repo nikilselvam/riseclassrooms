@@ -30,6 +30,7 @@ exports.subscribe = function (req, res) {
         return resError(res, "Sorry, unable to find this user")
     } else if (!req.classId) {
         return resError(res, "Sorry, unable to find this class")
+        console.log(body.parser.className);
     }
 
     // Add Student._id to Class.studentIds
