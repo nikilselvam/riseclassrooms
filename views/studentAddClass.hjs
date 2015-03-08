@@ -20,7 +20,7 @@
                 <button id="search-submit-button" class="btn btn-success btn-block"><span class="glyphicon glyphicon-search"></span> Search</button>
             </div>
         </div>
-    </div>
+    </form>
     <div class="table-responsive" id="search-results-div" style="display:none">
     <form method="post" action="/">
             <table class="table table-hover">
