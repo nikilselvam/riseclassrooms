@@ -12,8 +12,8 @@
       <h2>RISE Classrooms Login</h2>
       <form action="/login" method="post" id="login-form">
         <div class="form-group">
-          <label for="login-username">Email</label>
-          <input type="text" id="login-username" name="username" class="form-control" required>
+          <label for="login-email">Email</label>
+          <input type="text" id="login-email" name="email" class="form-control" required>
         </div>
         <div class="form-group">
           <label for="login-password">Password</label>
