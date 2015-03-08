@@ -5,7 +5,7 @@ $("#search-submit-button").click(function() {
 
 
 
-$("#add-class-button").click(function(){
+$("#addClassButton").click(function(){
 app.post("/student/studentHome", function(req, res) {
 alert("Class number: " + req.body.classNumber);
 res.send(req.body.classNumber);
