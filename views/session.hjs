@@ -13,10 +13,10 @@
 	<table class="table table-hover">
 		<thead>
 			<tr>
-				<th>session.sessionId</th>
-				<th>session.startTime</th>
-				<th>session.topFiveKeywords</th>
-				<th>session.</th>
+				<th>Session #</th>
+				<th>Date</th>
+				<th>Questions asked</th>
+				<th>Questions answered</th>
 				<th>Top keyword</th>
 			</tr>
 		</thead>
@@ -29,8 +29,8 @@
 				<td height="20">"convergence"</td>
 			</tr>
 			<tr>
-				<td>2</td>
-				<td>1/27/2015</td>
+				<td>session.sessionId</td>
+				<td>session.startDate</td>
 				<td>180</td>
 				<td>53%</td>
 				<td>"Bernoulli"</td>
