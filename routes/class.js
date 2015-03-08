@@ -15,47 +15,43 @@ exports.create = function (req, res) {
 
     var teacherId = req.user.id;
 
-    // Create a new class object with the class name and teacher specified.
-    var classObject = new Class({
-        name: req.body.class_name,
-        teacherId: teacherId
-    });;
+    Teacher.findById(teacherId, function(err, teacher){
+        if (err) {
+            console.error(err);
+        }
 
-    // Save the class to the database.
-    classObject.save(function (err, classObject) {
-        if (err) return console.error(err);
+        var teacherName = teacher.firstName + " " + teacher.lastName;
+        console.log("teacherName in callback is " + teacherName);
 
-        console.log(classObject);
-        Teacher.findById(teacherId, function (err, teacher) {
-            if (err) {
-                console.error(err);
-            }
+        // Create a new class object with the class name and teacher specified.
+        var classObject = new Class({
+            name: req.body.class_name,
+            teacherId: teacherId,
+            teacherName: teacherName
+        });;
 
-            teacher.classes.push(classObject._id);
+        // Save the class to the database.
+        classObject.save(function (err, classObject) {
+            if (err) return console.error(err);
 
-            teacher.save(function (err, message) {
+            console.log(classObject);
+            Teacher.findById(teacherId, function (err, teacher) {
                 if (err) {
-                    console.log("Teacher object was not saved.");
-                }
-                else {
-                    console.log("Teacher object saved!");
+                    console.error(err);
                 }
 
-                res.redirect('/teacher');
+                teacher.classes.push(classObject._id);
 
-                // var classIds = req.user.classes;
+                teacher.save(function (err, message) {
+                    if (err) {
+                        console.log("Teacher object was not saved.");
+                    }
+                    else {
+                        console.log("Teacher object saved!");
+                    }
 
-                // Class.find({
-                //     '_id' : { $in: classIds } 
-                // }, function (err, classes) {
-                //     res.render('teacherHome', {
-                //         title: 'Classes',
-                //         classes: classes,
-                //         partials: {
-                //         layout: 'layout'
-                //         }
-                //     });
-                // });
+                    res.redirect('/teacher');
+                });
             });
         });
     });
