@@ -28,7 +28,7 @@
 
         <thead>
                 <tr>
-                        <th>Class #</th>
+                        <th>Class Name</th>
                         <th>Sessions</th>
                         <th>Add</th>
                 </tr>
