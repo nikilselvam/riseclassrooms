@@ -38,8 +38,14 @@ passport.serializeUser(function(user, done) {
 });
 
 passport.deserializeUser(function(id, done) {
-  db.models.User.findById(id, function(err, user) {
-    done(err, user);
+  db.models.Teacher.findById(id, function(err, user) {
+    if(user)
+		done(err, user);
+	else {
+		db.models.Student.findById(id, function(err, user) {
+			done(err, user); 
+		});
+	}
   });
 });
 var login = require('./authentication');
@@ -62,7 +68,7 @@ if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 
-app.get('/', routes.teacherHome);
+app.get('/', routes.signin);
 app.get('/signin', routes.signin);
 app.get('/signup', routes.signup);
 app.get('/teacher', routes.teacherHome);
@@ -73,10 +79,11 @@ app.get('/keyword', routes.keyword);
 app.get('/questionType', routes.questionType);
 app.post('/signin', passport.authenticate('local'), 
 	function (req, res){
-      res.redirect('/');
+		console.log("Direct page to '/'");
+      	res.redirect('/');
 	},
 	function (req, res){
-      res.redirect('/signin');
+      	res.redirect('/signin');
 	});
 app.get('/student/addClass', routes.studentAddClass);
 app.get('/teacher/createClass', routes.createClass);

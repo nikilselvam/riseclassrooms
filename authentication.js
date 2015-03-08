@@ -18,9 +18,6 @@ function checkpassword(password, user, done) {
 
 
 passport.use(new LocalStrategy(function(username, password, done) {
-    console.log("Username is " + username);
-    console.log("Password is " + password);
-
     db.models.Teacher.findOne({ email: username }, function(err, teacher) {
       	console.log(teacher);
       	if (err) { return done(err); }

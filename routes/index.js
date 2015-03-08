@@ -10,17 +10,20 @@ var Student = db.models.Student;
 var Teacher = db.models.Teacher;
 
 function userType(user) {
-	if (user instanceof Student)
+	if (user.__proto__.collection.collection.collectionName == "student") {
 		return "student";
-	if (user instanceof Teacher)
+	}
+	else if (user.__proto__.collection.collection.collectionName == "teacher") {
 		return "teacher";
-	return null;
+	} else {
+		return null;
+	}
 }
 
 function authRequest(fn) {
 	return function (req, res) {
 		if (req.user) {
-			res.redirect("/" + userType(user));
+			res.redirect("/" + userType(req.user));
 		}
 		else {
 			fn(req, res);
@@ -48,10 +51,14 @@ exports.signup = authRequest(function(req, res) {
 
 function studentRequest(fn) {
 	return function (req, res) {
-		if (req.user && userType() == "student") {
+		if (req.user && userType(req.user) == "student") {
 			fn(req, res);
 		}
+		else if (req.user && userType(req.user) == "teacher") {
+			res.redirect('/teacher');
+		}
 		else {
+			console.log("Redirect to '/'");
 			res.redirect('/');
 		}
 	};
@@ -101,8 +108,11 @@ exports.studentHome = studentRequest(function (req, res) {
 
 function teacherRequest(fn) {
 	return function (req, res) {
-		if (req.user && userType() == "teacher") {
+		if (req.user && userType(req.user) == "teacher") {
 			fn(req, res);
+		}
+		else if (req.user && userType(req.user) == "student") {
+			res.redirect('/student');
 		}
 		else {
 			res.redirect('/');
