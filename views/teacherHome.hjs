@@ -27,7 +27,7 @@
             {{/classes}}
         </tbody>
     </table>
-    <a href="/teacher/createClass" class="btn btn-info">Create New Class</a>
+    <a href="/teacher/createClass" class="btn btn-info"><span class="glyphicon glyphicon-plus"></span> Create New Class</a>
     </form>
 </div>
 

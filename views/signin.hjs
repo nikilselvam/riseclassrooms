@@ -5,6 +5,9 @@
 {{$head}}
 <script>
 jQuery(function ($) {
+  $("#login-form input").on("focus click keyup", function () {
+    $("#login-form .alert").fadeOut();
+  });
   $("#login-form").on("submit", function (e) {
     e.preventDefault();
     $('button', this).prop('disabled', true);
@@ -23,7 +26,15 @@ jQuery(function ($) {
   });
 });
 </script>
+
+<style type="text/css">
+.container {
+  margin-top: 4em;
+}
+</style>
 {{/head}}
+
+{{$navbar}}{{/navbar}}
 
 {{$body}}
 <div class="container">
@@ -40,7 +51,7 @@ jQuery(function ($) {
           <input type="password" id="login-password" name="password" class="form-control" required>
         </div>
         <div class="form-group">
-          <button type="submit" class="btn btn-block btn-lg btn-success">Log in</button>
+          <button type="submit" class="btn btn-block btn-lg btn-success"><span class="glyphicon glyphicon-log-in"></span> Log in</button>
         </div>
         <div class="form-group">
             <p>Don't have an account? <a href="/signup">Sign up now &raquo;</a></p>

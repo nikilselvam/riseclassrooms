@@ -104,12 +104,9 @@ app.post('/login', passport.authenticate('local-signin', {
 */
 
 app.get('/logout', function(req,res){
-	var name = req.user.email;
-	console.log("LOG OUT" + req.user.email)
 	req.logout();
 	res.redirect('/');
-	req.session.notice = "You have successfully been logged out " + name + "!";
-
+	req.session.notice = "You have successfully been logged out!";
 });
 
 app.post('/student/create', student.create);
