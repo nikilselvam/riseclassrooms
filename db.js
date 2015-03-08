@@ -106,7 +106,7 @@ exports.models = dbModels;
 if (secret.testEnv === true) {
     mongoose.connect('mongodb://'+secret.user() + ':' +
             secret.pass() +
-            '@198.199.93.104:27017/'+dbName);
+            '@198.199.93.104:80/'+dbName);
 } else {
     mongoose.connect('mongodb://'+secret.user() + ':' +
             secret.pass() +

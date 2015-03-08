@@ -2,9 +2,9 @@
 // 	undefined = undefinedParam;
 // })();
 
-// Testing env
+// Testing environment uses the DigitalOcean server for mongodb. Production would use mongolab.
 var testEnv = function() {
-    return false;
+    return true;
 }
 
 // Secrets.
