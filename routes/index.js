@@ -34,6 +34,7 @@ function authRequest(fn) {
 exports.signin = authRequest(function(req, res) {
 	res.render('signin', {
 		title: "Sign In",
+        showLogout: true,
 		partials: {
 			layout: 'layout'
 		}
@@ -43,6 +44,7 @@ exports.signin = authRequest(function(req, res) {
 exports.signup = authRequest(function(req, res) {
 	res.render('signup', {
 		title: "Sign Up",
+        showLogout: true,
 		partials: {
 			layout: 'layout'
 		}
@@ -65,12 +67,20 @@ function studentRequest(fn) {
 }
 
 exports.studentAddClass = studentRequest(function(req,res) {
-	res.render('studentAddClass', {
-		title: 'Add A Class',
-		partials: {
-			layout: 'layout'
-		}
-	});
+	Class.find(
+		{},
+		function (err, classes) {
+			if (!err) {
+				res.render('studentAddClass', {
+					title: 'Add A Class',
+					classes: classes,
+					partials: {
+						layout: 'layout'
+					}
+				});
+			}
+		});
+
 });
 
 function findActiveSession(user, callback) {

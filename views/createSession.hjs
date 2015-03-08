@@ -7,20 +7,36 @@
 {{/head}}
 
 {{$body}}
-	<div class="container">
-  	<h1>New Session</h1>	
-	 <form action="/session/create" method="post">
-          <div class="form-group">
-            <label for="class-name"">Duration:</label>
-  			<select name="duration" id="duration">
-				<option value="5">5 minutes</option>
-				<option value="10">10 minutes</option>
-				<option value="15">15 minues</option>
-				<option value="20">20 minutes</option>
-			</select>
-          </div>
-          <input id="submitButton" type="submit" class="btn btn-info" value="Submit">
-    </form>
+<div class="container">
+	<div class="row">
+		<div class="col-md-6 col-md-offset-3">
+			<h4>New Session</h4>
+				<form action="/session/create" method="post">
+				<div class="form-group">
+					<div class="btn-group btn-group-justified" data-toggle="buttons">
+					<label class="btn btn-default btn-lg">
+					<input type="radio" id="q156" name="duration" value="5" /> 5min.
+					</label>
+					<label class="btn btn-default btn-lg">
+					<input type="radio" id="q157" name="duration" value="10" /> 10min.
+					</label>
+					<label class="btn btn-default btn-lg active">
+					<input type="radio" id="q158" name="duration" checked="checked" value="15" /> 15min.
+					</label>
+					<label class="btn btn-default btn-lg">
+					<input type="radio" id="q159" name="duration" value="20" /> 20min.
+					</label>
+					<label class="btn btn-default btn-lg">
+					<input type="radio" id="q160" name="duration" value="25" /> 25min.
+					</label>
+					</div>
+				</div>
+				<div class="form-group">
+					<button type="submit" class="btn btn-success btn-block btn-lg"><span class="glyphicon glyphicon-plus"></span> Create Session</button>
+				</div>
+			</form>
+		</div>
+	</div>
 </div>
 {{/body}}
 

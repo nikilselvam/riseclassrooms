@@ -15,21 +15,23 @@ exports.create = function (req, res) {
 
     var teacherId = req.user.id;
 
-    // Create a new class object with the class name and teacher specified.
-    var classObject = new Class({
-        name: req.body.class_name,
-        teacherId: teacherId
-    });;
+    Teacher.findById(teacherId, function(err, teacher){
+        if (err) {
+            console.error(err);
+        }
 
-    // Save the class to the database.
-    classObject.save(function (err, classObject) {
-        if (err) return console.error(err);
+        var teacherName = teacher.firstName + " " + teacher.lastName;
 
-        console.log(classObject);
-        Teacher.findById(teacherId, function (err, teacher) {
-            if (err) {
-                console.error(err);
-            }
+        // Create a new class object with the class name and teacher specified.
+        var classObject = new Class({
+            name: req.body.class_name,
+            teacherId: teacherId,
+            teacherName: teacherName
+        });;
+
+        // Save the class to the database.
+        classObject.save(function (err, classObject) {
+            if (err) return console.error(err);
 
             teacher.classes.push(classObject._id);
 
@@ -39,23 +41,10 @@ exports.create = function (req, res) {
                 }
                 else {
                     console.log("Teacher object saved!");
+                    console.log(teacher);
                 }
 
                 res.redirect('/teacher');
-
-                // var classIds = req.user.classes;
-
-                // Class.find({
-                //     '_id' : { $in: classIds } 
-                // }, function (err, classes) {
-                //     res.render('teacherHome', {
-                //         title: 'Classes',
-                //         classes: classes,
-                //         partials: {
-                //         layout: 'layout'
-                //         }
-                //     });
-                // });
             });
         });
     });
