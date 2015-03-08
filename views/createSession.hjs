@@ -7,20 +7,26 @@
 {{/head}}
 
 {{$body}}
-	<div class="container">
-  	<h1>New Session</h1>	
-	 <form action="/session/create" method="post">
-          <div class="form-group">
-            <label for="class-name"">Duration:</label>
-  			<select name="duration" id="duration">
-				<option value="5">5 minutes</option>
-				<option value="10">10 minutes</option>
-				<option value="15">15 minues</option>
-				<option value="20">20 minutes</option>
-			</select>
-          </div>
-          <input id="submitButton" type="submit" class="btn btn-info" value="Submit">
-    </form>
+<div class="container">
+	<div class="row">
+		<div class="col-md-6 col-md-offset-3">
+			<h1>New Session</h1>
+				<form action="/session/create" method="post">
+				<div class="form-group">
+					<label for="duration"">Duration:</label>
+					<select name="duration" id="duration">
+						<option value="5">5 minutes</option>
+						<option value="10">10 minutes</option>
+						<option value="15">15 minues</option>
+						<option value="20">20 minutes</option>
+					</select>
+				</div>
+				<div class="form-group">
+					<button type="submit" class="btn btn-success btn-block btn-lg">Create Session</button>
+				</div>
+			</form>
+		</div>
+	</div>
 </div>
 {{/body}}
 
