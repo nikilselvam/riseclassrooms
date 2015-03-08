@@ -4,7 +4,7 @@ $("#search-submit-button").click(function() {
 });
 
 
-$("form#search").on("submit", function (e) { e.preventDefault(); });
+$("form#search").on("submit", function (e) { e.preventDefault(); $("p.help-block").hide("fast"); });
 
 
 $(".addClassButton").click(function(){
