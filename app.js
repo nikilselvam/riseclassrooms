@@ -13,6 +13,9 @@ var classes = require('./routes/class');
 var questions = require('./routes/question');
 var password = require('./routes/password');
 var passport = require('passport');
+var keyword = require('./routes/keyword');
+var questionType = require('./routes/questionType');
+
 var http = require('http');
 var path = require('path');
 
@@ -76,6 +79,7 @@ app.post('/signin', passport.authenticate('local'),
           success: false,
       });
 	});
+app.get('/student/addClass', routes.studentAddClass);
 app.get('/teacher/createClass', routes.createClass);
 app.get('/teacher/createSession', routes.createSession);
 
@@ -91,9 +95,14 @@ app.post('/login', passport.authenticate('local-signin', {
 	})
 );
 
-app.get('/logout', function(req, res){
-  req.logout();
-  res.redirect('/login');
+
+app.get('/logout', function(req,res){
+	var name = req.user.email;
+	console.log("LOG OUT" + req.user.email)
+	req.logout();
+	res.redirect('/');
+	req.session.notice = "You have successfully been logged out " + name + "!";
+
 });
 
 app.post('/student/create', student.create);
@@ -101,6 +110,9 @@ app.post('/teacher/create', teacher.create);
 
 
 app.post('/class/create', classes.create);
+app.post('/class/subscribe', classes.subscribe);
+app.post('/session/create', session.create);
+
 app.post('/question/create', questions.create);
 
 

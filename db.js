@@ -11,7 +11,7 @@ var ObjectId = mongoose.Schema.Types.ObjectId;
 
 var teacherSchema = new Schema({
 	password			: String,
-	username 			: String,
+	email				: String,
 	firstName			: String,
 	lastName			: String,
 	title 				: String,
@@ -25,7 +25,7 @@ var classSchema = new Schema({
 	name 				: String,
 	studentIds			: [ObjectId],
 	sessions			: [ObjectId],
-	teacherId			: [ObjectId]	
+	teacherId			: [ObjectId]
 }, { collection: 'class'});
 
 var sessionSchema = new Schema({
@@ -37,7 +37,7 @@ var sessionSchema = new Schema({
 	feedback            : [ObjectId],
 	questions 			: [ObjectId],
 	keywords			: [ObjectId],
-	classId 			: [ObjectId],
+	classId 			: ObjectId,
 	numberOfKeywords	: Number,
 	topFiveKeywords 	: [ObjectId]
 }, { collection: 'session'});
@@ -53,7 +53,7 @@ var questionSchema = new Schema({
 
 var studentSchema = new Schema({
 	password			: String,
-	username			: String,
+	email				: String,
 	firstName			: String,
 	lastName 			: String,
 	classes 			: [ObjectId],
@@ -67,7 +67,7 @@ var studentSchema = new Schema({
 var feedbackSchema = new Schema({
 	totalQuestionsAsked		: Number,
 	totalQuestionsAnswered	: Number,
-	keywords				: [ObjectId]			
+	keywords				: [ObjectId]
 }, { collection: 'feedback'});
 
 var keywordSchema = new Schema({
@@ -101,11 +101,17 @@ var dbModels = {
 }
 
 exports.models = dbModels;
- 
+
 // Connect to database and listen to events.
-mongoose.connect('mongodb://'+secret.user() + ':' +
-		secret.pass() +
-		'@ds049641.mongolab.com:49641/'+dbName);
+if (secret.testEnv === true) {
+    mongoose.connect('mongodb://'+secret.user() + ':' +
+            secret.pass() +
+            '@198.199.93.104:80/'+dbName);
+} else {
+    mongoose.connect('mongodb://'+secret.user() + ':' +
+            secret.pass() +
+            '@ds049641.mongolab.com:49641/'+dbName);
+}
 
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));

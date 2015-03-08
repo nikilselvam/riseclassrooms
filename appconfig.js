@@ -2,10 +2,15 @@
 // 	undefined = undefinedParam;
 // })();
 
+// Testing environment uses the DigitalOcean server for mongodb. Production would use mongolab.
+var testEnv = function() {
+    return true;
+}
+
 // Secrets.
 if (typeof process.env.DB_USER === 'undefined' || typeof process.env.DB_PASS === 'undefined'){
 	var secret = require('./secret');
-	process.env.DB_USER = secret.user;
+    process.env.DB_USER = secret.user;
 	process.env.DB_PASS = secret.pass;
 }
 
@@ -35,3 +40,4 @@ var oneTime = function(value){
  */
 exports.user = oneTime(access.user);
 exports.pass = oneTime(access.pass);
+exports.testEnv = testEnv();
