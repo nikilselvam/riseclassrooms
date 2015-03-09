@@ -4,10 +4,6 @@ var Question = db.models.Question;
 var Session = db.models.Session;
 
 exports.create = function(req, res){
-	console.log("In question.create");
-	console.log(req.body);
-	console.log(req.user.id);
-
 	// If the req object does not specify a question or any of the fields
 	// inside the question object, return an error.
 	if (!req.body.content) {
@@ -37,7 +33,7 @@ exports.create = function(req, res){
 
 	// Save the question to the database.
 	questionObject.save(function(err, questionObject){
-		if (err) return console.log("Question could not be saved.", err);
+		if (err) return console.error(err);
 
 		console.log("Question saved!");
 
