@@ -101,6 +101,7 @@ exports.studentHome = studentRequest(function (req, res) {
 			var tmpl = {
 			title: 'Student Classes',
 			session: session,
+			sessionId: session.id,
 			classroom: null,
 			classes: classes,
 			partials: {

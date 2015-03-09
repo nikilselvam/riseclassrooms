@@ -44,12 +44,12 @@ var sessionSchema = new Schema({
 }, { collection: 'session'});
 
 var questionSchema = new Schema({
-	author 				: [{teacher: ObjectId, student: ObjectId}],
+	author 				:  ObjectId,
 	content				: String,
 	isAnswered 			: Boolean,
 	timeAsked			: Date,
 	isStudentQuestion   : Boolean,
-	sessionId			: [ObjectId]
+	sessionId			: ObjectId
 }, { collection: 'question'});
 
 var studentSchema = new Schema({
