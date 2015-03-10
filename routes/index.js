@@ -160,13 +160,39 @@ exports.teacherHome = teacherRequest(function(req, res) {
 	});
 });
 
+function checkIfSessionIsActive(sessions){
+	console.log("sessions are " + sessions);
+
+	for (var i = 0; i < sessions.length; i++) {
+		var session = sessions[i];
+		console.log("session is " + session);
+
+		if (session.active == true) {
+			var endTime = session.endTime.getTime();
+			var currentTime = new Date().getTime();
+			var isActiveSession = endTime >= currentTime;
+
+			if (!isActiveSession) {
+				session.active = false;
+
+				session.save(function (err, session) {
+				});
+			}
+
+		}
+	}
+}
+
 exports.session = teacherRequest(function(req, res) {
 	var cid = req.query.cid;
 	console.log(req.query);
 
 	Class.findById(cid, function (err, classroom) {
 		var sessionIds = classroom.sessions;
+
 		Session.find({"_id": { $in: sessionIds}}, function(err, sessions) {
+			checkIfSessionIsActive(sessions);
+
 			res.render('session', {
 				title: 'Session',
 				classroom: classroom,
