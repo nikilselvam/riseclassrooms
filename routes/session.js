@@ -32,7 +32,8 @@ exports.create = function(req, res) {
 		teacherId: teacherId,
 		startTime: start,
 		duration: duration,
-		endTime: end
+		endTime: end,
+		numberOfQuestions: 0
 	});
 
 	//Save the session to the database

@@ -14,6 +14,7 @@
 			<tr>
 				<th>Start</th>
 				<th>End</th>
+				<th>Active</th>
 				<th>Questions asked</th>
 				<th>Questions answered</th>
 				<th>Top keyword</th>
@@ -24,8 +25,18 @@
 			<tr>
 				<td>{{startTime}}</td>
 				<td>{{endTime}}</td>
-				<td>{{numberOfQuestions}}</td>
-				<td>{{ratio}}</td>
+				<td>
+					{{#active}}Yes{{/active}}
+					{{^active}}No{{/active}}
+				</td>
+				<td>
+					{{#numberOfQuestions}}{{numberOfQuestions}}{{/numberOfQuestions}}
+					{{^numberOfQuestions}}0{{/numberOfQuestions}}
+				</td>
+				<td>
+					{{#ratio}}{{ratio}}{{/ratio}}
+					{{^ratio}}0{{/ratio}}
+				</td>
 				<td>{{keyword}}</td>
 			</tr>
 			{{/sessions}}
