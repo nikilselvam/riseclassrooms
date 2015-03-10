@@ -95,12 +95,19 @@ exports.studentHome = studentRequest(function (req, res) {
 	function renderStudentHome(err, session) {
 		var classIds = req.user.classes;
 
+		var sessionId = null;
+
+		if (session !== null) {
+			sessionId = session.id;
+		}
+
 		Class.find({
 			'_id' : { $in: classIds } 
 		}, function (err, classes) {
 			var tmpl = {
 			title: 'Student Classes',
 			session: session,
+			sessionId: sessionId,
 			classroom: null,
 			classes: classes,
 			partials: {
