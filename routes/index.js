@@ -162,6 +162,8 @@ exports.teacherHome = teacherRequest(function(req, res) {
 
 exports.session = teacherRequest(function(req, res) {
 	var cid = req.query.cid;
+	console.log(req.query);
+
 	Class.findById(cid, function (err, classroom) {
 		var sessionIds = classroom.sessions;
 		Session.find({"_id": { $in: sessionIds}}, function(err, sessions) {
