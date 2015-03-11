@@ -161,11 +161,11 @@ exports.teacherHome = teacherRequest(function(req, res) {
 });
 
 function checkIfSessionIsActive(sessions){
-	console.log("sessions are " + sessions);
+	//console.log("sessions are " + sessions);
 
 	for (var i = 0; i < sessions.length; i++) {
 		var session = sessions[i];
-		console.log("session is " + session);
+		//console.log("session is " + session);
 
 		if (session.active == true) {
 			var endTime = session.endTime.getTime();
@@ -192,6 +192,22 @@ exports.session = teacherRequest(function(req, res) {
 
 		Session.find({"_id": { $in: sessionIds}}, function(err, sessions) {
 			checkIfSessionIsActive(sessions);
+
+			// Sort sessions by end time and then pass in sessions into
+			// the 'session' template.
+			
+			console.log('in session find');
+
+			sessions.sort(function(a, b) {
+    a = new Date(a.startTime);
+    b = new Date(b.startTime);
+    return a>b ? -1 : a<b ? 1 : 0;
+});
+			for (var i = 0; i < sessions.length; i++) {
+				var sT= sessions[i].startTime;
+				console.log("session time is " + sT);
+			}
+
 
 			res.render('session', {
 				title: 'Session',
