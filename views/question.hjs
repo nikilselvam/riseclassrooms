@@ -1,0 +1,35 @@
+{{<layout}}
+
+{{$title}}{{title}}{{/title}}
+
+{{$head}}{{/head}}
+
+{{$body}}
+<div class="container">
+	<h4>Questions in Session</h4>
+	<table class="table table-hover">
+		<thead>
+			<tr>
+				<th>Time Asked</th>
+				<th>Content</th>
+				<th>Was Answered</th>
+			</tr>
+		</thead>
+		<tbody>
+			{{#questions}}
+			<tr>
+				<td>{{timeAsked}}</td>
+				<td>{{content}}</td>
+				<td>
+					{{#isAnswered}}{{isAnswered}}{{/isAnswered}}
+					{{^isAnswered}}N/A{{/isAnswered}}
+					</td>
+			</tr>
+			{{/questions}}
+		</tbody>
+	</table>
+</div>
+{{/body}}
+
+{{/layout}}
+`

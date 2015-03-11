@@ -77,6 +77,8 @@ app.get('/users', user.list);
 app.get('/session', routes.session);
 app.get('/keyword', routes.keyword);
 app.get('/questionType', routes.questionType);
+app.get('/question', routes.questions);
+
 app.post('/signin', passport.authenticate('local'), 
 	function (req, res){
 		console.log("Direct page to '/'");

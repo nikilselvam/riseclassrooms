@@ -8,6 +8,7 @@ var Session = db.models.Session;
 var Class = db.models.Class;
 var Student = db.models.Student;
 var Teacher = db.models.Teacher;
+var Question = db.models.Question;
 
 function userType(user) {
 	if (user.__proto__.collection.collection.collectionName == "student") {
@@ -212,6 +213,26 @@ exports.keyword = teacherRequest(function(req,res) {
 			layout: 'layout'
 		}
 	});
+});
+
+exports.questions = teacherRequest(function(req, res) {
+	var sid = req.query.sid;
+
+	Session.findById(sid, function (err, session) {
+		var questionIds = session.questions;
+
+		Question.find({"_id": { $in: questionIds}}, function(err, questions) {
+
+			res.render('question', {
+				title: 'Questions',
+				questions: questions,
+				partials: {
+					layout: 'layout'
+				}
+			});
+		})
+	});
+
 });
 
 exports.questionType = teacherRequest(function(req,res) {
