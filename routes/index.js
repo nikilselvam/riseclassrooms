@@ -197,13 +197,12 @@ exports.session = teacherRequest(function(req, res) {
 			// Sort sessions by end time and then pass in sessions into
 			// the 'session' template.
 			
-			console.log('in session find');
-
 			sessions.sort(function(a, b) {
-    a = new Date(a.startTime);
-    b = new Date(b.startTime);
-    return a>b ? -1 : a<b ? 1 : 0;
-});
+			    a = new Date(a.startTime);
+			    b = new Date(b.startTime);
+			    return a>b ? -1 : a<b ? 1 : 0;
+			});
+
 			for (var i = 0; i < sessions.length; i++) {
 				var sT= sessions[i].startTime;
 				console.log("session time is " + sT);
