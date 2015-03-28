@@ -9,6 +9,13 @@ var Class = db.models.Class;
 var Student = db.models.Student;
 var Teacher = db.models.Teacher;
 var Question = db.models.Question;
+var Feedback = db.models.Feedback;
+var Keyword = db.models.Keyword;
+
+var exec = require('child_process'),
+    child;
+
+var child_process = require('child_process');
 
 function userType(user) {
 	if (user.__proto__.collection.collection.collectionName == "student") {
@@ -217,6 +224,116 @@ exports.session = teacherRequest(function(req, res) {
 					layout: 'layout'
 				}
 			});
+		})
+	});
+});
+
+exports.feedback = teacherRequest(function(req, res) {
+	var sid = req.query.sid;
+	console.log(req.query);
+
+	Session.findById(sid, function (err, session) {
+		var questionIds = session.questions;
+
+		console.log("questionIds is " + questionIds);
+
+		Question.find({"_id": { $in: questionIds}}, function(err, questions) {
+			console.log("questions before function is " + questions);
+
+			child = child_process.exec('python bin/keyword.py',			
+				function(error, stdout, stderr) {
+					console.log('stdout: ' + stdout);
+				    console.log('stderr: ' + stderr);
+
+				    if (error !== null) {
+				      console.log('exec error: ' + error);
+				    }
+
+				    // Get keyword list.
+				    var keywordList = stdout;
+
+				    // Replace commas, brackets, and other basic elements from keywordList.
+				    var updatedKeywordList = keywordList.replace(/[',[\]]/g,'');
+
+				    // Split updatedKeywordList by " " and get list of keywords and percentages.
+				    var phrases = updatedKeywordList.split(" ");
+				    var keywords = [];
+				    var count = [];
+
+				    for (var i = 0; i < phrases.length; i++) {
+
+					    // Save keyword or count to appropriate array.
+					    if (i % 2 == 0) {
+				    		keywords.push(phrases[i]);
+				    	}
+				    	else {
+				    		count.push(phrases[i]);
+				    	}
+				    }
+
+				    //  Determin total number of questions in session.
+				    var totalQuestionsAsked = questions.length;
+
+				    // Create new feedback object.
+				    var feedbackObject = new Feedback({
+				    	totalQuestionsAsked: questions.length,
+				    	totalQuestionsAnswered: 0
+				    });
+
+				    // Save feedback object.
+				    feedbackObject.save(function(err, feedbackObject){
+			            if (err) {
+			                console.error(err);
+			            }
+
+				    	var length = keywords.length;
+				    	var name;
+				    	var proportion;
+				    	var listOfKeywords = [];
+
+				    	// Create new keywords objects with the name and count specified from stdout.
+				    	for (var i = 0; i < length; i++) {
+				    		name = keywords[i];
+				    		proportion = count[i] / totalQuestionsAsked * 100;
+
+				    		var keywordObject = new Keyword({
+				    			name: name,
+				    			proportion: proportion
+				    		});
+
+				    		listOfKeywords.push(keywordObject);
+
+							// Save keywords object to database.
+							keywordObject.save(function(err, keywordObject){
+
+								// Save keyword objects to feedback object.
+								feedbackObject.keywords.push(keywordObject._id);
+
+								// Save feedback object.
+								feedbackObject.save(function(err, feedbackObject){
+									// Save feedback object to session.feedback.
+								});
+
+							});
+				    	}
+
+				    	// Pass in keywords array and questions array to render feedback page.
+					    res.render('feedback', {
+							title: 'Feedback',
+							keywords: listOfKeywords,
+							questions: questions,
+							partials: {
+								layout: 'layout'
+							}
+						});
+
+				    });
+				});
+
+			child.stdin.write("What is convergence?");
+
+			// Could start reading from stdout here piecemeal.
+			
 		})
 	});
 });
