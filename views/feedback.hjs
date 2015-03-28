@@ -1,0 +1,57 @@
+{{<layout}}
+
+{{$title}}{{title}}{{/title}}
+
+{{$head}}
+<script type="text/javascript" src="/javascripts/session.js" async></script>
+{{/head}}
+
+{{$body}}
+<div class="container">
+	<h4>Session Summary</h4>
+	<table class="table table-hover">
+		<thead>
+			<tr>
+				<th>Keyword</th>
+				<th>Percentage</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+			{{#keywords}}
+				<td>{{name}}</td>
+				<td>{{proportion}}%</td>
+			</tr>
+			{{/keywords}}
+		</tbody>
+	</table>
+</div>
+
+<div class="container">
+	<h4>Session Questions</h4>
+	<table class="table table-hover">
+		<thead>
+			<tr>
+				<th>Time Asked</th>
+				<th>Content</th>
+				<th>Was Answered</th>
+			</tr>
+		</thead>
+		<tbody>
+			{{#questions}}
+			<tr>
+				<td>{{timeAsked}}</td>
+				<td>{{content}}</td>
+				<td>
+					{{#isAnswered}}{{isAnswered}}{{/isAnswered}}
+					{{^isAnswered}}N/A{{/isAnswered}}
+					</td>
+			</tr>
+			{{/questions}}
+		</tbody>
+	</table>
+</div>
+{{/body}}
+
+{{/layout}}
+`

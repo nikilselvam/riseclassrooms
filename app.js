@@ -75,6 +75,7 @@ app.get('/teacher', routes.teacherHome);
 app.get('/student', routes.studentHome);
 app.get('/users', user.list);
 app.get('/session', routes.session);
+app.get('/feedback', routes.feedback);
 app.get('/keyword', routes.keyword);
 app.get('/questionType', routes.questionType);
 app.get('/question', routes.questions);
