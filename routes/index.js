@@ -232,96 +232,12 @@ exports.feedback = teacherRequest(function(req, res) {
 	var sid = req.query.sid;
 	console.log(req.query);
 
-	function onFinishedExecution(error, stdout, stderr) {
-	    console.log('stdout: ' + stdout);
-	    console.log('stderr: ' + stderr);
-
-	    if (error !== null) {
-	      console.log('exec error: ' + error);
-	    }
-
-	    console.log("questions is " + questions);
-
-	    // Get keyword list.
-	    var keywordList = stdout;
-	    // console.log("keywordList is " + keywordList);
-
-
-	    // Replace commas, brackets, and other basic elements from keywordList.
-	    var updatedKeywordList = keywordList.replace(/[',[\]]/g,'');
-	    // console.log("updatedKeywordList is " + updatedKeywordList);
-
-	    // Split updatedKeywordList by " " and get list of keywords and percentages.
-	    var phrases = updatedKeywordList.split(" ");
-	    var keywords = [];
-	    var percentages = [];
-
-	    // console.log("phrases is " + phrases);
-	    // console.log("phrases.length is " + phrases.length);
-
-	    // for (var i = 0; i < phrases.length; i++) {
-	    // 	console.log("phrases[" + i + "] is " + phrases[i]);
-
-	    // 	if (i % 2 == 0) {
-	    // 		keywords.push(phrases[i]);
-	    // 	}
-	    // 	else {
-	    // 		percentages.push(phrases[i]);
-	    // 	}
-	    // }
-
-    	// for (var i = 0; i < keywords.length; i++) {
-	    // 	console.log("keywords[" + i + "] is " + keywords[i]);
-	    // }
-
-    	// for (var i = 0; i < percentages.length; i++) {
-	    // 	console.log("percentages[" + i + "] is " + percentages[i]);
-	    // }
-
-	    // Create new feedback object.
-
-	    // Create new keywords objects with the name and count specified from stdout.
-
-		// Save keywords objects to feedback.keywords.
-
-		// Save feedback object to session.feedback.
-
-		// Pass in keywords array into res.render.
-
-	    res.render('feedback', {
-			title: 'Feedback',
-			phrases: phrases,
-			partials: {
-				layout: 'layout'
-			}
-		});
-	}
-
 	Session.findById(sid, function (err, session) {
 		var questionIds = session.questions;
 
 		console.log("questionIds is " + questionIds);
 
 		Question.find({"_id": { $in: questionIds}}, function(err, questions) {
-			/*
-			checkIfSessionIsActive(sessions);
-
-			// Sort sessions by end time and then pass in sessions into
-			// the 'session' template.
-			
-			sessions.sort(function(a, b) {
-			    a = new Date(a.startTime);
-			    b = new Date(b.startTime);
-			    return a>b ? -1 : a<b ? 1 : 0;
-			});
-
-
-			for (var i = 0; i < sessions.length; i++) {
-				var sT= sessions[i].startTime;
-				console.log("session time is " + sT);
-			}
-			*/
-
 			console.log("questions before function is " + questions);
 
 			child = child_process.exec('python bin/keyword.py',			
@@ -335,7 +251,6 @@ exports.feedback = teacherRequest(function(req, res) {
 
 				    // Get keyword list.
 				    var keywordList = stdout;
-
 
 				    // Replace commas, brackets, and other basic elements from keywordList.
 				    var updatedKeywordList = keywordList.replace(/[',[\]]/g,'');
@@ -365,6 +280,7 @@ exports.feedback = teacherRequest(function(req, res) {
 				    	totalQuestionsAnswered: 0
 				    });
 
+				    // Save feedback object.
 				    feedbackObject.save(function(err, feedbackObject){
 			            if (err) {
 			                console.error(err);
@@ -401,7 +317,7 @@ exports.feedback = teacherRequest(function(req, res) {
 							});
 				    	}
 
-				    	// Pass in keywords array into res.render.
+				    	// Pass in keywords array and questions array to render feedback page.
 					    res.render('feedback', {
 							title: 'Feedback',
 							keywords: listOfKeywords,
