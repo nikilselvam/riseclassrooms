@@ -10,7 +10,7 @@
 {{$body}}
 <div class="container">
 	<form id="search">
-        <h4>Questions In Session</h4>
+        <h4>{{classroomName}} Questions</h4>
         <div class="row">
             <div class="col-md-8 form-group">
                 <input type="search" class="form-control" id="search-input" placeholder="Search for questions">
