@@ -232,6 +232,7 @@ exports.keyword = teacherRequest(function(req,res) {
 
 exports.questions = teacherRequest(function(req, res) {
 	var sid = req.query.sid;
+	var classroomName = req.query.classroomName;
 
 	Session.findById(sid, function (err, session) {
 		var questionIds = session.questions;
@@ -240,6 +241,7 @@ exports.questions = teacherRequest(function(req, res) {
 
 			res.render('question', {
 				title: 'Questions',
+				classroomName: classroomName,
 				questions: questions,
 				partials: {
 					layout: 'layout'
