@@ -17,6 +17,7 @@ var passport = require('passport');
 var keyword = require('./routes/keyword');
 var questionType = require('./routes/questionType');
 var session = require('./routes/session');
+var feedback = require('./routes/feedback');
 
 var http = require('http');
 var path = require('path');
@@ -77,7 +78,9 @@ app.get('/users', user.list);
 app.get('/session', routes.session);
 app.get('/keyword', routes.keyword);
 app.get('/questionType', routes.questionType);
-app.get('/question', routes.questions);
+app.get('/feedback/createFeedback', feedback.home);
+
+app.get('/feedback', routes.feedback);
 
 app.post('/signin', passport.authenticate('local'), 
 	function (req, res){

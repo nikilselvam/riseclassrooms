@@ -3,13 +3,14 @@
 {{$title}}{{title}}{{/title}}
 
 {{$head}}
-    <script type="text/javascript" src="/javascripts/question.js" async> </script>
-    <link rel="stylesheet" href="/stylesheets/question.css" >
+    <script type="text/javascript" src="/javascripts/feedback.js" async> </script>
+    <link rel="stylesheet" href="/stylesheets/feedback.css" >
 {{/head}}
 
 {{$body}}
 <div class="container">
-    <h4>Session Summary</h4>
+    <h4>{{classroomName}} Session Summary</h4>
+    <h5> {{totalQuestionsAsked}} questions asked, {{totalQuestionsAnswered}} questions answered, {{numberOfKeywords}} keywords </h5> 
         <table class="table table-hover">
             <thead>
                 <tr>
@@ -29,7 +30,7 @@
 
 
 	<form id="search">
-        <h4>{{classroomName}} Questions</h4>
+        <h4>Questions</h4>
         <div class="row">
             <div class="col-md-8 form-group">
                 <input type="search" class="form-control" id="search-input" placeholder="Search for questions">
@@ -55,7 +56,7 @@
 				<th>Was Answered</th>
 			</tr>
         </thead>
-        <tbody>
+        <tbody class="all-questions">
             {{#questions}}
 			<tr>
 				<td>{{timeAsked}}</td>

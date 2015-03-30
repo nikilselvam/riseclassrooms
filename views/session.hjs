@@ -23,7 +23,7 @@
 		<tbody>
 			{{#sessions}}
 			<tr>
-				<td><a href="/question?sid={{id}}&classroomName={{classroom.name}}">{{startTime}}</a></td>
+				<td><a href="/feedback/createFeedback?sid={{id}}&classroomName={{classroom.name}}">{{startTime}}</a></td>
 				<td>{{endTime}}</td>
 				<td>
 					{{#active}}Yes{{/active}}
