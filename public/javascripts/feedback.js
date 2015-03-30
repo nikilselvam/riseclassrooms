@@ -23,4 +23,17 @@ jQuery(function ($) {
 			$("#search-results-div").fadeIn("fast");
 		});
 	});
+
+	$(".keyword").click(function(){
+		var keyword = this.childNodes[1].innerHTML;
+		var val = keyword.replace(/ +/g, ' ').toLowerCase();
+
+		var rows = $(".all-questions tr");
+	    rows.hide().filter(function () {
+	        var text = $(this).find('td').slice(0,2).text().replace(/\s+/g, ' ').toLowerCase();
+
+	        return text.indexOf(val) != -1 ;
+	    }).show();
+		$("#search-results-div").fadeIn("fast");
+	});
 });

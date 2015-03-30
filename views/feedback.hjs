@@ -19,8 +19,8 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
                 {{#keywords}}
+                <tr class="keyword">
                     <td>{{name}}</td>
                     <td>{{count}}</td>
                 </tr>
