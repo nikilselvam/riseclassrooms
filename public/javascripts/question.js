@@ -9,6 +9,7 @@ jQuery(function ($) {
 
 			if (buttonId === "show-all-questions") {
 				val = "";
+				$("#search-input").val("");
 			}
 			else {
 				val = $.trim($("#search-input").val()).replace(/ +/g, ' ').toLowerCase();
@@ -16,7 +17,7 @@ jQuery(function ($) {
 
 			var rows = $("tbody tr");
 		    rows.hide().filter(function () {
-		        var text = $(this).find('td').slice(0,2).text().replace(/\s+/g, ' ').toLowerCase();
+		        var text = $(this).find('td').slice(2,3).text().replace(/\s+/g, ' ').toLowerCase();
 
 		        return text.indexOf(val) != -1 ;
 		    }).show();

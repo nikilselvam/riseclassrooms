@@ -184,6 +184,105 @@ function checkIfSessionIsActive(sessions){
 	}
 }
 
+function formatAMPM(date) {
+  var hours = date.getHours();
+  var minutes = date.getMinutes();
+  var ampm = hours >= 12 ? 'pm' : 'am';
+  hours = hours % 12;
+  hours = hours ? hours : 12; // the hour '0' should be '12'
+  minutes = minutes < 10 ? '0'+minutes : minutes;
+  var strTime = hours + ':' + minutes + ' ' + ampm;
+  return strTime;
+}
+
+function findDayOfWeek(day) {
+	var dayOfWeek;
+
+	switch (day) {
+		case 0:
+			dayOfWeek = "Sunday";
+			break;
+		case 1:
+			dayOfWeek = "Monday";
+			break;
+		case 2:
+			dayOfWeek = "Tuesday";
+			break;
+		case 3:
+			dayOfWeek = "Wednesday";
+			break;
+		case 4:
+			dayOfWeek = "Thursday";
+			break;
+		case 5:
+			dayOfWeek = "Friday";
+			break;
+		case 6:
+			dayOfWeek = "Saturday";
+			break;
+	}
+
+	return dayOfWeek;
+
+}
+
+function findMonth(monthInt) {
+	var month;
+
+	switch (monthInt) {
+		case 0:
+			month = "January";
+			break;
+		case 1:
+			month = "February";
+			break;
+		case 2:
+			month = "March";
+			break;
+		case 3:
+			month = "April";
+			break;
+		case 4:
+			month = "May";
+			break;
+		case 5:
+			month = "June";
+			break;
+		case 6:
+			month = "July";
+			break;
+		case 7:
+			month = "August";
+			break;
+		case 8:
+			month = "September";
+			break;
+		case 9:
+			month = "October";
+			break;
+		case 10:
+			month = "November";
+			break;
+		case 11:
+			month = "December";
+			break;
+	}
+
+	return month;
+}
+
+
+function formatDate(date) {
+	var month = findMonth(date.getMonth());
+	var day = findDayOfWeek(date.getDay());
+	var date = date.getDate();
+	console.log("month is " + month);
+	console.log("day is " + day);
+	var strMonth = day + ", " + month + " " + date;
+	console.log("strMonth is " + strMonth);
+	return strMonth;
+}
+
 exports.session = teacherRequest(function(req, res) {
 	var cid = req.query.cid;
 	console.log(req.query);
@@ -194,18 +293,28 @@ exports.session = teacherRequest(function(req, res) {
 		Session.find({"_id": { $in: sessionIds}}, function(err, sessions) {
 			checkIfSessionIsActive(sessions);
 
-			// Sort sessions by end time and then pass in sessions into
-			// the 'session' template.
-			
+			// Sort sessions by start time with the more recent sessions
+			// displayed first. 
 			sessions.sort(function(a, b) {
 			    a = new Date(a.startTime);
 			    b = new Date(b.startTime);
 			    return a>b ? -1 : a<b ? 1 : 0;
 			});
 
+
+			// Add date, start time, and end time strings to make it easier for the user to read
+			// for each session.
 			for (var i = 0; i < sessions.length; i++) {
-				var sT= sessions[i].startTime;
-				console.log("session time is " + sT);
+				var startTime = new Date(sessions[i].startTime);
+				var endTime = new Date(sessions[i].endTime);
+
+				var dateString = formatDate(startTime);
+				var startTimeString = formatAMPM(startTime);
+				var endTimeString = formatAMPM(endTime);
+
+				sessions[i].dateString = dateString;
+				sessions[i].startTimeString = startTimeString;
+				sessions[i].endTimeString = endTimeString;
 			}
 
 
@@ -238,6 +347,26 @@ exports.questions = teacherRequest(function(req, res) {
 		var questionIds = session.questions;
 
 		Question.find({"_id": { $in: questionIds}}, function(err, questions) {
+
+			// Sort questions by time asked with the most recently asked questions 
+			// displayed first.
+			questions.sort(function(a, b) {
+			    a = new Date(a.timeAsked);
+			    b = new Date(b.timeAsked);
+			    return a>b ? -1 : a<b ? 1 : 0;
+			});
+
+
+			// Add date and time asked strings to make strings easier to read for user.
+			for (var i = 0; i < questions.length; i++) {
+				var startTime = new Date(questions[i].timeAsked);
+			
+				var dateString = formatDate(startTime);
+				var timeAskedString = formatAMPM(startTime);
+
+				questions[i].dateString = dateString;
+				questions[i].timeAskedString = timeAskedString;
+			}
 
 			res.render('question', {
 				title: 'Questions',
