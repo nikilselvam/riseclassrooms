@@ -184,6 +184,105 @@ function checkIfSessionIsActive(sessions){
 	}
 }
 
+function formatAMPM(date) {
+  var hours = date.getHours();
+  var minutes = date.getMinutes();
+  var ampm = hours >= 12 ? 'pm' : 'am';
+  hours = hours % 12;
+  hours = hours ? hours : 12; // the hour '0' should be '12'
+  minutes = minutes < 10 ? '0'+minutes : minutes;
+  var strTime = hours + ':' + minutes + ' ' + ampm;
+  return strTime;
+}
+
+function findDayOfWeek(day) {
+	var dayOfWeek;
+
+	switch (day) {
+		case 0:
+			dayOfWeek = "Sunday";
+			break;
+		case 1:
+			dayOfWeek = "Monday";
+			break;
+		case 2:
+			dayOfWeek = "Tuesday";
+			break;
+		case 3:
+			dayOfWeek = "Wednesday";
+			break;
+		case 4:
+			dayOfWeek = "Thursday";
+			break;
+		case 5:
+			dayOfWeek = "Friday";
+			break;
+		case 6:
+			dayOfWeek = "Saturday";
+			break;
+	}
+
+	return dayOfWeek;
+
+}
+
+function findMonth(monthInt) {
+	var month;
+
+	switch (monthInt) {
+		case 0:
+			month = "January";
+			break;
+		case 1:
+			month = "February";
+			break;
+		case 2:
+			month = "March";
+			break;
+		case 3:
+			month = "April";
+			break;
+		case 4:
+			month = "May";
+			break;
+		case 5:
+			month = "June";
+			break;
+		case 6:
+			month = "July";
+			break;
+		case 7:
+			month = "August";
+			break;
+		case 8:
+			month = "September";
+			break;
+		case 9:
+			month = "October";
+			break;
+		case 10:
+			month = "November";
+			break;
+		case 11:
+			month = "December";
+			break;
+	}
+
+	return month;
+}
+
+
+function formatDate(date) {
+	var month = findMonth(date.getMonth());
+	var day = findDayOfWeek(date.getDay());
+	var date = date.getDate();
+	console.log("month is " + month);
+	console.log("day is " + day);
+	var strMonth = day + ", " + month + " " + date;
+	console.log("strMonth is " + strMonth);
+	return strMonth;
+}
+
 exports.session = teacherRequest(function(req, res) {
 	var cid = req.query.cid;
 	console.log(req.query);
@@ -203,15 +302,47 @@ exports.session = teacherRequest(function(req, res) {
 			    return a>b ? -1 : a<b ? 1 : 0;
 			});
 
+			var sessionTimes = [];
+
 			for (var i = 0; i < sessions.length; i++) {
-				var sT= sessions[i].startTime;
-				console.log("session time is " + sT);
+				// sessions[i].startTime = 0;
+
+				var startTime = new Date(sessions[i].startTime);
+				var endTime = new Date(sessions[i].endTime);
+				console.log("startTime is " + startTime);
+
+				var dateString = formatDate(startTime);
+
+				console.log("dateString is " + dateString);
+				var startTimeString = formatAMPM(startTime);
+				var endTimeString = formatAMPM(endTime);
+
+				var sessionTime = {};
+				sessionTime.dateString = dateString;
+				sessionTime.startTime = startTimeString;
+				sessionTime.endTime = endTimeString;
+
+				sessionTimes.push(sessionTime);
+
+				sessions[i].dateString = dateString;
+				sessions[i].startTimeString = startTimeString;
+				sessions[i].endTimeString = endTimeString;
+
+
+				// var dateSplit = dateString.split(" ");
+				// console.log("dateSplit is " + dateSplit);
+
+				// var sT= sessions[i].startTime;
+				// console.log("sessions[i].startTime instanceof Date == " + sessions[i].startTime instanceof Date);
+				// console.log("typeof sessions[i].startTime == " + typeof sessions[i].startTime);
+				// console.log("session time is " + sT);
 			}
 
 
 			res.render('session', {
 				title: 'Session',
 				classroom: classroom,
+				sessionTimes: sessionTimes,
 				sessions: sessions,
 				partials: {
 					layout: 'layout'
