@@ -293,8 +293,8 @@ exports.session = teacherRequest(function(req, res) {
 		Session.find({"_id": { $in: sessionIds}}, function(err, sessions) {
 			checkIfSessionIsActive(sessions);
 
-			// Sort sessions by end time and then pass in sessions into
-			// the 'session' template.
+			// Sort sessions by start time with the more recent sessions
+			// displayed first. 
 			sessions.sort(function(a, b) {
 			    a = new Date(a.startTime);
 			    b = new Date(b.startTime);
@@ -347,6 +347,26 @@ exports.questions = teacherRequest(function(req, res) {
 		var questionIds = session.questions;
 
 		Question.find({"_id": { $in: questionIds}}, function(err, questions) {
+
+			// Sort questions by time asked with the most recently asked questions 
+			// displayed first.
+			questions.sort(function(a, b) {
+			    a = new Date(a.timeAsked);
+			    b = new Date(b.timeAsked);
+			    return a>b ? -1 : a<b ? 1 : 0;
+			});
+
+
+			// Add date and time asked strings to make strings easier to read for user.
+			for (var i = 0; i < questions.length; i++) {
+				var startTime = new Date(questions[i].timeAsked);
+			
+				var dateString = formatDate(startTime);
+				var timeAskedString = formatAMPM(startTime);
+
+				questions[i].dateString = dateString;
+				questions[i].timeAskedString = timeAskedString;
+			}
 
 			res.render('question', {
 				title: 'Questions',
