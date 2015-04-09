@@ -295,54 +295,32 @@ exports.session = teacherRequest(function(req, res) {
 
 			// Sort sessions by end time and then pass in sessions into
 			// the 'session' template.
-			
 			sessions.sort(function(a, b) {
 			    a = new Date(a.startTime);
 			    b = new Date(b.startTime);
 			    return a>b ? -1 : a<b ? 1 : 0;
 			});
 
-			var sessionTimes = [];
 
+			// Add date, start time, and end time strings to make it easier for the user to read
+			// for each session.
 			for (var i = 0; i < sessions.length; i++) {
-				// sessions[i].startTime = 0;
-
 				var startTime = new Date(sessions[i].startTime);
 				var endTime = new Date(sessions[i].endTime);
-				console.log("startTime is " + startTime);
 
 				var dateString = formatDate(startTime);
-
-				console.log("dateString is " + dateString);
 				var startTimeString = formatAMPM(startTime);
 				var endTimeString = formatAMPM(endTime);
-
-				var sessionTime = {};
-				sessionTime.dateString = dateString;
-				sessionTime.startTime = startTimeString;
-				sessionTime.endTime = endTimeString;
-
-				sessionTimes.push(sessionTime);
 
 				sessions[i].dateString = dateString;
 				sessions[i].startTimeString = startTimeString;
 				sessions[i].endTimeString = endTimeString;
-
-
-				// var dateSplit = dateString.split(" ");
-				// console.log("dateSplit is " + dateSplit);
-
-				// var sT= sessions[i].startTime;
-				// console.log("sessions[i].startTime instanceof Date == " + sessions[i].startTime instanceof Date);
-				// console.log("typeof sessions[i].startTime == " + typeof sessions[i].startTime);
-				// console.log("session time is " + sT);
 			}
 
 
 			res.render('session', {
 				title: 'Session',
 				classroom: classroom,
-				sessionTimes: sessionTimes,
 				sessions: sessions,
 				partials: {
 					layout: 'layout'
