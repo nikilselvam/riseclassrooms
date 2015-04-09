@@ -28,7 +28,7 @@ def main():
 	print(propernouns)
 
 def test():
-	keywords = ["recursion", "PhD", "industry"]
+	keywords = ["industry", "PhD"]
 	print(keywords)
 
 

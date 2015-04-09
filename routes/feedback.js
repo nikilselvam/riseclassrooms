@@ -33,6 +33,41 @@ function checkIfOneSessionIsActive(session){
 	}
 }
 
+function deleteFeedback (session) {
+	console.log("In deleteFeedback function");
+	console.log(session);
+
+	var feedbackId = session.feedback;
+
+	Feedback.findById(feedbackId, function(err, feedbackObject){
+		// Find keywords.
+		var keywordIds = feedbackObject.keywords;
+		// Remove associated keywords.
+
+		keywordIds.map(function(keywordId){
+			Keyword.findByIdAndRemove(keywordId, function(err){
+				if (err){
+					console.log("Could not remove keyword");
+				}
+			});
+		});
+
+		// Remove feedback object.
+		Feedback.findByIdAndRemove(feedbackId, function(err){
+			if (err){
+				console.log("Could not remove feedbakc object");
+			}
+		});
+
+		// Set session's feedback attribute to null and then create feedabck object.
+		session.feedback = undefined;
+
+		session.save(function(err, sessionObject){
+			createFeedback(session);
+		});
+	});
+};
+
 exports.home = function(req, res) {
 	// Check if session is over and if a feedback object already exists.
 	// If session is over and feedback exists, redirect to /feedback?fid.
@@ -55,10 +90,8 @@ exports.home = function(req, res) {
 
 			// Delete existing feedback object and add a new one if a session has
 			// a feedback object.
-			if (session.feedback !== null) {
-				session.feedback = null;
-
-				createFeedback(session);
+			if (session.feedback !== undefined) {
+				deleteFeedback(session);
 			}
 			// Else if the session does not have a feedback object, create a new one.
 			else {
@@ -69,12 +102,23 @@ exports.home = function(req, res) {
 		else {
 			// Sessoin is not active.
 			console.log("Session is not active. Creating new feedback obect.");
+			console.log("session.feedback = " + session.feedback);
+			console.log("session.feedback !== null: " + (session.feedback !== null));
+			console.log("session.feedback !== undefined: " + (session.feedback !== undefined));
+			console.log("!session.feedback: " + !session.feedback);			
 
 			// Delete existing feedback object and add a new one if a session has
 			// a feedback object.
-			session.feedback = null;
+			if (session.feedback !== undefined) {
+				console.log("In !session.feedback if statement");
+				// Delete reference to feedback object.
+				deleteFeedback(session);
+			}
+			else {
+				console.log("In else statement");
+				createFeedback(session);
+			}
 
-			createFeedback(session);
 
 			// console.log("session before save");
 			// console.log(session);
@@ -91,6 +135,7 @@ exports.home = function(req, res) {
 	});
 
 	res.redirect('/feedback?sid=' + sid + '&classroomName=' + classroomName);
+	// res.redirect('/');
 
 };
 
@@ -103,7 +148,7 @@ function createFeedback (session) {
 
 	// Find the questions in the session.
 	Question.find({"_id": { $in: questionIds}}, function(err, questions) {
-		// Run the Python file to extract keyworsd.
+		// Run the Python file to extract keywords.
 		child = child_process.exec('python bin/keyword.py',			
 			function(error, stdout, stderr) {
 				console.log('stdout: ' + stdout);
@@ -209,6 +254,12 @@ function createFeedback (session) {
 							feedbackObject.keywords.push(keywordObject._id);
 
 							feedbackObject.save(function(err, feedbackObject){
+								if (err) {
+									console.log("feedbackObject could not be saved");
+									console.log("error is " + error);
+									return;
+								}
+
 								// console.log("feedbackObject.keywords");
 								// console.log(feedbackObject.keywords);
 
@@ -217,7 +268,7 @@ function createFeedback (session) {
 
 								session.save(function(err, sessionObject){
 									console.log("session saved");
-									// console.log(session);
+									console.log(session);
 								});
 							});				
 						}

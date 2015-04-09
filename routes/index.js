@@ -242,33 +242,51 @@ exports.feedback = teacherRequest(function(req, res) {
 	Session.findById(sid, function (err, session) {
 		var feedbackId = session.feedback;
 
-		Feedback.findById(feedbackId, function(err, feedback){
-			var totalQuestionsAsked = feedback.totalQuestionsAsked;
-			var totalQuestionsAnswered = feedback.totalQuestionsAnswered;
-			var numberOfKeywords = feedback.keywords.length;
+		console.log("In exports.feedback, session is " + session);
+		console.log("feedbackId is " + feedbackId);
 
-			var keywordIds = feedback.keywords;
+		if (feedbackId === undefined) {
+			console.log("feedbackId is undefined. Redirecting to home");
+			res.redirect('/');
 
-			Keyword.find({"_id": { $in: keywordIds}}, function(err, keywords) {
-				var questionIds = session.questions;
+		}
+		else {
+			Feedback.findById(feedbackId, function(err, feedbackObject){
+				if (err) {
+					console.log("No feedback object found");
+					res.redirect('/');
+				}
+				else {
+					console.log("Feedback object found in exports.feedback");
+					console.log(feedbackObject);
 
-				Question.find({"_id": { $in: questionIds}}, function(err, questions) {
-					res.render('Feedback', {
-						title: 'Feedback',
-						classroomName: classroomName,
-						totalQuestionsAnswered: totalQuestionsAnswered,
-						totalQuestionsAsked: totalQuestionsAsked,
-						numberOfKeywords: numberOfKeywords,
-						keywords: keywords,
-						questions: questions,
-						partials: {
-							layout: 'layout'
-						}
+					var totalQuestionsAsked = feedbackObject.totalQuestionsAsked;
+					var totalQuestionsAnswered = feedbackObject.totalQuestionsAnswered;
+					var numberOfKeywords = feedback.keywords.length;
+
+					var keywordIds = feedbackObject.keywords;
+
+					Keyword.find({"_id": { $in: keywordIds}}, function(err, keywords) {
+						var questionIds = session.questions;
+
+						Question.find({"_id": { $in: questionIds}}, function(err, questions) {
+							res.render('Feedback', {
+								title: 'Feedback',
+								classroomName: classroomName,
+								totalQuestionsAnswered: totalQuestionsAnswered,
+								totalQuestionsAsked: totalQuestionsAsked,
+								numberOfKeywords: numberOfKeywords,
+								keywords: keywords,
+								questions: questions,
+								partials: {
+									layout: 'layout'
+								}
+							});
+						});
 					});
-				});
-
+				}
 			});
-		});
+		}
 	});
 });
 
