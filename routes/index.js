@@ -262,7 +262,7 @@ exports.feedback = teacherRequest(function(req, res) {
 
 					var totalQuestionsAsked = feedbackObject.totalQuestionsAsked;
 					var totalQuestionsAnswered = feedbackObject.totalQuestionsAnswered;
-					var numberOfKeywords = feedback.keywords.length;
+					var numberOfKeywords = feedbackObject.keywords.length;
 
 					var keywordIds = feedbackObject.keywords;
 

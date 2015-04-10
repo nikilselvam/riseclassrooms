@@ -33,7 +33,7 @@ function checkIfOneSessionIsActive(session){
 	}
 }
 
-function deleteFeedback (session) {
+function deleteFeedback (session, res, sid, classroomName) {
 	console.log("In deleteFeedback function");
 	console.log(session);
 
@@ -63,7 +63,7 @@ function deleteFeedback (session) {
 		session.feedback = undefined;
 
 		session.save(function(err, sessionObject){
-			createFeedback(session);
+			createFeedback(session, res, sid, classroomName);
 		});
 	});
 };
@@ -91,11 +91,11 @@ exports.home = function(req, res) {
 			// Delete existing feedback object and add a new one if a session has
 			// a feedback object.
 			if (session.feedback !== undefined) {
-				deleteFeedback(session);
+				deleteFeedback(session, res, sid, classroomName);
 			}
 			// Else if the session does not have a feedback object, create a new one.
 			else {
-				createFeedback(session);
+				createFeedback(session, res, sid, classroomName);
 			}
 		}
 		//  Session is not active.
@@ -112,11 +112,11 @@ exports.home = function(req, res) {
 			if (session.feedback !== undefined) {
 				console.log("In !session.feedback if statement");
 				// Delete reference to feedback object.
-				deleteFeedback(session);
+				deleteFeedback(session, res, sid, classroomName);
 			}
 			else {
 				console.log("In else statement");
-				createFeedback(session);
+				createFeedback(session, res, sid, classroomName);
 			}
 
 
@@ -134,12 +134,11 @@ exports.home = function(req, res) {
 
 	});
 
-	res.redirect('/feedback?sid=' + sid + '&classroomName=' + classroomName);
 	// res.redirect('/');
 
 };
 
-function createFeedback (session) {
+function createFeedback (session, res, sid, classroomName) {
 	console.log("In createFeedback(session) function");
 	console.log(session);
 
@@ -191,6 +190,8 @@ function createFeedback (session) {
 			    });
 
 			    // var allProcessedKeywords = [];
+
+			    var savedKeywords = 0;
 
 			    // For each keyword, find questions with that keyword.
 			    for (var i = 0; i < keywordList.length; i++) {
@@ -269,6 +270,12 @@ function createFeedback (session) {
 								session.save(function(err, sessionObject){
 									console.log("session saved");
 									console.log(session);
+
+									savedKeywords++;
+
+									if (savedKeywords == keywordList.length) {
+										res.redirect('/feedback?sid=' + sid + '&classroomName=' + classroomName);
+									}
 								});
 							});				
 						}
