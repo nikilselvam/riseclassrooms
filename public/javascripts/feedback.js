@@ -18,23 +18,35 @@ jQuery(function ($) {
 			var rows = $(".all-questions tr");
 		    rows.hide().filter(function () {
 		        var text = $(this).find('td').slice(2,3).text().replace(/\s+/g, ' ').toLowerCase();
+		        debugger;
 
 		        return text.indexOf(val) != -1 ;
 		    }).show();
+
 			$("#search-results-div").fadeIn("fast");
 		});
 	});
 
 	$(".keyword").click(function(){
-		var keyword = this.childNodes[1].innerHTML;
-		var val = keyword.replace(/ +/g, ' ').toLowerCase();
+		var keywordObject = this;
 
-		var rows = $(".all-questions tr");
-	    rows.hide().filter(function () {
-	        var text = $(this).find('td').slice(0,2).text().replace(/\s+/g, ' ').toLowerCase();
+		$("p.help-block").hide("fast");
+		$("#search-results-div").fadeOut("fast", function () {
+			var keyword = keywordObject.childNodes[1].innerHTML;
+			var val = keyword.replace(/ +/g, ' ').toLowerCase();
 
-	        return text.indexOf(val) != -1 ;
-	    }).show();
-		$("#search-results-div").fadeIn("fast");
+			$("#search-input").val(val);		
+
+			var rows = $(".all-questions tr");
+		    rows.hide().filter(function () {
+		        var text = $(this).find('td').slice(2,3).text().replace(/\s+/g, ' ').toLowerCase();
+		        // debugger;
+
+		        return text.indexOf(val) != -1 ;
+		    }).show();
+
+			$("#search-results-div").fadeIn("fast");
+		});
+
 	});
 });
