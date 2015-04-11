@@ -33,7 +33,7 @@ function checkIfOneSessionIsActive(session){
 	}
 }
 
-function deleteFeedback (session, res, sid, classroomName) {
+function deleteFeedback (session, res, classroomName) {
 	console.log("In deleteFeedback function");
 	console.log(session);
 
@@ -63,7 +63,7 @@ function deleteFeedback (session, res, sid, classroomName) {
 		session.feedback = undefined;
 
 		session.save(function(err, sessionObject){
-			createFeedback(session, res, sid, classroomName);
+			createFeedback(session, res, classroomName);
 		});
 	});
 };
@@ -91,11 +91,11 @@ exports.home = function(req, res) {
 			// Delete existing feedback object and add a new one if a session has
 			// a feedback object.
 			if (session.feedback !== undefined) {
-				deleteFeedback(session, res, sid, classroomName);
+				deleteFeedback(session, res, classroomName);
 			}
 			// Else if the session does not have a feedback object, create a new one.
 			else {
-				createFeedback(session, res, sid, classroomName);
+				createFeedback(session, res, classroomName);
 			}
 		}
 		//  Session is not active.
@@ -112,33 +112,18 @@ exports.home = function(req, res) {
 			if (session.feedback !== undefined) {
 				console.log("In !session.feedback if statement");
 				// Delete reference to feedback object.
-				deleteFeedback(session, res, sid, classroomName);
+				deleteFeedback(session, res, classroomName);
 			}
 			else {
 				console.log("In else statement");
-				createFeedback(session, res, sid, classroomName);
+				createFeedback(session, res, classroomName);
 			}
-
-
-			// console.log("session before save");
-			// console.log(session);
-
-			// session.save(function(err, sessionObject) {
-			// 	console.log("session after save");
-			// 	console.log(sessionObject);
-
-			// 	// Create new feedback object.
-			// 	createFeedback(sessionObject);
-			// });
 		}
 
 	});
-
-	// res.redirect('/');
-
 };
 
-function createFeedback (session, res, sid, classroomName) {
+function createFeedback (session, res, classroomName) {
 	console.log("In createFeedback(session) function");
 	console.log(session);
 
@@ -160,17 +145,11 @@ function createFeedback (session, res, sid, classroomName) {
 			    // Get keyword list.
 			   	var phrases = stdout.replace(/['\n,[\]]/g,'').split(" ");
 
-			    // console.log("phrases");
-			    // console.log(phrases);
-
 			    var keywordList = [];
 
 			    for (var i = 0; i < phrases.length; i++) {
 			    	keywordList.push(phrases[i]);
 			    }
-
-			    // console.log("keywordList");
-			    // console.log(keywordList);
 
 			    // Get question content only.
 			    var questionContent = [];
@@ -199,7 +178,6 @@ function createFeedback (session, res, sid, classroomName) {
 
 				    var currentKeyword = keywordList[i].replace(/\s+/g, ' ');
 				    var lowerCaseKeyword = currentKeyword.toLowerCase();
-				    // console.log('currentKeyword is ' + currentKeyword);
 
 			    	// Create new keyword.
 		    		var keywordObject = new Keyword({
@@ -208,10 +186,6 @@ function createFeedback (session, res, sid, classroomName) {
 		    		});
 
 				    var filteredQuestions = questionContent.filter(containsKeyword, lowerCaseKeyword);
-				    
-				    // console.log("filteredQuestions");
-				    // console.log(filteredQuestions);
-				    // console.log();
 
 			    	var questionCount = 0;
 			    	var questionsToAdd = [];
@@ -244,10 +218,7 @@ function createFeedback (session, res, sid, classroomName) {
 
 
 		    		// Save keywords object to database.
-					keywordObject.save(function(err, keywordObject){
-
-						// console.log("Pushing keyword into allProcessedKeywords");
-						// allProcessedKeywords.push(keywordObject._id);
+					keywordObject.save(function(err, keywordObject){;
 
 						// If feedback object does not already contain keyword,
 						// add keyword ID into feedback object.
@@ -261,9 +232,6 @@ function createFeedback (session, res, sid, classroomName) {
 									return;
 								}
 
-								// console.log("feedbackObject.keywords");
-								// console.log(feedbackObject.keywords);
-
 								// Save feedback object to session.
 								session.feedback = feedbackObject._id;
 
@@ -274,7 +242,7 @@ function createFeedback (session, res, sid, classroomName) {
 									savedKeywords++;
 
 									if (savedKeywords == keywordList.length) {
-										res.redirect('/feedback?sid=' + sid + '&classroomName=' + classroomName);
+										res.redirect('/feedback?sid=' + session._id + '&classroomName=' + classroomName);
 									}
 								});
 							});				
