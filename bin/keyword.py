@@ -28,7 +28,7 @@ def main():
 	print(propernouns)
 
 def test():
-	keywords = ["industry", "PhD"]
+	keywords = ["industry", "PhD", "undergraduate"]
 	print(keywords)
 
 

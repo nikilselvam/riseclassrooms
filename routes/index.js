@@ -276,10 +276,7 @@ function formatDate(date) {
 	var month = findMonth(date.getMonth());
 	var day = findDayOfWeek(date.getDay());
 	var date = date.getDate();
-	console.log("month is " + month);
-	console.log("day is " + day);
 	var strMonth = day + ", " + month + " " + date;
-	console.log("strMonth is " + strMonth);
 	return strMonth;
 }
 
@@ -340,10 +337,10 @@ exports.keyword = teacherRequest(function(req,res) {
 });
 
 exports.feedback = teacherRequest(function(req, res) {
-	console.log("In routes.index feedback function");
-	console.log(req.query);
+	// console.log("In routes.index feedback function");
+	// console.log(req.query);
 
-	console.log(req.query.sid);
+	// console.log(req.query.sid);
 
 	var sid = req.query.sid;
 	var classroomName = req.query.classroomName;
@@ -351,8 +348,8 @@ exports.feedback = teacherRequest(function(req, res) {
 	Session.findById(sid, function (err, session) {
 		var feedbackId = session.feedback;
 
-		console.log("In exports.feedback, session is " + session);
-		console.log("feedbackId is " + feedbackId);
+		// console.log("In exports.feedback, session is " + session);
+		// console.log("feedbackId is " + feedbackId);
 
 		if (feedbackId === undefined) {
 			console.log("feedbackId is undefined. Redirecting to home");
@@ -366,7 +363,7 @@ exports.feedback = teacherRequest(function(req, res) {
 					res.redirect('/');
 				}
 				else {
-					console.log("Feedback object found in exports.feedback");
+					// console.log("Feedback object found in exports.feedback");
 					console.log(feedbackObject);
 
 					var totalQuestionsAsked = feedbackObject.totalQuestionsAsked;

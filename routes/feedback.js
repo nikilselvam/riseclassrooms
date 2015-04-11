@@ -78,6 +78,8 @@ exports.home = function(req, res) {
 	// If session is not over, delete feedback object if it does exist, create new
 	// feedback object, and redirect to /feedback?fid.
 
+	console.log("In exports.home of routes/feedback");
+
 	var sid = req.query.sid;
 	var classroomName = req.query.classroomName;
 
@@ -91,16 +93,18 @@ exports.home = function(req, res) {
 			// Delete existing feedback object and add a new one if a session has
 			// a feedback object.
 			if (session.feedback !== undefined) {
+				console.log("Deleting and redirecting feedback");
 				deleteFeedback(session, res, classroomName);
 			}
 			// Else if the session does not have a feedback object, create a new one.
 			else {
+				console.log("Just creating feedback");
 				createFeedback(session, res, classroomName);
 			}
 		}
 		//  Session is not active.
 		else {
-			// Sessoin is not active.
+			// Session is not active.
 			console.log("Session is not active. Creating new feedback obect.");
 			console.log("session.feedback = " + session.feedback);
 			console.log("session.feedback !== null: " + (session.feedback !== null));
