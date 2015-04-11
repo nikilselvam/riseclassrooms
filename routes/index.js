@@ -9,6 +9,8 @@ var Class = db.models.Class;
 var Student = db.models.Student;
 var Teacher = db.models.Teacher;
 var Question = db.models.Question;
+var Keyword = db.models.Keyword;
+var Feedback = db.models.Feedback;
 
 function userType(user) {
 	if (user.__proto__.collection.collection.collectionName == "student") {
@@ -151,6 +153,8 @@ exports.teacherHome = teacherRequest(function(req, res) {
 	Class.find({
 		'_id' : { $in: classIds }
 	}, function (err, classes) {
+		console.log(classes);
+
 		res.render('teacherHome', {
 			title: 'Classes',
 			classes: classes,
@@ -162,12 +166,8 @@ exports.teacherHome = teacherRequest(function(req, res) {
 });
 
 function checkIfSessionIsActive(sessions){
-	//console.log("sessions are " + sessions);
-
 	for (var i = 0; i < sessions.length; i++) {
 		var session = sessions[i];
-		//console.log("session is " + session);
-
 		if (session.active == true) {
 			var endTime = session.endTime.getTime();
 			var currentTime = new Date().getTime();
@@ -276,10 +276,7 @@ function formatDate(date) {
 	var month = findMonth(date.getMonth());
 	var day = findDayOfWeek(date.getDay());
 	var date = date.getDate();
-	console.log("month is " + month);
-	console.log("day is " + day);
 	var strMonth = day + ", " + month + " " + date;
-	console.log("strMonth is " + strMonth);
 	return strMonth;
 }
 
@@ -339,46 +336,84 @@ exports.keyword = teacherRequest(function(req,res) {
 	});
 });
 
-exports.questions = teacherRequest(function(req, res) {
+exports.feedback = teacherRequest(function(req, res) {
+	// console.log("In routes.index feedback function");
+	// console.log(req.query);
+
+	// console.log(req.query.sid);
+
 	var sid = req.query.sid;
 	var classroomName = req.query.classroomName;
 
 	Session.findById(sid, function (err, session) {
-		var questionIds = session.questions;
+		var feedbackId = session.feedback;
 
-		Question.find({"_id": { $in: questionIds}}, function(err, questions) {
+		// console.log("In exports.feedback, session is " + session);
+		// console.log("feedbackId is " + feedbackId);
 
-			// Sort questions by time asked with the most recently asked questions 
-			// displayed first.
-			questions.sort(function(a, b) {
-			    a = new Date(a.timeAsked);
-			    b = new Date(b.timeAsked);
-			    return a>b ? -1 : a<b ? 1 : 0;
-			});
+		if (feedbackId === undefined) {
+			console.log("feedbackId is undefined. Redirecting to home");
+			res.redirect('/');
+
+		}
+		else {
+			Feedback.findById(feedbackId, function(err, feedbackObject){
+				if (err) {
+					console.log("No feedback object found");
+					res.redirect('/');
+				}
+				else {
+					// console.log("Feedback object found in exports.feedback");
+					console.log(feedbackObject);
+
+					var totalQuestionsAsked = feedbackObject.totalQuestionsAsked;
+					var totalQuestionsAnswered = feedbackObject.totalQuestionsAnswered;
+					var numberOfKeywords = feedbackObject.keywords.length;
+
+					var keywordIds = feedbackObject.keywords;
+
+					Keyword.find({"_id": { $in: keywordIds}}, function(err, keywords) {
+						var questionIds = session.questions;
+
+						Question.find({"_id": { $in: questionIds}}, function(err, questions) {
+							// Sort questions by time asked with the most recently asked questions 
+							// displayed first.
+							questions.sort(function(a, b) {
+							    a = new Date(a.timeAsked);
+							    b = new Date(b.timeAsked);
+							    return a>b ? -1 : a<b ? 1 : 0;
+							});
 
 
-			// Add date and time asked strings to make strings easier to read for user.
-			for (var i = 0; i < questions.length; i++) {
-				var startTime = new Date(questions[i].timeAsked);
-			
-				var dateString = formatDate(startTime);
-				var timeAskedString = formatAMPM(startTime);
+							// Add date and time asked strings to make strings easier to read for user.
+							for (var i = 0; i < questions.length; i++) {
+								var startTime = new Date(questions[i].timeAsked);
+							
+								var dateString = formatDate(startTime);
+								var timeAskedString = formatAMPM(startTime);
 
-				questions[i].dateString = dateString;
-				questions[i].timeAskedString = timeAskedString;
-			}
+								questions[i].dateString = dateString;
+								questions[i].timeAskedString = timeAskedString;
+							}
 
-			res.render('question', {
-				title: 'Questions',
-				classroomName: classroomName,
-				questions: questions,
-				partials: {
-					layout: 'layout'
+							res.render('Feedback', {
+								title: 'Feedback',
+								classroomName: classroomName,
+								totalQuestionsAnswered: totalQuestionsAnswered,
+								totalQuestionsAsked: totalQuestionsAsked,
+								numberOfKeywords: numberOfKeywords,
+								keywords: keywords,
+								questions: questions,
+								partials: {
+									layout: 'layout'
+								}
+							});
+						});
+					});
 				}
 			});
-		})
+		}
 	});
-
 });
 
 exports.questionType = teacherRequest(function(req,res) {

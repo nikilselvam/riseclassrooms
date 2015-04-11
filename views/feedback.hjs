@@ -3,13 +3,14 @@
 {{$title}}{{title}}{{/title}}
 
 {{$head}}
-    <script type="text/javascript" src="/javascripts/question.js" async> </script>
-    <link rel="stylesheet" href="/stylesheets/question.css" >
+    <script type="text/javascript" src="/javascripts/feedback.js" async> </script>
+    <link rel="stylesheet" href="/stylesheets/feedback.css" >
 {{/head}}
 
 {{$body}}
 <div class="container">
-    <h4>Session Summary</h4>
+    <h4>{{classroomName}} Session Summary</h4>
+    <h5> {{totalQuestionsAsked}} questions asked, {{totalQuestionsAnswered}} questions answered, {{numberOfKeywords}} keywords </h5> 
         <table class="table table-hover">
             <thead>
                 <tr>
@@ -18,8 +19,8 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
                 {{#keywords}}
+                <tr class="keyword">
                     <td>{{name}}</td>
                     <td>{{count}}</td>
                 </tr>
@@ -29,7 +30,7 @@
 
 
 	<form id="search">
-        <h4>{{classroomName}} Questions</h4>
+        <h4>Questions</h4>
         <div class="row">
             <div class="col-md-8 form-group">
                 <input type="search" class="form-control" id="search-input" placeholder="Search for questions">
@@ -51,16 +52,16 @@
         <thead>
        		<tr>
                 <th>Date</th>
-				<th>Time Asked</th>
+                <th>Time Asked</th>
 				<th>Content</th>
 				<th>Was Answered</th>
 			</tr>
         </thead>
-        <tbody>
+        <tbody class="all-questions">
             {{#questions}}
 			<tr>
                 <td>{{dateString}}</td>
-				<td>{{timeAskedString}}</td>
+                <td>{{timeAskedString}}</td>
 				<td>{{content}}</td>
 				<td>
 					{{#isAnswered}}{{isAnswered}}{{/isAnswered}}
@@ -71,6 +72,9 @@
         </tbody>
     </table>
     </form>
+    <div class="row">
+
+	</div>
 </div>
 {{/body}}
 

@@ -35,7 +35,7 @@ var sessionSchema = new Schema({
 	active				: Boolean,
 	durations			: Number,
 	numberOfQuestions	: Number,
-	feedback            : [ObjectId],
+	feedback            : ObjectId,
 	questions 			: [ObjectId],
 	keywords			: [ObjectId],
 	classId 			: ObjectId,
@@ -75,7 +75,8 @@ var keywordSchema = new Schema({
 	count 			: Number,
 	name  			: String,
 	questionType 	: [ObjectId],
-	proportion		: Number
+	proportion		: Number,
+	questions 		: [ObjectId]
 }, { collection: 'trend'});
 
 var questionTypeSchema = new Schema({
