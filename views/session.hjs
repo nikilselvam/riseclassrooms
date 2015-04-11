@@ -12,8 +12,9 @@
 	<table class="table table-hover">
 		<thead>
 			<tr>
-				<th>Start</th>
-				<th>End</th>
+				<th>Date</th>
+				<th>Start Time</th>
+				<th>End Time</th>
 				<th>Active</th>
 				<th>Questions asked</th>
 				<th>Questions answered</th>
@@ -23,8 +24,9 @@
 		<tbody>
 			{{#sessions}}
 			<tr>
-				<td><a href="/feedback/createFeedback?sid={{id}}&classroomName={{classroom.name}}">{{startTime}}</a></td>
-				<td>{{endTime}}</td>
+				<td><a href="/feedback?sid={{id}}&classroomName={{classroom.name}}">{{dateString}}</a></td>
+				<td>{{startTimeString}}</td>
+				<td>{{endTimeString}}</td>
 				<td>
 					{{#active}}Yes{{/active}}
 					{{^active}}No{{/active}}

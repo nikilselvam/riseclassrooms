@@ -51,7 +51,8 @@
 
         <thead>
        		<tr>
-				<th>Time Asked</th>
+                <th>Date</th>
+                <th>Time Asked</th>
 				<th>Content</th>
 				<th>Was Answered</th>
 			</tr>
@@ -59,7 +60,8 @@
         <tbody class="all-questions">
             {{#questions}}
 			<tr>
-				<td>{{timeAsked}}</td>
+                <td>{{dateString}}</td>
+                <td>{{timeAskedString}}</td>
 				<td>{{content}}</td>
 				<td>
 					{{#isAnswered}}{{isAnswered}}{{/isAnswered}}
