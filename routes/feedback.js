@@ -34,8 +34,8 @@ function checkIfOneSessionIsActive(session){
 }
 
 function deleteFeedback (session, res, classroomName) {
-	console.log("In deleteFeedback function");
-	console.log(session);
+	// console.log("In deleteFeedback function");
+	// console.log(session);
 
 	var feedbackId = session.feedback;
 
@@ -105,11 +105,11 @@ exports.home = function(req, res) {
 		//  Session is not active.
 		else {
 			// Session is not active.
-			console.log("Session is not active. Creating new feedback obect.");
-			console.log("session.feedback = " + session.feedback);
-			console.log("session.feedback !== null: " + (session.feedback !== null));
-			console.log("session.feedback !== undefined: " + (session.feedback !== undefined));
-			console.log("!session.feedback: " + !session.feedback);			
+			// console.log("Session is not active. Creating new feedback obect.");
+			// console.log("session.feedback = " + session.feedback);
+			// console.log("session.feedback !== null: " + (session.feedback !== null));
+			// console.log("session.feedback !== undefined: " + (session.feedback !== undefined));
+			// console.log("!session.feedback: " + !session.feedback);			
 
 			// Delete existing feedback object and add a new one if a session has
 			// a feedback object.
@@ -128,8 +128,8 @@ exports.home = function(req, res) {
 };
 
 function createFeedback (session, res, classroomName) {
-	console.log("In createFeedback(session) function");
-	console.log(session);
+	// console.log("In createFeedback(session) function");
+	// console.log(session);
 
 	// Get the question IDs in the session.
 	var questionIds = session.questions;
@@ -137,7 +137,7 @@ function createFeedback (session, res, classroomName) {
 	// Find the questions in the session.
 	Question.find({"_id": { $in: questionIds}}, function(err, questions) {
 		// Run the Python file to extract keywords.
-		child = child_process.exec('python bin/keyword.py',			
+		child = child_process.exec('python bin/testKeyword.py',			
 			function(error, stdout, stderr) {
 				console.log('stdout: ' + stdout);
 			    console.log('stderr: ' + stderr);
@@ -240,8 +240,8 @@ function createFeedback (session, res, classroomName) {
 								session.feedback = feedbackObject._id;
 
 								session.save(function(err, sessionObject){
-									console.log("session saved");
-									console.log(session);
+									// console.log("session saved");
+									// console.log(session);
 
 									savedKeywords++;
 

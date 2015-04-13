@@ -1,8 +1,8 @@
-# import string
-# import nltk
-# from nltk.tokenize import RegexpTokenizer
-# from nltk.corpus import stopwords
-# import re
+import string
+import nltk
+from nltk.tokenize import RegexpTokenizer
+from nltk.corpus import stopwords
+import re
 ##notes: 1. reduce words to its root form 2. implement if loops if noun is not present
 # text=input('Type in your question: ')
 
@@ -28,8 +28,8 @@ def main():
 	print(propernouns)
 
 def test():
-	keywords = ["industry", "PhD", "undergraduate"]
-	print(keywords)
+	staticList = ["industry", "PhD", "undergraduate", "professor"]
+	print(staticList)
 
 
 # __name__ = tells you which module is importing this file
