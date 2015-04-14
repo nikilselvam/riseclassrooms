@@ -305,6 +305,10 @@ exports.session = teacherRequest(function(req, res) {
 				var startTime = new Date(sessions[i].startTime);
 				var endTime = new Date(sessions[i].endTime);
 
+				// Subtract 7 hours.
+				startTime.setHours(startTime.getHours() - 7);
+				endTime.setHours(endTime.getHours() - 7);
+
 				var dateString = formatDate(startTime);
 				var startTimeString = formatAMPM(startTime);
 				var endTimeString = formatAMPM(endTime);
