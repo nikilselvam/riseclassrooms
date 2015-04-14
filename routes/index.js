@@ -396,7 +396,7 @@ exports.feedback = teacherRequest(function(req, res) {
 								questions[i].timeAskedString = timeAskedString;
 							}
 
-							res.render('Feedback', {
+							res.render('feedback', {
 								title: 'Feedback',
 								classroomName: classroomName,
 								totalQuestionsAnswered: totalQuestionsAnswered,
