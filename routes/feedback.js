@@ -4,6 +4,10 @@ var Session = db.models.Session;
 var Feedback = db.models.Feedback;
 var Keyword = db.models.Keyword;
 var Question = db.models.Question;
+var pos = require('pos');
+var natural = require('natural');
+stemmer = natural.PorterStemmer;
+
 
 var exec = require('child_process'),
 	child;
@@ -127,6 +131,113 @@ exports.home = function(req, res) {
 	});
 };
 
+function findKeywords(questions) {
+	var keywords = {};
+
+
+	for (var j = 0; j < questions.length; j++) {
+		var question = questions[j];
+		// console.log("question is " + question);
+
+		var words = new pos.Lexer().lex(question);
+
+		// console.log("words is " + words);
+
+		var taggedWords = new pos.Tagger().tag(words);
+
+		// console.log("taggedWords is " + taggedWords);
+
+		for (i in taggedWords) {
+			var taggedWord = taggedWords[i];
+			var word = taggedWord[0];
+			var tag = taggedWord = taggedWord[1];
+			console.log(word + " has tag " + tag);
+
+			var keyword;
+
+			if (word === "I" || tag === "." || tag === "PRP" || tag === "MD" || tag === "IN") {
+				// console.log("end of sentence found! " + word);
+				continue;
+			} else if (tag === "NNP" || tag === "NNPS") {
+				// console.log("Proper noun found! " + word);
+				keyword = word;
+			} else {
+				// Stem the word.
+				stem = stemmer.stem(word);
+				// console.log("Valid word found!");
+				// console.log("word = " + word + ", stem = " + stem);
+				keyword = stem;
+			}
+
+			console.log("keyword = " + keyword);
+			// Push the keyword into the dictionary.
+			if (keyword in keywords) {
+				console.log("keyword " + keyword + " in keywords!");
+				console.log("value = " + keywords[keyword] + "\n");
+				keywords[keyword] = keywords[keyword] + 1;
+			}
+			else {
+				console.log("New entry!\n");
+				keywords[keyword] = 1;
+			}
+		}
+	}
+
+	// Print keywords.
+	for (keyword in keywords) {
+		console.log("keyword = " + keyword + ", value = " + keywords[keyword]);
+	}
+
+	// Sort keywords.
+	var tuples = [];
+
+	for (var key in keywords) {
+		tuples.push([key, keywords[key]]);
+	}
+
+	tuples.sort(function(a, b){
+		a = a[1];
+		b = b[1];
+
+		return a < b ? -1 : (a > b ? 1 : 0);
+	});
+
+	tuples.reverse();
+
+	console.log("After sorting\n");
+
+	// Print all keywords now.
+	for (var j = 0; j < tuples.length; j++) {
+		console.log("tuples[" + j + "] = " + tuples[j][0] + ", value = " + tuples[j][1]);
+	}
+}
+
+exports.getKeywords = function(req, res) {
+	var sid = req.query.sid;
+	// console.log("sid is " + sid);
+
+	Session.findById(sid, function (err, session) {
+		var questionIds = session.questions;
+
+		Question.find({"_id": {$in: questionIds}}, function(err, questions) {
+			// console.log("questions is " + questions);
+
+			var questionContent = [];
+
+			for (var i = 0; i < questions.length; i++) {
+				var question = questions[i];
+				// console.log("question is " + question);
+				questionContent.push(question.content);
+			}
+
+			// console.log("questionContent is " + questionContent);
+
+			findKeywords(questionContent);
+			res.redirect('/');
+		});
+	});
+}
+
 function createFeedback (session, res, classroomName) {
 	// console.log("In createFeedback(session) function");
 	// console.log(session);
@@ -146,9 +257,15 @@ function createFeedback (session, res, classroomName) {
 			    //   console.log('exec error: ' + error);
 			    // }
 
+
+			    findKeywords(questions);
+
 			    // Get keyword list.
 			    var phrases = ["industry", "PhD", "undergraduate", "jobs"];
+			    res.redirect('/');
 			   	// var phrases = staticList.replace(/['\n,[\]]/g,'').split(" ");
+
+				/*
 
 			    var keywordList = [];
 
@@ -254,6 +371,7 @@ function createFeedback (session, res, classroomName) {
 						}
 					});
 			    }
+			    */
 			// });
 
 		// child.stdin.write("What is convergence?");
