@@ -137,17 +137,18 @@ function createFeedback (session, res, classroomName) {
 	// Find the questions in the session.
 	Question.find({"_id": { $in: questionIds}}, function(err, questions) {
 		// Run the Python file to extract keywords.
-		child = child_process.exec('python bin/testKeyword.py',			
-			function(error, stdout, stderr) {
-				console.log('stdout: ' + stdout);
-			    console.log('stderr: ' + stderr);
+		// child = child_process.exec('python bin/testKeyword.py',			
+			// function(error, stdout, stderr) {
+				// console.log('stdout: ' + stdout);
+			    // console.log('stderr: ' + stderr);
 
-			    if (error !== null) {
-			      console.log('exec error: ' + error);
-			    }
+			    // if (error !== null) {
+			    //   console.log('exec error: ' + error);
+			    // }
 
 			    // Get keyword list.
-			   	var phrases = stdout.replace(/['\n,[\]]/g,'').split(" ");
+			    var phrases = ["industry", "PhD", "undergraduate", "jobs"];
+			   	// var phrases = staticList.replace(/['\n,[\]]/g,'').split(" ");
 
 			    var keywordList = [];
 
@@ -232,7 +233,7 @@ function createFeedback (session, res, classroomName) {
 							feedbackObject.save(function(err, feedbackObject){
 								if (err) {
 									console.log("feedbackObject could not be saved");
-									console.log("error is " + error);
+									console.log("error is " + err);
 									return;
 								}
 
@@ -253,9 +254,9 @@ function createFeedback (session, res, classroomName) {
 						}
 					});
 			    }
-			});
+			// });
 
-		child.stdin.write("What is convergence?");
+		// child.stdin.write("What is convergence?");
 
 		// Could start reading from stdout here piecemeal.
 		
