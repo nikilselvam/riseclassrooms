@@ -39,7 +39,7 @@
 					{{#ratio}}{{ratio}}{{/ratio}}
 					{{^ratio}}0{{/ratio}}
 				</td>
-				<td>{{keyword}}</td>
+				<td><a href="/feedback/getKeywords?sid={{id}}" class="btn btn-info">Find Keywords</a></td>
 			</tr>
 			{{/sessions}}
 		</tbody>

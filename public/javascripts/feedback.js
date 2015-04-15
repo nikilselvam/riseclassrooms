@@ -19,7 +19,6 @@ jQuery(function ($) {
 		    rows.hide().filter(function () {
 		        var text = $(this).find('td').slice(2,3).text().replace(/\s+/g, ' ').toLowerCase();
 		        debugger;
-
 		        return text.indexOf(val) != -1 ;
 		    }).show();
 
@@ -34,15 +33,24 @@ jQuery(function ($) {
 		$("#search-results-div").fadeOut("fast", function () {
 			var keyword = keywordObject.childNodes[1].innerHTML;
 			var val = keyword.replace(/ +/g, ' ').toLowerCase();
+			var secondVal = null;
+
+			if (val.substr(val.length-1, 1) === "y") {
+				secondVal = val.substr(0, val.length - 1) + "i";
+			}
 
 			$("#search-input").val(val);		
 
 			var rows = $(".all-questions tr");
 		    rows.hide().filter(function () {
 		        var text = $(this).find('td').slice(2,3).text().replace(/\s+/g, ' ').toLowerCase();
-		        // debugger;
 
-		        return text.indexOf(val) != -1 ;
+		    	if (secondVal === null) {
+		        	return text.indexOf(val) != -1;
+		    	}
+		    	else {
+		    		return text.indexOf(val) != -1 || text.indexOf(secondVal) != -1;
+		    	}
 		    }).show();
 
 			$("#search-results-div").fadeIn("fast");

@@ -4,6 +4,10 @@ var Session = db.models.Session;
 var Feedback = db.models.Feedback;
 var Keyword = db.models.Keyword;
 var Question = db.models.Question;
+var pos = require('pos');
+var natural = require('natural');
+stemmer = natural.PorterStemmer;
+
 
 var exec = require('child_process'),
 	child;
@@ -127,34 +131,140 @@ exports.home = function(req, res) {
 	});
 };
 
-function createFeedback (session, res, classroomName) {
-	// console.log("In createFeedback(session) function");
-	// console.log(session);
+function findKeywords(questions) {
+	var keywords = {};
 
+
+	for (var j = 0; j < questions.length; j++) {
+		var question = questions[j];
+		console.log("question is " + question);
+
+		var words = new pos.Lexer().lex(question);
+
+		console.log("words is " + words);
+
+		var taggedWords = new pos.Tagger().tag(words);
+
+		// console.log("taggedWords is " + taggedWords);
+
+		for (i in taggedWords) {
+			var taggedWord = taggedWords[i];
+			var word = taggedWord[0];
+			var tag = taggedWord = taggedWord[1];
+			console.log(word + " has tag " + tag);
+
+			var keyword;
+
+			if (word === "I" || tag === "." || tag === "PRP" || tag === "MD" || tag === "IN" || tag == "DT"
+					|| word.length < 3) {
+				// console.log("end of sentence found! " + word);
+				continue;
+			} else if (tag === "NNP" || tag === "NNPS") {
+				// console.log("Proper noun found! " + word);
+				keyword = word;
+			} else {
+				// Stem the word.
+				stem = stemmer.stem(word);
+				// console.log("Valid word found!");
+				// console.log("word = " + word + ", stem = " + stem);
+				keyword = stem;
+			}
+
+			console.log("keyword = " + keyword);
+			// Push the keyword into the dictionary.
+			if (keyword in keywords) {
+				console.log("keyword " + keyword + " in keywords!");
+				console.log("value = " + keywords[keyword] + "\n");
+				keywords[keyword] = keywords[keyword] + 1;
+			}
+			else {
+				console.log("New entry!\n");
+				keywords[keyword] = 1;
+			}
+		}
+	}
+
+	// Print keywords.
+	for (keyword in keywords) {
+		console.log("keyword = " + keyword + ", value = " + keywords[keyword]);
+	}
+
+	// Sort keywords.
+	var tuples = [];
+
+	for (var key in keywords) {
+		tuples.push([key, keywords[key]]);
+	}
+
+	tuples.sort(function(a, b){
+		a = a[1];
+		b = b[1];
+
+		return a < b ? -1 : (a > b ? 1 : 0);
+	});
+
+	tuples.reverse();
+
+	console.log("After sorting\n");
+
+	// Print all keywords now.
+	for (var j = 0; j < tuples.length; j++) {
+		console.log("tuples[" + j + "] = " + tuples[j][0] + ", value = " + tuples[j][1]);
+	}
+
+	// Get the top 5 keywords.
+	top5Keywords = [];
+
+	for (var j = 0; j < 5; j++) {
+		top5Keywords.push(tuples[j][0]);
+		console.log("top5Keywords[" + j + "] = " + top5Keywords[j]);
+	}
+
+	return top5Keywords;
+
+}
+
+exports.getKeywords = function(req, res) {
+	var sid = req.query.sid;
+	// console.log("sid is " + sid);
+
+	Session.findById(sid, function (err, session) {
+		var questionIds = session.questions;
+
+		Question.find({"_id": {$in: questionIds}}, function(err, questions) {
+			// console.log("questions is " + questions);
+
+			var questionContent = [];
+
+			for (var i = 0; i < questions.length; i++) {
+				var question = questions[i];
+				// console.log("question is " + question);
+				questionContent.push(question.content);
+			}
+
+			console.log("questionContent is " + questionContent);
+
+			findKeywords(questionContent);
+			res.redirect('/');
+		});
+	});
+}
+
+function createFeedback (session, res, classroomName) {
 	// Get the question IDs in the session.
 	var questionIds = session.questions;
 
 	// Find the questions in the session.
 	Question.find({"_id": { $in: questionIds}}, function(err, questions) {
-		// Run the Python file to extract keywords.
-		// child = child_process.exec('python bin/testKeyword.py',			
-			// function(error, stdout, stderr) {
-				// console.log('stdout: ' + stdout);
-			    // console.log('stderr: ' + stderr);
+				var questionContent = [];
 
-			    // if (error !== null) {
-			    //   console.log('exec error: ' + error);
-			    // }
+				for (var i = 0; i < questions.length; i++) {
+					var question = questions[i];
+					questionContent.push(question.content);
+				}
 
-			    // Get keyword list.
-			    var phrases = ["industry", "PhD", "undergraduate", "jobs"];
-			   	// var phrases = staticList.replace(/['\n,[\]]/g,'').split(" ");
-
-			    var keywordList = [];
-
-			    for (var i = 0; i < phrases.length; i++) {
-			    	keywordList.push(phrases[i]);
-			    }
+			    var keywordList = findKeywords(questionContent);
+			    console.log(keywordList);
 
 			    // Get question content only.
 			    var questionContent = [];
@@ -173,8 +283,6 @@ function createFeedback (session, res, classroomName) {
 			    	totalQuestionsAnswered: 0
 			    });
 
-			    // var allProcessedKeywords = [];
-
 			    var savedKeywords = 0;
 
 			    // For each keyword, find questions with that keyword.
@@ -182,11 +290,30 @@ function createFeedback (session, res, classroomName) {
 
 
 				    var currentKeyword = keywordList[i].replace(/\s+/g, ' ');
-				    var lowerCaseKeyword = currentKeyword.toLowerCase();
+				    var displayedKeyword;
+				    var searchedKeyword;
+
+
+				   	// If the last character is 'i', replace it with 'y' for the displayed keyword 
+				   	// and remove the final character altogher for the searched keyword.
+				   	if (currentKeyword.substr(currentKeyword.length - 1, 1) === "i") {
+				   		searchedKeyword = currentKeyword.substr(0, currentKeyword.length-1);
+				   		displayedKeyword = searchedKeyword + 'y';
+				   	} else {
+				   		searchedKeyword = currentKeyword;
+				   		displayedKeyword = currentKeyword;
+				   	}
+
+				    var lowerCaseKeyword = searchedKeyword.toLowerCase();
+
+				   	// console.log("currentKeyword is " + currentKeyword);
+				   	// console.log("searchedKeyword is " + searchedKeyword);
+				   	// console.log("displayedKeyword is " + displayedKeyword);
+				   	// console.log("lowerCaseKeyword is " + lowerCaseKeyword);
 
 			    	// Create new keyword.
 		    		var keywordObject = new Keyword({
-		    			name: currentKeyword,
+		    			name: displayedKeyword,
 		    			count: 0
 		    		});
 
@@ -216,7 +343,7 @@ function createFeedback (session, res, classroomName) {
 				    	}
 				    }
 
-				    // After searching through all the filtered questions, save the question IDS
+				    // After searching through all the filtered questions, save the question IDs
 				    // and the overall count to the keyword.
 					keywordObject.questions = questionsToAdd;
 		    		keywordObject.count = questionCount;
@@ -254,11 +381,5 @@ function createFeedback (session, res, classroomName) {
 						}
 					});
 			    }
-			// });
-
-		// child.stdin.write("What is convergence?");
-
-		// Could start reading from stdout here piecemeal.
-		
 	});
 };

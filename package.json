@@ -8,6 +8,8 @@
   "dependencies": {
     "express": "3.12.1",
     "hjs": "*",
-    "mongoose": "^3.8.24"
+    "mongoose": "^3.8.24",
+    "natural": "^0.2.1",
+    "pos": "^0.1.9"
   }
 }

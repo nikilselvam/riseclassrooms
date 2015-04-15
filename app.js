@@ -79,6 +79,7 @@ app.get('/session', routes.session);
 app.get('/keyword', routes.keyword);
 app.get('/questionType', routes.questionType);
 app.get('/feedback/createFeedback', feedback.home);
+app.get('/feedback/getKeywords', feedback.getKeywords);
 
 app.get('/feedback', routes.feedback);
 
