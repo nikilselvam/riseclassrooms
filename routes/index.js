@@ -153,7 +153,7 @@ exports.teacherHome = teacherRequest(function(req, res) {
 	Class.find({
 		'_id' : { $in: classIds }
 	}, function (err, classes) {
-		console.log(classes);
+		// console.log(classes);
 
 		res.render('teacherHome', {
 			title: 'Classes',
@@ -282,7 +282,7 @@ function formatDate(date) {
 
 exports.session = teacherRequest(function(req, res) {
 	var cid = req.query.cid;
-	console.log(req.query);
+	// console.log(req.query);
 
 	Class.findById(cid, function (err, classroom) {
 		var sessionIds = classroom.sessions;

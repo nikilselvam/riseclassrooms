@@ -137,11 +137,11 @@ function findKeywords(questions) {
 
 	for (var j = 0; j < questions.length; j++) {
 		var question = questions[j];
-		// console.log("question is " + question);
+		console.log("question is " + question);
 
 		var words = new pos.Lexer().lex(question);
 
-		// console.log("words is " + words);
+		console.log("words is " + words);
 
 		var taggedWords = new pos.Tagger().tag(words);
 
@@ -155,7 +155,8 @@ function findKeywords(questions) {
 
 			var keyword;
 
-			if (word === "I" || tag === "." || tag === "PRP" || tag === "MD" || tag === "IN") {
+			if (word === "I" || tag === "." || tag === "PRP" || tag === "MD" || tag === "IN" || tag == "DT"
+					|| word.length < 3) {
 				// console.log("end of sentence found! " + word);
 				continue;
 			} else if (tag === "NNP" || tag === "NNPS") {
@@ -210,6 +211,17 @@ function findKeywords(questions) {
 	for (var j = 0; j < tuples.length; j++) {
 		console.log("tuples[" + j + "] = " + tuples[j][0] + ", value = " + tuples[j][1]);
 	}
+
+	// Get the top 5 keywords.
+	top5Keywords = [];
+
+	for (var j = 0; j < 5; j++) {
+		top5Keywords.push(tuples[j][0]);
+		console.log("top5Keywords[" + j + "] = " + top5Keywords[j]);
+	}
+
+	return top5Keywords;
+
 }
 
 exports.getKeywords = function(req, res) {
@@ -230,7 +242,7 @@ exports.getKeywords = function(req, res) {
 				questionContent.push(question.content);
 			}
 
-			// console.log("questionContent is " + questionContent);
+			console.log("questionContent is " + questionContent);
 
 			findKeywords(questionContent);
 			res.redirect('/');
@@ -239,39 +251,20 @@ exports.getKeywords = function(req, res) {
 }
 
 function createFeedback (session, res, classroomName) {
-	// console.log("In createFeedback(session) function");
-	// console.log(session);
-
 	// Get the question IDs in the session.
 	var questionIds = session.questions;
 
 	// Find the questions in the session.
 	Question.find({"_id": { $in: questionIds}}, function(err, questions) {
-		// Run the Python file to extract keywords.
-		// child = child_process.exec('python bin/testKeyword.py',			
-			// function(error, stdout, stderr) {
-				// console.log('stdout: ' + stdout);
-			    // console.log('stderr: ' + stderr);
+				var questionContent = [];
 
-			    // if (error !== null) {
-			    //   console.log('exec error: ' + error);
-			    // }
+				for (var i = 0; i < questions.length; i++) {
+					var question = questions[i];
+					questionContent.push(question.content);
+				}
 
-
-			    findKeywords(questions);
-
-			    // Get keyword list.
-			    var phrases = ["industry", "PhD", "undergraduate", "jobs"];
-			    res.redirect('/');
-			   	// var phrases = staticList.replace(/['\n,[\]]/g,'').split(" ");
-
-				/*
-
-			    var keywordList = [];
-
-			    for (var i = 0; i < phrases.length; i++) {
-			    	keywordList.push(phrases[i]);
-			    }
+			    var keywordList = findKeywords(questionContent);
+			    console.log(keywordList);
 
 			    // Get question content only.
 			    var questionContent = [];
@@ -290,8 +283,6 @@ function createFeedback (session, res, classroomName) {
 			    	totalQuestionsAnswered: 0
 			    });
 
-			    // var allProcessedKeywords = [];
-
 			    var savedKeywords = 0;
 
 			    // For each keyword, find questions with that keyword.
@@ -299,11 +290,30 @@ function createFeedback (session, res, classroomName) {
 
 
 				    var currentKeyword = keywordList[i].replace(/\s+/g, ' ');
-				    var lowerCaseKeyword = currentKeyword.toLowerCase();
+				    var displayedKeyword;
+				    var searchedKeyword;
+
+
+				   	// If the last character is 'i', replace it with 'y' for the displayed keyword 
+				   	// and remove the final character altogher for the searched keyword.
+				   	if (currentKeyword.substr(currentKeyword.length - 1, 1) === "i") {
+				   		searchedKeyword = currentKeyword.substr(0, currentKeyword.length-1);
+				   		displayedKeyword = searchedKeyword + 'y';
+				   	} else {
+				   		searchedKeyword = currentKeyword;
+				   		displayedKeyword = currentKeyword;
+				   	}
+
+				    var lowerCaseKeyword = searchedKeyword.toLowerCase();
+
+				   	// console.log("currentKeyword is " + currentKeyword);
+				   	// console.log("searchedKeyword is " + searchedKeyword);
+				   	// console.log("displayedKeyword is " + displayedKeyword);
+				   	// console.log("lowerCaseKeyword is " + lowerCaseKeyword);
 
 			    	// Create new keyword.
 		    		var keywordObject = new Keyword({
-		    			name: currentKeyword,
+		    			name: displayedKeyword,
 		    			count: 0
 		    		});
 
@@ -333,7 +343,7 @@ function createFeedback (session, res, classroomName) {
 				    	}
 				    }
 
-				    // After searching through all the filtered questions, save the question IDS
+				    // After searching through all the filtered questions, save the question IDs
 				    // and the overall count to the keyword.
 					keywordObject.questions = questionsToAdd;
 		    		keywordObject.count = questionCount;
@@ -371,12 +381,5 @@ function createFeedback (session, res, classroomName) {
 						}
 					});
 			    }
-			    */
-			// });
-
-		// child.stdin.write("What is convergence?");
-
-		// Could start reading from stdout here piecemeal.
-		
 	});
 };
