@@ -59,7 +59,7 @@ function deleteFeedback (session, res, classroomName) {
 		// Remove feedback object.
 		Feedback.findByIdAndRemove(feedbackId, function(err){
 			if (err){
-				console.log("Could not remove feedbakc object");
+				console.log("Could not remove feedback object");
 			}
 		});
 
@@ -215,7 +215,19 @@ function findKeywords(questions) {
 	// Get the top 5 keywords.
 	top5Keywords = [];
 
-	for (var j = 0; j < 5; j++) {
+	// Return the top keywords (up to 5 total).
+
+	var keywordsToReturn = 0;
+
+	if (tuples.length < 5) {
+		keywordsToReturn = tuples.length;
+	} 
+	else {
+		keywordsToReturn = 5;
+	}
+
+
+	for (var j = 0; j < keywordsToReturn; j++) {
 		top5Keywords.push(tuples[j][0]);
 		console.log("top5Keywords[" + j + "] = " + top5Keywords[j]);
 	}
@@ -285,6 +297,26 @@ function createFeedback (session, res, classroomName) {
 
 			    var savedKeywords = 0;
 
+			    console.log("keywordList.length = " + keywordList.length);
+
+			    // Handle the case where 0 keywords are returned.
+			    if (savedKeywords === keywordList.length) {
+			    	feedbackObject.save(function(err, feedbackObject){
+						if (err) {
+							console.log("feedbackObject could not be saved");
+							console.log("error is " + err);
+							return;
+						}
+
+						// Save feedback object to session.
+						session.feedback = feedbackObject._id;
+
+						session.save(function(err, sessionObject){
+							res.redirect('/feedback?sid=' + session._id + '&classroomName=' + classroomName);
+						});
+					});
+			    }
+
 			    // For each keyword, find questions with that keyword.
 			    for (var i = 0; i < keywordList.length; i++) {
 
@@ -350,7 +382,7 @@ function createFeedback (session, res, classroomName) {
 
 
 		    		// Save keywords object to database.
-					keywordObject.save(function(err, keywordObject){;
+					keywordObject.save(function(err, keywordObject){
 
 						// If feedback object does not already contain keyword,
 						// add keyword ID into feedback object.
