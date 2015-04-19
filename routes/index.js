@@ -392,6 +392,9 @@ exports.feedback = teacherRequest(function(req, res) {
 							// Add date and time asked strings to make strings easier to read for user.
 							for (var i = 0; i < questions.length; i++) {
 								var startTime = new Date(questions[i].timeAsked);
+
+								// // Subtract 7 hours from the time to represent Arizona time.
+								startTime.setHours(startTime.getHours() - 7);
 							
 								var dateString = formatDate(startTime);
 								var timeAskedString = formatAMPM(startTime);
