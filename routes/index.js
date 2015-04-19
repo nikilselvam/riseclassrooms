@@ -406,6 +406,7 @@ exports.feedback = teacherRequest(function(req, res) {
 							res.render('feedback', {
 								title: 'Feedback',
 								classroomName: classroomName,
+								sessionId: sid,
 								totalQuestionsAnswered: totalQuestionsAnswered,
 								totalQuestionsAsked: totalQuestionsAsked,
 								numberOfKeywords: numberOfKeywords,
