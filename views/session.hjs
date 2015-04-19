@@ -3,7 +3,8 @@
 {{$title}}{{title}}{{/title}}
 
 {{$head}}
-<script type="text/javascript" src="/javascripts/session.js" async></script>
+	<script type="text/javascript" src="/javascripts/session.js" async></script>
+    <link rel="stylesheet" href="/stylesheets/sessions.css" >
 {{/head}}
 
 {{$body}}
@@ -23,7 +24,7 @@
 		<tbody>
 			{{#sessions}}
 			<tr>
-				<td><a href="/feedback/createFeedback?sid={{id}}&classroomName={{classroom.name}}">{{dateString}}</a></td>
+				<td><a href="/feedback/createFeedback?cid={{classroom.id}}&sid={{id}}&classroomName={{classroom.name}}">{{dateString}}</a></td>
 				<td>{{startTimeString}}</td>
 				<td>{{endTimeString}}</td>
 				<td>
@@ -43,6 +44,12 @@
 		</tbody>
 	</table>
     <a href="/teacher/createSession?cid={{classroom.id}}" class="btn btn-info"><span class="glyphicon glyphicon-plus"></span> Create New Session</a>
+    {{#errorMsg}}
+	    <div class="alert alert-danger error-button">
+		    <a href="#" class="close" data-dismiss="alert">&times;</a>
+		    <strong>Error!</strong> A problem was encountered while processing feedback. Please try again.
+		</div>
+	{{/errorMsg}}
 </div>
 {{/body}}
 

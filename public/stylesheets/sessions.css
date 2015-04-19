@@ -5,3 +5,8 @@
 .keyword {
 	margin-right: 9%;
 }
+
+.error-button {
+	position: fixed;
+	bottom: 0;
+}
