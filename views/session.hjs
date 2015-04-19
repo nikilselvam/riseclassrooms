@@ -18,7 +18,6 @@
 				<th>Active</th>
 				<th>Questions asked</th>
 				<th>Questions answered</th>
-				<th>Top keyword</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -39,7 +38,6 @@
 					{{#ratio}}{{ratio}}{{/ratio}}
 					{{^ratio}}0{{/ratio}}
 				</td>
-				<td><a href="/feedback/getKeywords?sid={{id}}" class="btn btn-info">Find Keywords</a></td>
 			</tr>
 			{{/sessions}}
 		</tbody>

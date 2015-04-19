@@ -28,7 +28,7 @@
             </tbody>
         </table>
 
-
+    <a href="/feedback/createFeedback?sid={{sessionId}}&classroomName={{classroomName}}" class="btn btn-info"><span class="glyphicon glyphicon-plus"></span> Update Feedback</a>
 	<form id="search">
         <h4>Questions</h4>
         <div class="row">
