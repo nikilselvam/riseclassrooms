@@ -18,16 +18,16 @@
 					<input type="radio" id="q156" name="duration" value="5" /> 5min.
 					</label>
 					<label class="btn btn-default btn-lg">
-					<input type="radio" id="q157" name="duration" value="10" /> 10min.
+					<input type="radio" id="q157" name="duration" value="15" /> 15min.
 					</label>
 					<label class="btn btn-default btn-lg active">
-					<input type="radio" id="q158" name="duration" checked="checked" value="15" /> 15min.
+					<input type="radio" id="q158" name="duration" checked="checked" value="30" /> 30min.
 					</label>
 					<label class="btn btn-default btn-lg">
-					<input type="radio" id="q159" name="duration" value="20" /> 20min.
+					<input type="radio" id="q159" name="duration" value="60" /> 60min.
 					</label>
 					<label class="btn btn-default btn-lg">
-					<input type="radio" id="q160" name="duration" value="25" /> 25min.
+					<input type="radio" id="q160" name="duration" value="75" /> 75min.
 					</label>
 					</div>
 					<input type="hidden" name="cid" value="{{cid}}">
