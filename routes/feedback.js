@@ -37,11 +37,13 @@ function checkIfOneSessionIsActive(session){
 	}
 }
 
-function deleteFeedback (session, res, classroomName) {
+function deleteFeedback (session, res, classroomName, cid) {
 	// console.log("In deleteFeedback function");
 	// console.log(session);
 
 	var feedbackId = session.feedback;
+
+	// console.log("cid in deleteFeedback is " + cid);
 
 	Feedback.findById(feedbackId, function(err, feedbackObject){
 		// Find keywords.
@@ -67,7 +69,7 @@ function deleteFeedback (session, res, classroomName) {
 		session.feedback = undefined;
 
 		session.save(function(err, sessionObject){
-			createFeedback(session, res, classroomName);
+			createFeedback(session, res, classroomName, cid);
 		});
 	});
 };
@@ -86,6 +88,9 @@ exports.home = function(req, res) {
 
 	var sid = req.query.sid;
 	var classroomName = req.query.classroomName;
+	var cid = req.query.cid;
+
+	// console.log("cid in exports.home is " + cid);
 
 	Session.findById(sid, function (err, session) {
 		var isSessionActive = checkIfOneSessionIsActive(session);
@@ -98,12 +103,12 @@ exports.home = function(req, res) {
 			// a feedback object.
 			if (session.feedback !== undefined) {
 				console.log("Deleting and redirecting feedback");
-				deleteFeedback(session, res, classroomName);
+				deleteFeedback(session, res, classroomName, cid);
 			}
 			// Else if the session does not have a feedback object, create a new one.
 			else {
 				console.log("Just creating feedback");
-				createFeedback(session, res, classroomName);
+				createFeedback(session, res, classroomName, cid);
 			}
 		}
 		//  Session is not active.
@@ -120,11 +125,11 @@ exports.home = function(req, res) {
 			if (session.feedback !== undefined) {
 				console.log("In !session.feedback if statement");
 				// Delete reference to feedback object.
-				deleteFeedback(session, res, classroomName);
+				deleteFeedback(session, res, classroomName, cid);
 			}
 			else {
 				console.log("In else statement");
-				createFeedback(session, res, classroomName);
+				createFeedback(session, res, classroomName, cid);
 			}
 		}
 
@@ -137,11 +142,11 @@ function findKeywords(questions) {
 
 	for (var j = 0; j < questions.length; j++) {
 		var question = questions[j];
-		console.log("question is " + question);
+		// console.log("question is " + question);
 
 		var words = new pos.Lexer().lex(question);
 
-		console.log("words is " + words);
+		// console.log("words is " + words);
 
 		var taggedWords = new pos.Tagger().tag(words);
 
@@ -151,12 +156,12 @@ function findKeywords(questions) {
 			var taggedWord = taggedWords[i];
 			var word = taggedWord[0];
 			var tag = taggedWord = taggedWord[1];
-			console.log(word + " has tag " + tag);
+			// console.log(word + " has tag " + tag);
 
 			var keyword;
 
 			if (word === "I" || tag === "." || tag === "PRP" || tag === "MD" || tag === "IN" || tag == "DT"
-					|| word.length < 3) {
+					|| tag == "WDT" || tag == "WP" || tag == "WP$" || tag == "WRB" || word.length < 3) {
 				// console.log("end of sentence found! " + word);
 				continue;
 			} else if (tag === "NNP" || tag === "NNPS") {
@@ -170,24 +175,24 @@ function findKeywords(questions) {
 				keyword = stem;
 			}
 
-			console.log("keyword = " + keyword);
+			// console.log("keyword = " + keyword);
 			// Push the keyword into the dictionary.
 			if (keyword in keywords) {
-				console.log("keyword " + keyword + " in keywords!");
-				console.log("value = " + keywords[keyword] + "\n");
+				// console.log("keyword " + keyword + " in keywords!");
+				// console.log("value = " + keywords[keyword] + "\n");
 				keywords[keyword] = keywords[keyword] + 1;
 			}
 			else {
-				console.log("New entry!\n");
+				// console.log("New entry!\n");
 				keywords[keyword] = 1;
 			}
 		}
 	}
 
-	// Print keywords.
-	for (keyword in keywords) {
-		console.log("keyword = " + keyword + ", value = " + keywords[keyword]);
-	}
+	// // Print keywords.
+	// for (keyword in keywords) {
+	// 	console.log("keyword = " + keyword + ", value = " + keywords[keyword]);
+	// }
 
 	// Sort keywords.
 	var tuples = [];
@@ -205,12 +210,12 @@ function findKeywords(questions) {
 
 	tuples.reverse();
 
-	console.log("After sorting\n");
+	// console.log("After sorting\n");
 
-	// Print all keywords now.
-	for (var j = 0; j < tuples.length; j++) {
-		console.log("tuples[" + j + "] = " + tuples[j][0] + ", value = " + tuples[j][1]);
-	}
+	// // Print all keywords now.
+	// for (var j = 0; j < tuples.length; j++) {
+	// 	console.log("tuples[" + j + "] = " + tuples[j][0] + ", value = " + tuples[j][1]);
+	// }
 
 	// Get the top 5 keywords.
 	top5Keywords = [];
@@ -229,7 +234,7 @@ function findKeywords(questions) {
 
 	for (var j = 0; j < keywordsToReturn; j++) {
 		top5Keywords.push(tuples[j][0]);
-		console.log("top5Keywords[" + j + "] = " + top5Keywords[j]);
+		// console.log("top5Keywords[" + j + "] = " + top5Keywords[j]);
 	}
 
 	return top5Keywords;
@@ -254,7 +259,7 @@ exports.getKeywords = function(req, res) {
 				questionContent.push(question.content);
 			}
 
-			console.log("questionContent is " + questionContent);
+			// console.log("questionContent is " + questionContent);
 
 			findKeywords(questionContent);
 			res.redirect('/');
@@ -262,9 +267,11 @@ exports.getKeywords = function(req, res) {
 	});
 }
 
-function createFeedback (session, res, classroomName) {
+function createFeedback (session, res, classroomName, cid) {
 	// Get the question IDs in the session.
 	var questionIds = session.questions;
+
+	// console.log("cid in createFeedback is " + cid);
 
 	// Find the questions in the session.
 	Question.find({"_id": { $in: questionIds}}, function(err, questions) {
@@ -297,14 +304,16 @@ function createFeedback (session, res, classroomName) {
 
 			    var savedKeywords = 0;
 
-			    console.log("keywordList.length = " + keywordList.length);
+			    // console.log("keywordList.length = " + keywordList.length);
 
 			    // Handle the case where 0 keywords are returned.
 			    if (savedKeywords === keywordList.length) {
 			    	feedbackObject.save(function(err, feedbackObject){
 						if (err) {
-							console.log("feedbackObject could not be saved");
+							console.log("feedbackObject could not be saved when there are 0 keywords");
 							console.log("error is " + err);
+							console.log("Redirecting to /session?cid=" + cid);
+							res.redirect('/session?cid=' + cid + '&errorMsg=true');
 							return;
 						}
 
@@ -312,7 +321,7 @@ function createFeedback (session, res, classroomName) {
 						session.feedback = feedbackObject._id;
 
 						session.save(function(err, sessionObject){
-							res.redirect('/feedback?sid=' + session._id + '&classroomName=' + classroomName);
+							res.redirect('/feedback?cid=' + cid + '&sid=' + session._id + '&classroomName=' + classroomName);
 						});
 					});
 			    }
@@ -393,6 +402,8 @@ function createFeedback (session, res, classroomName) {
 								if (err) {
 									console.log("feedbackObject could not be saved");
 									console.log("error is " + err);
+									console.log("Redirecting to /session?cid=" + cid);
+									res.redirect('/session?cid=' + cid + '&errorMsg=true');
 									return;
 								}
 
@@ -406,7 +417,7 @@ function createFeedback (session, res, classroomName) {
 									savedKeywords++;
 
 									if (savedKeywords == keywordList.length) {
-										res.redirect('/feedback?sid=' + session._id + '&classroomName=' + classroomName);
+										res.redirect('/feedback?cid=' + cid + '&sid=' + session._id + '&classroomName=' + classroomName);
 									}
 								});
 							});				

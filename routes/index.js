@@ -282,7 +282,7 @@ function formatDate(date) {
 
 exports.session = teacherRequest(function(req, res) {
 	var cid = req.query.cid;
-	// console.log(req.query);
+	var errorMsg = req.query.errorMsg;
 
 	Class.findById(cid, function (err, classroom) {
 		var sessionIds = classroom.sessions;
@@ -323,6 +323,7 @@ exports.session = teacherRequest(function(req, res) {
 				title: 'Session',
 				classroom: classroom,
 				sessions: sessions,
+				errorMsg: errorMsg,
 				partials: {
 					layout: 'layout'
 				}
@@ -348,6 +349,7 @@ exports.feedback = teacherRequest(function(req, res) {
 
 	var sid = req.query.sid;
 	var classroomName = req.query.classroomName;
+	var cid = req.query.cid;
 
 	Session.findById(sid, function (err, session) {
 		var feedbackId = session.feedback;
@@ -364,7 +366,8 @@ exports.feedback = teacherRequest(function(req, res) {
 			Feedback.findById(feedbackId, function(err, feedbackObject){
 				if (err) {
 					console.log("No feedback object found");
-					res.redirect('/');
+					res.redirect('/session?cid=' + cid);
+					return;
 				}
 				else {
 					// console.log("Feedback object found in exports.feedback");
@@ -407,6 +410,7 @@ exports.feedback = teacherRequest(function(req, res) {
 								title: 'Feedback',
 								classroomName: classroomName,
 								sessionId: sid,
+								classId: cid,
 								totalQuestionsAnswered: totalQuestionsAnswered,
 								totalQuestionsAsked: totalQuestionsAsked,
 								numberOfKeywords: numberOfKeywords,
