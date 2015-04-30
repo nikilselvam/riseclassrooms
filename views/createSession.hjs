@@ -29,6 +29,9 @@
 					<label class="btn btn-default btn-lg">
 					<input type="radio" id="q160" name="duration" value="75" /> 75min.
 					</label>
+					<label class="btn btn-default btn-lg">
+					<input type="radio" id="q160" name="duration" value="180" /> 180min.
+					</label>
 					</div>
 					<input type="hidden" name="cid" value="{{cid}}">
 				</div>
